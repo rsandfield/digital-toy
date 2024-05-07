@@ -1,0 +1,63 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpjyfcwj2hhpv"]
+
+[ext_resource type="Script" path="res://io/button/button3d.gd" id="1_5ed3n"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/gray.tres" id="2_bcbxd"]
+[ext_resource type="Material" uid="uid://dw06ud1dbq53u" path="res://materials/red.tres" id="3_881r5"]
+[ext_resource type="Material" uid="uid://bghs0f41tgdv2" path="res://materials/red_lit.tres" id="3_nsk2j"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8eooc"]
+top_radius = 0.01
+bottom_radius = 0.013
+height = 0.005
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_7kcon"]
+top_radius = 0.008
+bottom_radius = 0.008
+height = 0.005
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ihbbr"]
+height = 0.02
+radius = 0.02
+
+[sub_resource type="Animation" id="Animation_4dedi"]
+resource_name = "push"
+length = 0.5
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.2, 1, 0, -0.002, 0, 0.4, 1, 0, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5l6tm"]
+_data = {
+"push": SubResource("Animation_4dedi")
+}
+
+[node name="Button" type="Node3D"]
+script = ExtResource("1_5ed3n")
+unlit = ExtResource("3_881r5")
+lit = ExtResource("3_nsk2j")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_bcbxd")
+mesh = SubResource("CylinderMesh_8eooc")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.003, 0)
+material_override = ExtResource("3_881r5")
+mesh = SubResource("CylinderMesh_7kcon")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00907812, 0)
+shape = SubResource("CylinderShape3D_ihbbr")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Area3D"]
+libraries = {
+"": SubResource("AnimationLibrary_5l6tm")
+}
+
+[connection signal="input_event" from="Area3D" to="." method="_on_area_3d_input_event"]
