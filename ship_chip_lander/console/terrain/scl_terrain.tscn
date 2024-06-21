@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dy74f7n00whfu"]
+
+[ext_resource type="Script" path="res://ship_chip_lander/console/terrain/scl_terrain.gd" id="1_feybk"]
+
+[node name="SclTerrain" type="Area2D"]
+script = ExtResource("1_feybk")
+
+[node name="Line2D" type="Line2D" parent="."]
+points = PackedVector2Array(0, 384, 512, 384)
+width = 2.0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(0, 384, 512, 384, 512, 512, 0, 512)

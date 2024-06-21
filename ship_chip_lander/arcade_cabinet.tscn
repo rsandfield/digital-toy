@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://cv3qfq5so88v6"]
+
+[ext_resource type="PackedScene" uid="uid://ks0em41b8fap" path="res://ship_chip_lander/console/controller/ship_chip_lander.tscn" id="1_4u12g"]
+[ext_resource type="Script" path="res://viewport_panel.gd" id="1_a5nyw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqxd7"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_5l3nr"]
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_hfyge"]
+size = Vector3(0.63, 1, 0.84)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1v6fx"]
+size = Vector3(0.63, 0.3, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_frvtt"]
+size = Vector3(0.63, 0.5, 0.025)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f8xp6"]
+size = Vector3(0.025, 1.82, 0.84)
+
+[node name="ArcadeCabinet" type="Node3D"]
+
+[node name="screen" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 1.16, 0.2)
+material_override = SubResource("StandardMaterial3D_wqxd7")
+mesh = SubResource("QuadMesh_5l3nr")
+script = ExtResource("1_a5nyw")
+
+[node name="SubViewport" parent="screen" instance=ExtResource("1_4u12g")]
+
+[node name="base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_hfyge")
+
+[node name="top" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 0)
+mesh = SubResource("BoxMesh_1v6fx")
+
+[node name="back" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -0.1)
+mesh = SubResource("BoxMesh_frvtt")
+
+[node name="wall_right" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.91, 0)
+mesh = SubResource("BoxMesh_f8xp6")
+skeleton = NodePath("../base")
+
+[node name="wall_left" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32, 0.91, 0)
+mesh = SubResource("BoxMesh_f8xp6")
+skeleton = NodePath("../base")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 1.4, 0.65)

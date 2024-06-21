@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://novjlejxb1rb"]
+
+[ext_resource type="Script" path="res://world/box.gd" id="1_dboun"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1vd7w"]
+resource_local_to_scene = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_amlrh"]
+resource_local_to_scene = true
+
+[node name="Box" type="StaticBody3D"]
+script = ExtResource("1_dboun")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_1vd7w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_amlrh")

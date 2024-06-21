@@ -10,12 +10,12 @@
 [sub_resource type="BoxMesh" id="BoxMesh_glvot"]
 size = Vector3(0.4, 0.2, 0.3)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_rscih"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_qbpta"]
 viewport_path = NodePath("WaveScreen/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0jtr7"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_rscih")
+albedo_texture = SubResource("ViewportTexture_qbpta")
 
 [sub_resource type="QuadMesh" id="QuadMesh_2imtm"]
 size = Vector2(0.2, 0.15)

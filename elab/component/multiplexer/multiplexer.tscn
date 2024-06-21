@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8tkdok74syyp"]
+
+[ext_resource type="Script" path="res://elab/component/component.gd" id="1_fg5xp"]
+[ext_resource type="PackedScene" uid="uid://cwnerfcwgpjux" path="res://elab/component/terminal/terminal_input.tscn" id="2_qio4q"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/gray.tres" id="2_qrkro"]
+[ext_resource type="PackedScene" uid="uid://bqh3x67i0so4s" path="res://elab/component/terminal/terminal_output.tscn" id="3_tipae"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x1obq"]
+size = Vector3(0.25, 0.2, 0.2)
+
+[node name="Multiplexer" type="Node3D" node_paths=PackedStringArray("outputs")]
+script = ExtResource("1_fg5xp")
+outputs = [NodePath("TerminalOutput")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+material_override = ExtResource("2_qrkro")
+mesh = SubResource("BoxMesh_x1obq")
+
+[node name="TerminalInput" parent="." instance=ExtResource("2_qio4q")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.075, 0.025, 0.1)
+
+[node name="TerminalInput2" parent="." instance=ExtResource("2_qio4q")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.075, 0.075, 0.1)
+
+[node name="TerminalInput3" parent="." instance=ExtResource("2_qio4q")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.075, 0.125, 0.1)
+
+[node name="TerminalInput4" parent="." instance=ExtResource("2_qio4q")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.075, 0.175, 0.1)
+
+[node name="TerminalOutput" parent="." instance=ExtResource("3_tipae")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, 0.025, 0.1)
