@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bqh3x67i0so4s"]
 
 [ext_resource type="Script" path="res://elab/component/terminal/terminal_output.gd" id="1_rwykh"]
-[ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/output.tres" id="2_rvm3t"]
+[ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/output.tres" id="2_rvm3t"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_vg8v8"]
 top_radius = 0.005

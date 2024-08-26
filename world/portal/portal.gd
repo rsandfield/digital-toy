@@ -1,8 +1,11 @@
+
 @tool
 class_name Portal
 extends Area3D
 
-@export var other_portal : Portal
+@export var portal_id : String
+@export var other_portal_id : String
+var other_portal : Node3D
 
 ## The visual layer the portal is rendered on. Set this to something other than the layer your level and models are on.
 ## This is used to hide the destination portal from the camera's view so we can see past it.
@@ -19,14 +22,31 @@ extends Area3D
 ## only solution I found was to lower near cull plane on camera
 @export var enable_camera_near_plane_fix: bool = true
 
+var portal_visual : MeshInstance3D
+var camera_viewport : SubViewport
+var viewport_camera : Camera3D
+
 const CAM_NEAR_NEEDED_TO_PREVENT_GLITCH = 0.001
 
 # If a body moved further than this while passing through the portal, consider it a teleport.
 # Disables portal movement in cases where the player teleports via some ability, but moved
 # over the portal border in the process. Should only activate portal when walking through.
-const MOVE_WAS_TELEPORT_THRESHOLD = 5
+const MOVE_WAS_TELEPORT_THRESHOLD = 5.0
 
 var _tracked_phys_bodies = []
+
+func set_other_portal(other: Portal):
+	other_portal = other
+	if not other:
+		return
+	viewport_camera.set_cull_mask_value(other_portal.cull_layer, false)
+	if get_viewport() != other_portal.get_viewport():
+		camera_viewport.get_parent().remove_child(camera_viewport)
+		other_portal.add_child(camera_viewport)
+		print("%s swapped viewport to %s" % [self, camera_viewport.get_parent()])
+	else:
+		print("%s and %s share %s" % [self, other_portal, get_viewport()])
+	print("%s -> %s" % [portal_id, other_portal])
 
 # Edge case but possible. Adding this to prevent teleporting twice if body lands exactly on portal plane
 func _nonzero_sign(value):
@@ -35,12 +55,32 @@ func _nonzero_sign(value):
 		s = 1
 	return s
 
+func _enter_tree():
+	portal_visual = $PortalVisual as MeshInstance3D
+	camera_viewport = $CameraViewport as SubViewport
+	viewport_camera = $CameraViewport/Camera3D as Camera3D
+
+	if Engine.is_editor_hint():
+		return
+
+	var portal_material = ShaderMaterial.new()
+	# var portal_material = portal_visual.material_override
+	portal_material.shader = preload("res://world/portal/portal_sps.gdshader")
+	portal_material.resource_local_to_scene = true
+	# portal_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	# portal_material.disable_ambient_light = true
+	# portal_material.set_shader_parameter("texture_albedo", camera_viewport.get_texture())
+	portal_material.set_shader_parameter("albedo", camera_viewport.get_texture())
+	# portal_material.albedo_texture = camera_viewport.get_texture()
+	portal_visual.material_override = portal_material
+
+	GameManager.register_portal(portal_id, self)
+
 func _ready():
 	if Engine.is_editor_hint():
 		return
-	$PortalVisual.set_layer_mask_value(1, false)
-	$PortalVisual.set_layer_mask_value(cull_layer, true)
-	$CameraViewport/Camera3D.set_cull_mask_value(other_portal.cull_layer, false)
+	portal_visual.set_layer_mask_value(1, false)
+	portal_visual.set_layer_mask_value(cull_layer, true)
 	# Godot normally does order _process/_phys_process -> internal physics step moving bodies -> draw immediately
 	# We must call do_updates on the frame_pre_draw signal or there will be 1 frame where the body has not actually teleported
 	# This will mess up the view and cause flicker for 1 frame on  player controllers
@@ -56,16 +96,39 @@ func _set_portal_camera_environment_to_world3d_environment_no_tonemap():
 		return
 	# The tonemap must be disabled/set to linear.
 	# This is so the tonemap won't be applied twice in the main camera render.
-	$CameraViewport/Camera3D.environment = world_3d.environment.duplicate()
-	$CameraViewport/Camera3D.environment.tonemap_mode = Environment.TONE_MAPPER_LINEAR
+	viewport_camera.environment = world_3d.environment.duplicate()
+	viewport_camera.environment.tonemap_mode = Environment.TONE_MAPPER_LINEAR
 
 func _update_portal_area_size():
-	$PortalVisual.size.x = self.size.x
-	$PortalVisual.size.y = self.size.y
-	$CollisionShape3D.shape.size = Vector3(
+	if (portal_visual.mesh.size.x == self.size.x and
+		portal_visual.mesh.size.y == self.size.y):
+		return
+	portal_visual.mesh.size.x = self.size.x
+	portal_visual.mesh.size.y = self.size.y
+	var portalSize = Vector3(
 		self.size.x + self.portal_area_x_margin * 2,
 		self.size.y + self.portal_area_y_margin * 2,
 		self.portal_area_z_margin * 2)
+	var portalPos = Vector3(0, self.size.y  * 0.5, 0)
+	$CollisionShape3D.shape.size = portalSize
+	$ShapeCast3D.shape.size = portalSize
+	$CollisionShape3D.position = portalPos
+	$ShapeCast3D.position = portalPos
+	portal_visual.position = portalPos
+	var barrierSize = Vector3(
+		0.2,
+		self.size.y + self.portal_area_y_margin * 2,
+		0.2)
+	$RightBarrier.position = Vector3(
+		-self.size.x * 0.5 - self.portal_area_x_margin,
+		self.size.y  * 0.5,
+		0.1)
+	$RightBarrier/CollisionShape3D.shape.size = barrierSize
+	$LeftBarrier.position = Vector3(
+		self.size.x * 0.5 + self.portal_area_x_margin,
+		self.size.y  * 0.5,
+		0.1)
+	$LeftBarrier/CollisionShape3D.shape.size = barrierSize
 
 # Copied from https://github.com/V-Sekai/avatar_vr_demo/blob/master/addons/V-Sekai.xr-mirror/mirror.gd
 func set_projection_oblique_near_plane(matrix: Projection, clip_plane: Plane):
@@ -131,21 +194,22 @@ func _update_camera_to_other_portal():
 	var cur_camera_transform_rel_to_this_portal = self.global_transform.affine_inverse() * cur_camera.global_transform
 	var moved_to_other_portal = other_portal.global_transform * cur_camera_transform_rel_to_this_portal
 	# then, set the portal camera's transform to that relative position/rotation, but relative to other_portal
-	$CameraViewport/Camera3D.global_transform = moved_to_other_portal
-	$CameraViewport/Camera3D.fov = cur_camera.fov
 	
-	$CameraViewport/Camera3D.cull_mask = cur_camera.cull_mask
-	$CameraViewport/Camera3D.set_cull_mask_value(other_portal.cull_layer, false)
+	viewport_camera.global_transform = moved_to_other_portal
+	viewport_camera.fov = cur_camera.fov
 	
-	$CameraViewport.size = get_viewport().get_visible_rect().size
-	$CameraViewport.msaa_3d = get_viewport().msaa_3d
-	$CameraViewport.screen_space_aa = get_viewport().screen_space_aa
-	$CameraViewport.use_taa = get_viewport().use_taa
-	$CameraViewport.use_debanding = get_viewport().use_debanding
-	$CameraViewport.use_occlusion_culling = get_viewport().use_occlusion_culling
-	$CameraViewport.mesh_lod_threshold = get_viewport().mesh_lod_threshold
+	viewport_camera.cull_mask = cur_camera.cull_mask
+	viewport_camera.set_cull_mask_value(other_portal.cull_layer, false)
 	
-	_update_portal_camera_near_clip_plane($CameraViewport/Camera3D)
+	camera_viewport.size = get_viewport().get_visible_rect().size
+	camera_viewport.msaa_3d = get_viewport().msaa_3d
+	camera_viewport.screen_space_aa = get_viewport().screen_space_aa
+	camera_viewport.use_taa = get_viewport().use_taa
+	camera_viewport.use_debanding = get_viewport().use_debanding
+	camera_viewport.use_occlusion_culling = get_viewport().use_occlusion_culling
+	camera_viewport.mesh_lod_threshold = get_viewport().mesh_lod_threshold
+		
+	_update_portal_camera_near_clip_plane(viewport_camera)
 	
 func _thicken_portal_if_necessary_to_prevent_camera_near_cull():
 	var cur_camera = get_viewport().get_camera_3d()
@@ -162,27 +226,27 @@ func _thicken_portal_if_necessary_to_prevent_camera_near_cull():
 	var dist_from_portal_plane_up = camera_offset_from_portal.dot(up)
 	var portal_side = _nonzero_sign(dist_from_portal_plane_forward)
 	
-	var half_portal_width = $PortalVisual.size.x / 2.0
-	var half_portal_height = $PortalVisual.size.y / 2.0
+	var half_portal_width = portal_visual.mesh.size.x / 2.0
+	var half_portal_height = portal_visual.mesh.size.y / 2.0
 	# Only thicken portal if we are very close to it
 	if (abs(dist_from_portal_plane_forward) > 1.0
 		or abs(dist_from_portal_plane_to_right) > half_portal_width + 0.3
 		or dist_from_portal_plane_up > half_portal_height + 0.3):
-		$PortalVisual.size.z = 0.0
-		$PortalVisual.position.z = 0.0
+		portal_visual.mesh.size.z = 0.0
+		portal_visual.position.z = 0.0
 		return
 		
 	# Maybe could calculate the necessary thickness based on camera near cull plane
 	# 0.3 isn't always enough had to up it to 0.5 to prevent occasional glitching
-	var thickness = 0.3
+	var thickness = 0.05
 	
-	$PortalVisual.size.z = thickness
+	portal_visual.mesh.size.z = thickness
 	
 	# Check if the camera is facing the portal and is within a certain distance
 	if portal_side == 1:
-		$PortalVisual.position.z = -thickness/2.0
+		portal_visual.position.z = -thickness/2.0
 	else:
-		$PortalVisual.position.z = thickness/2.0
+		portal_visual.position.z = thickness/2.0
 
 func do_updates():
 	$CollisionShape3D.disabled = not self.visible
@@ -190,6 +254,7 @@ func do_updates():
 	for body in _get_bodies_which_passed_through_this_frame():
 		if body.is_multiplayer_authority():
 			_move_to_other_portal(body)
+			GameManager.set_active_viewport(other_portal.get_viewport())
 	for tracked_body in _tracked_phys_bodies:
 		if (not tracked_body.body.is_multiplayer_authority()
 			and _try_detect_portal_pass_through_on_multiplayer_peer(tracked_body)):
@@ -240,7 +305,8 @@ func _remove_hanging_body_check():
 		i -= 1
 	
 func _move_to_other_portal(body: PhysicsBody3D):
-	print("moved to other portal")
+	if not other_portal:
+		return
 	
 	var transform_rel_to_this_portal = self.global_transform.affine_inverse() * body.global_transform
 	var moved_to_other_portal = other_portal.global_transform * transform_rel_to_this_portal
@@ -272,7 +338,6 @@ func _get_bodies_which_passed_through_this_frame():
 		var portal_side = _nonzero_sign(offset_from_portal.dot(forward))
 		var prev_portal_side = _nonzero_sign(prev_offset_from_portal.dot(forward))
 		if portal_side != prev_portal_side and dist_moved.length() < MOVE_WAS_TELEPORT_THRESHOLD:
-			print(tracked_body.body.global_basis)
 			bodies_that_passed_through.push_back(tracked_body.body)
 		# Once we're done set position_last_frame again
 		tracked_body.position_last_frame = pos_node.global_position
@@ -298,7 +363,7 @@ func _store_mesh_duplicate_in_cache(body, mesh_duplicate):
 	mesh_duplicate_cache.push_back([body, mesh_duplicate, Time.get_ticks_msec()])
 
 func _get_mesh_duplicate_from_cache(body, ask_other_portal = false):
-	if ask_other_portal:
+	if ask_other_portal and other_portal:
 		var other_result = other_portal._get_mesh_duplicate_from_cache(body)
 		if other_result != null:
 			return other_result
@@ -343,7 +408,7 @@ func _add_tracked_phys_body(body):
 	}
 	if make_mesh_duplicates:
 		newly_tracked_body.mesh_duplicator = _make_or_get_mesh_duplicate(body)
-		add_child(newly_tracked_body.mesh_duplicator)
+		other_portal.add_child(newly_tracked_body.mesh_duplicator)
 		newly_tracked_body.mesh_duplicator.synchronize_all()
 	if newly_tracked_body.camera:
 		newly_tracked_body.position_last_frame = newly_tracked_body.camera.global_position
@@ -363,7 +428,7 @@ func _remove_tracked_phys_body(body):
 			print("removed body")
 			
 			if _tracked_phys_bodies[i].mesh_duplicator:
-				remove_child(_tracked_phys_bodies[i].mesh_duplicator)
+				other_portal.remove_child(_tracked_phys_bodies[i].mesh_duplicator)
 				_store_mesh_duplicate_in_cache(_tracked_phys_bodies[i].body, _tracked_phys_bodies[i].mesh_duplicator)
 			if _tracked_phys_bodies[i].camera:
 				_tracked_phys_bodies[i].camera.near = _tracked_phys_bodies[i].prev_camera_near
@@ -400,9 +465,12 @@ func _on_body_entered(body):
 	# Disable non-moving static bodes from teleporting (except AnimatableBody3Ds which are considered static).
 	# CSGShape3Ds are also static if you enable their use_collision property so disable them.
 	if (not body.is_class("StaticBody3D") or body.is_class("AnimatableBody3D")) and not body.is_class("CSGShape3D"):
-		if _check_shapecast_collision(body):
+		if other_portal and _check_shapecast_collision(body):
 			_add_tracked_phys_body(body)
 
 func _on_body_exited(body):
 	if not _check_shapecast_collision(body) or $CollisionShape3D.disabled:
 		_remove_tracked_phys_body(body)
+
+func _to_string():
+	return "Portal[%s]" % [portal_id]

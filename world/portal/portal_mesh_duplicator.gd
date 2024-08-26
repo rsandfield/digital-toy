@@ -69,6 +69,8 @@ func _ready():
 func synchronize_all():
 	iterate_through_pair_and_copy_over_props(body, dupe, ["transform", "visible"])
 	var original_rel_to_in_portal = in_portal.global_transform.affine_inverse() * body.global_transform
+	if not out_portal:
+		return
 	var moved_to_out_portal = out_portal.global_transform * original_rel_to_in_portal
 	dupe.global_transform = moved_to_out_portal
 

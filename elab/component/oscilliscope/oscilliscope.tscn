@@ -1,30 +1,38 @@
-[gd_scene load_steps=11 format=3 uid="uid://btgovxcjd8hxg"]
+[gd_scene load_steps=13 format=3 uid="uid://btgovxcjd8hxg"]
 
 [ext_resource type="PackedScene" uid="uid://cwnerfcwgpjux" path="res://elab/component/terminal/terminal_input.tscn" id="1_dytbs"]
 [ext_resource type="Script" path="res://elab/component/oscilliscope/oscilliscope.gd" id="1_nic1h"]
-[ext_resource type="Script" path="res://viewport_panel.gd" id="1_vcs08"]
-[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/gray.tres" id="2_73mq1"]
+[ext_resource type="Script" path="res://io/viewport_panel.gd" id="1_vcs08"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/gray.tres" id="2_73mq1"]
 [ext_resource type="PackedScene" uid="uid://bqh3x67i0so4s" path="res://elab/component/terminal/terminal_output.tscn" id="2_jphqy"]
 [ext_resource type="Script" path="res://elab/component/oscilliscope/wave_form_display.gd" id="2_lvkc5"]
+[ext_resource type="PackedScene" uid="uid://drhj0wk517w1w" path="res://handle.tscn" id="7_khrvc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tnyfb"]
+size = Vector3(0.4, 0.2, 0.3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_glvot"]
 size = Vector3(0.4, 0.2, 0.3)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_qbpta"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_f8fc4"]
 viewport_path = NodePath("WaveScreen/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0jtr7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pa5ba"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_qbpta")
+albedo_texture = SubResource("ViewportTexture_f8fc4")
 
 [sub_resource type="QuadMesh" id="QuadMesh_2imtm"]
 size = Vector2(0.2, 0.15)
 
-[node name="Oscilliscope" type="Node3D" node_paths=PackedStringArray("display", "inputs", "outputs")]
+[node name="Oscilliscope" type="RigidBody3D" node_paths=PackedStringArray("display", "inputs", "outputs")]
 script = ExtResource("1_nic1h")
 display = NodePath("WaveScreen/SubViewport/WaveFormDisplay")
 inputs = [NodePath("TerminalInput")]
 outputs = [NodePath("TerminalOutput")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_tnyfb")
 
 [node name="Box" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -39,7 +47,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.18, 
 
 [node name="WaveScreen" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08, 0.11, 0.155)
-material_override = SubResource("StandardMaterial3D_0jtr7")
+material_override = SubResource("StandardMaterial3D_pa5ba")
 mesh = SubResource("QuadMesh_2imtm")
 script = ExtResource("1_vcs08")
 
@@ -52,3 +60,9 @@ render_target_update_mode = 4
 
 [node name="WaveFormDisplay" type="Node2D" parent="WaveScreen/SubViewport"]
 script = ExtResource("2_lvkc5")
+
+[node name="HandleL" parent="." instance=ExtResource("7_khrvc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.1, 0.2)
+
+[node name="HandleR" parent="." instance=ExtResource("7_khrvc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0.1, 0.2)

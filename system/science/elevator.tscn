@@ -1,0 +1,239 @@
+[gd_scene load_steps=13 format=3 uid="uid://bsqqblqddqyu5"]
+
+[ext_resource type="Script" path="res://world/elevator/elevator.gd" id="1_ewmj1"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/white.tres" id="1_y3d5v"]
+[ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/brown_light.tres" id="2_u28y0"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/gray.tres" id="4_5um2l"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://world/elevator/elevator_door.tscn" id="5_2iq45"]
+[ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://io/button/button_square.tscn" id="6_aabej"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gdwmc"]
+size = Vector3(10, 5, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_la4av"]
+size = Vector2(3, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tl2fh"]
+size = Vector3(6, 0.5, 6)
+
+[sub_resource type="QuadMesh" id="QuadMesh_ob1w1"]
+size = Vector2(3, 2.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2a8u2"]
+size = Vector3(5.5, 3.5, 0.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j7cpt"]
+size = Vector2(0.25, 0.9)
+
+[node name="Elevator" type="Node3D"]
+script = ExtResource("1_ewmj1")
+
+[node name="Gravity" type="Area3D" parent="."]
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_gdwmc")
+
+[node name="Shell" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Shell"]
+material_override = ExtResource("2_u28y0")
+mesh = SubResource("PlaneMesh_la4av")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="StaticBody3D" parent="Shell/Floor"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Floor/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_tl2fh")
+
+[node name="Ceiling" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.00475216, 2.5, 0.00142097)
+material_override = ExtResource("1_y3d5v")
+mesh = SubResource("PlaneMesh_la4av")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="StaticBody3D" parent="Shell/Ceiling"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Ceiling/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_tl2fh")
+
+[node name="Wall" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 1.25, -1.5)
+material_override = ExtResource("4_5um2l")
+mesh = SubResource("QuadMesh_ob1w1")
+
+[node name="Area3D" type="StaticBody3D" parent="Shell/Wall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Wall/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
+shape = SubResource("BoxShape3D_2a8u2")
+
+[node name="Wall2" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 1.25, 0)
+material_override = ExtResource("4_5um2l")
+mesh = SubResource("QuadMesh_ob1w1")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="StaticBody3D" parent="Shell/Wall2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Wall2/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
+shape = SubResource("BoxShape3D_2a8u2")
+
+[node name="Wall3" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.25, 1.5)
+material_override = ExtResource("4_5um2l")
+mesh = SubResource("QuadMesh_ob1w1")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="StaticBody3D" parent="Shell/Wall3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Wall3/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
+shape = SubResource("BoxShape3D_2a8u2")
+
+[node name="Wall4" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 1.5, 1.25, 0)
+material_override = ExtResource("4_5um2l")
+mesh = SubResource("QuadMesh_ob1w1")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="StaticBody3D" parent="Shell/Wall4"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Wall4/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
+shape = SubResource("BoxShape3D_2a8u2")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45, 0)
+light_energy = 0.5
+
+[node name="ElevatorDoor" parent="." instance=ExtResource("5_2iq45")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.45)
+portal_id = "ScienceComplexElevatorDoor"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="ButtonPanel" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.3, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="ButtonPanel"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = ExtResource("1_y3d5v")
+mesh = SubResource("PlaneMesh_j7cpt")
+
+[node name="0" type="Node3D" parent="ButtonPanel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
+
+[node name="Button" parent="ButtonPanel/0" instance=ExtResource("6_aabej")]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, -0.05, 0, 0)
+light_on_click = true
+
+[node name="Label3D" type="Label3D" parent="ButtonPanel/0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0.01)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "G"
+font_size = 40
+outline_size = 2
+
+[node name="1" type="Node3D" parent="ButtonPanel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+
+[node name="Button" parent="ButtonPanel/1" instance=ExtResource("6_aabej")]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, -0.05, 0, 0)
+light_on_click = true
+
+[node name="Label3D" type="Label3D" parent="ButtonPanel/1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0.01)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "1"
+font_size = 40
+outline_size = 2
+
+[node name="2" type="Node3D" parent="ButtonPanel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.125, 0)
+
+[node name="Button" parent="ButtonPanel/2" instance=ExtResource("6_aabej")]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, -0.05, 0, 0)
+light_on_click = true
+
+[node name="Label3D" type="Label3D" parent="ButtonPanel/2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0.01)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "2"
+font_size = 40
+outline_size = 2
+
+[node name="3" type="Node3D" parent="ButtonPanel"]
+
+[node name="Button" parent="ButtonPanel/3" instance=ExtResource("6_aabej")]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, -0.05, 0, 0)
+light_on_click = true
+
+[node name="Label3D" type="Label3D" parent="ButtonPanel/3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0.01)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "3"
+font_size = 40
+outline_size = 2
+
+[node name="4" type="Node3D" parent="ButtonPanel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
+
+[node name="Button" parent="ButtonPanel/4" instance=ExtResource("6_aabej")]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, -0.05, 0, 0)
+light_on_click = true
+
+[node name="Label3D" type="Label3D" parent="ButtonPanel/4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0.01)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "4"
+font_size = 40
+outline_size = 2
+
+[node name="5" type="Node3D" parent="ButtonPanel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+
+[node name="Button" parent="ButtonPanel/5" instance=ExtResource("6_aabej")]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, -0.05, 0, 0)
+light_on_click = true
+
+[node name="Label3D" type="Label3D" parent="ButtonPanel/5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0.01)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "5"
+font_size = 40
+outline_size = 2
+
+[node name="6" type="Node3D" parent="ButtonPanel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.375, 0)
+
+[node name="Button" parent="ButtonPanel/6" instance=ExtResource("6_aabej")]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, -4, 0, 4, -1.74846e-07, -0.05, 0, 0)
+light_on_click = true
+
+[node name="Label3D" type="Label3D" parent="ButtonPanel/6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0.01)
+pixel_size = 0.0025
+modulate = Color(0, 0, 0, 1)
+text = "6"
+font_size = 40
+outline_size = 2
+
+[connection signal="pressed" from="ButtonPanel/0/Button" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="ButtonPanel/1/Button" to="." method="call_to_floor" binds= [1]]
+[connection signal="pressed" from="ButtonPanel/2/Button" to="." method="call_to_floor" binds= [2]]
+[connection signal="pressed" from="ButtonPanel/3/Button" to="." method="call_to_floor" binds= [3]]
+[connection signal="pressed" from="ButtonPanel/4/Button" to="." method="call_to_floor" binds= [4]]
+[connection signal="pressed" from="ButtonPanel/5/Button" to="." method="call_to_floor" binds= [5]]
+[connection signal="pressed" from="ButtonPanel/6/Button" to="." method="call_to_floor" binds= [6]]

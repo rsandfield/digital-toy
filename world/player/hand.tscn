@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://bclkrufcuif7j"]
+
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/white.tres" id="1_jktu2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_77ufg"]
+size = Vector3(0.1, 0.05, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e2w4b"]
+size = Vector3(0.08, 0.04, 0.04)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lio6t"]
+size = Vector3(0.1, 0.03, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g7lie"]
+size = Vector3(0.12, 0.03, 0.03)
+
+[node name="Hand" type="Node3D"]
+
+[node name="Palm" type="MeshInstance3D" parent="."]
+material_override = ExtResource("1_jktu2")
+mesh = SubResource("BoxMesh_77ufg")
+
+[node name="Thumb" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0.5, 0.707107, -0.707107, 0.707107, 0, -0.5, -0.5, 0.707107, 0.0829863, -0.0249802, 0)
+material_override = ExtResource("1_jktu2")
+mesh = SubResource("BoxMesh_e2w4b")
+
+[node name="Fingy1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.183013, 0.183013, 0.965926, -0.707107, 0.707107, 0, -0.683013, -0.683013, 0.258819, 0.0445023, -0.0249802, -0.07)
+material_override = ExtResource("1_jktu2")
+mesh = SubResource("BoxMesh_lio6t")
+
+[node name="Fingy2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-3.09086e-08, -3.09086e-08, 1, -0.707107, 0.707107, 0, -0.707107, -0.707107, -4.37114e-08, -0.00288609, -0.0249802, -0.085901)
+material_override = ExtResource("1_jktu2")
+mesh = SubResource("BoxMesh_g7lie")
+
+[node name="Fingy3" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.183013, -0.183013, 0.965926, -0.707107, 0.707107, 0, -0.683013, -0.683013, -0.258819, -0.0461546, -0.0249802, -0.07)
+material_override = ExtResource("1_jktu2")
+mesh = SubResource("BoxMesh_lio6t")

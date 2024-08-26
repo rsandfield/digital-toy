@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=3 uid="uid://pwn6uehsrwta"]
+
+[ext_resource type="Script" path="res://world/elevator/elevator_door.gd" id="1_ba277"]
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://world/portal/portal.tscn" id="2_k0rvu"]
+
+[sub_resource type="Animation" id="Animation_t32mc"]
+resource_name = "close"
+length = 0.4
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorL")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.5, 0, 0, 0.4, 1, 0, 0, 0)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorR")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.5, 0, 0, 0.4, 1, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_8ldqg"]
+resource_name = "open"
+length = 0.4
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorL")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.4, 1, -0.5, 0, 0)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorR")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.4, 1, 0.5, 0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_651lw"]
+_data = {
+"close": SubResource("Animation_t32mc"),
+"open": SubResource("Animation_8ldqg")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_j7io0"]
+size = Vector3(0.6, 2.1, 0.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_olwgd"]
+size = Vector3(0.6, 2, 0.1)
+
+[node name="ElevatorDoor" type="Node3D"]
+script = ExtResource("1_ba277")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_651lw")
+}
+
+[node name="Portal" parent="." instance=ExtResource("2_k0rvu")]
+
+[node name="DoorL" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DoorL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 1, 0)
+mesh = SubResource("BoxMesh_j7io0")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DoorL"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorL/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00626636, 1, -0.00348806)
+shape = SubResource("BoxShape3D_olwgd")
+
+[node name="DoorR" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DoorR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.293734, 1, -0.00348806)
+mesh = SubResource("BoxMesh_j7io0")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="DoorR"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DoorR/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00626636, 1, -0.00348806)
+shape = SubResource("BoxShape3D_olwgd")

@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://c51g5pwiyurqe"]
+[gd_scene load_steps=15 format=3 uid="uid://c51g5pwiyurqe"]
 
 [ext_resource type="Script" path="res://elab/component/frequency_generator/frequency_generator.gd" id="1_4vnsp"]
 [ext_resource type="PackedScene" uid="uid://bqh3x67i0so4s" path="res://elab/component/terminal/terminal_output.tscn" id="2_b7sot"]
 [ext_resource type="Script" path="res://elab/signal/sine_wave.gd" id="2_gd3eg"]
-[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/gray.tres" id="3_5vmjf"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/gray.tres" id="3_5vmjf"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://io/button/button_round.tscn" id="4_q1fjy"]
 [ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://io/button/button_square.tscn" id="6_w7v7t"]
+[ext_resource type="PackedScene" uid="uid://drhj0wk517w1w" path="res://handle.tscn" id="7_wm6i1"]
 
 [sub_resource type="Resource" id="Resource_1qt27"]
 script = ExtResource("2_gd3eg")
@@ -13,6 +14,9 @@ amplitude = 1.0
 frequency = 440.0
 speed = 0.0
 offset = 0.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rf33g"]
+size = Vector3(0.25, 0.2, 0.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_gabav"]
 size = Vector3(0.25, 0.2, 0.2)
@@ -31,11 +35,15 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_2mxsh")
 size = Vector2(0.11, 0.04)
 
-[node name="FrequencyGenerator" type="Node3D" node_paths=PackedStringArray("active_property_buttons", "outputs")]
+[node name="FrequencyGenerator" type="RigidBody3D" node_paths=PackedStringArray("active_property_buttons", "outputs")]
 script = ExtResource("1_4vnsp")
 waveform = SubResource("Resource_1qt27")
 active_property_buttons = [NodePath("Frequency/Button"), NodePath("Voltage/Button")]
 outputs = [NodePath("TerminalOutput")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_rf33g")
 
 [node name="Box" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
@@ -148,6 +156,10 @@ light_on_click = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, -0.015)
 light_on_click = true
 
+[node name="TenthDown2" parent="Node3D" instance=ExtResource("6_w7v7t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0.015)
+light_on_click = true
+
 [node name="HundrethUp" parent="Node3D" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09, 0, 0.015)
 light_on_click = true
@@ -156,9 +168,11 @@ light_on_click = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09, 0, -0.015)
 light_on_click = true
 
-[node name="TenthDown2" parent="Node3D" instance=ExtResource("6_w7v7t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0.015)
-light_on_click = true
+[node name="HandleL" parent="." instance=ExtResource("7_wm6i1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.1, 0.13)
+
+[node name="HandleR" parent="." instance=ExtResource("7_wm6i1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.1, 0.13)
 
 [connection signal="pressed" from="Frequency/Button" to="." method="set_active_property" binds= [0]]
 [connection signal="pressed" from="Voltage/Button" to="." method="set_active_property" binds= [1]]
@@ -169,6 +183,6 @@ light_on_click = true
 [connection signal="pressed" from="Node3D/OneUp" to="." method="add_value_to_active_property" binds= [1]]
 [connection signal="pressed" from="Node3D/OneDown" to="." method="add_value_to_active_property" binds= [-1]]
 [connection signal="pressed" from="Node3D/TenthUp" to="." method="add_value_to_active_property" binds= [0.1]]
-[connection signal="pressed" from="Node3D/HundrethUp" to="." method="add_value_to_active_property" binds= [-0.01]]
-[connection signal="pressed" from="Node3D/HundrethDown" to="." method="add_value_to_active_property" binds= [0.01]]
 [connection signal="pressed" from="Node3D/TenthDown2" to="." method="add_value_to_active_property" binds= [-0.1]]
+[connection signal="pressed" from="Node3D/HundrethUp" to="." method="add_value_to_active_property" binds= [-0.01]]
+[connection signal="pressed" from="Node3D/HundrethDown" to="." method="add_value_to_active_property" binds= [-0.01]]

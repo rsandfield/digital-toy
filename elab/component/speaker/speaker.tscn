@@ -1,34 +1,42 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdiim43et1tln"]
+[gd_scene load_steps=10 format=3 uid="uid://bdiim43et1tln"]
 
 [ext_resource type="Script" path="res://elab/component/speaker/speaker3d.gd" id="1_4i3xu"]
 [ext_resource type="PackedScene" uid="uid://cwnerfcwgpjux" path="res://elab/component/terminal/terminal_input.tscn" id="2_7iw8d"]
-[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/gray.tres" id="2_fiwfa"]
-[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/dark_gray.tres" id="3_fl5gn"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/gray.tres" id="2_fiwfa"]
+[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/dark_gray.tres" id="3_fl5gn"]
+[ext_resource type="PackedScene" uid="uid://drhj0wk517w1w" path="res://handle.tscn" id="5_fwp6h"]
 
-[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_7fpa3"]
-buffer_length = 0.02
+[sub_resource type="BoxShape3D" id="BoxShape3D_y25ml"]
+size = Vector3(0.1, 0.2, 0.07)
 
 [sub_resource type="BoxMesh" id="BoxMesh_einl3"]
 size = Vector3(0.1, 0.2, 0.07)
+
+[sub_resource type="AudioStreamGenerator" id="AudioStreamGenerator_7fpa3"]
+buffer_length = 0.02
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_6kh3f"]
 top_radius = 0.02
 bottom_radius = 0.04
 height = 0.01
 
-[node name="Speaker" type="Node3D" node_paths=PackedStringArray("inputs")]
+[node name="Speaker" type="RigidBody3D" node_paths=PackedStringArray("inputs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.98755e-05, 0.000460088, -0.000131667)
 script = ExtResource("1_4i3xu")
 inputs = [NodePath("TerminalInput")]
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
-stream = SubResource("AudioStreamGenerator_7fpa3")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("BoxShape3D_y25ml")
 
 [node name="Box" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000411451, 0.1, 0.000124633)
 material_override = ExtResource("2_fiwfa")
 mesh = SubResource("BoxMesh_einl3")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+stream = SubResource("AudioStreamGenerator_7fpa3")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.15, 0.04)
@@ -37,3 +45,6 @@ mesh = SubResource("CylinderMesh_6kh3f")
 
 [node name="TerminalInput" parent="." instance=ExtResource("2_7iw8d")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 3.241e-05, 0.050374, 0.039893)
+
+[node name="Handle" parent="." instance=ExtResource("5_fwp6h")]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.25, 0.06)

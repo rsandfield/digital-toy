@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cv3qfq5so88v6"]
 
 [ext_resource type="PackedScene" uid="uid://ks0em41b8fap" path="res://ship_chip_lander/console/controller/ship_chip_lander.tscn" id="1_4u12g"]
-[ext_resource type="Script" path="res://viewport_panel.gd" id="1_a5nyw"]
+[ext_resource type="Script" path="res://io/viewport_panel.gd" id="1_a5nyw"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wqxd7"]
 

@@ -1,16 +1,21 @@
-[gd_scene load_steps=21 format=3 uid="uid://c8ib1shc7ssuj"]
+[gd_scene load_steps=24 format=3 uid="uid://c8ib1shc7ssuj"]
 
-[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/dark_gray.tres" id="1_6fncm"]
-[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/white.tres" id="1_e3mtw"]
-[ext_resource type="PackedScene" uid="uid://bpyf6dv67t0bu" path="res://character/character.tscn" id="2_ueonr"]
-[ext_resource type="PackedScene" uid="uid://btgovxcjd8hxg" path="res://elab/component/oscilliscope/oscilliscope.tscn" id="3_2i0df"]
-[ext_resource type="PackedScene" uid="uid://bdiim43et1tln" path="res://elab/component/speaker/speaker.tscn" id="4_rs4rb"]
-[ext_resource type="PackedScene" uid="uid://c8tkdok74syyp" path="res://elab/component/multiplexer/multiplexer.tscn" id="4_uvxvb"]
-[ext_resource type="PackedScene" uid="uid://novjlejxb1rb" path="res://world/box.tscn" id="4_wl50e"]
-[ext_resource type="PackedScene" uid="uid://c51g5pwiyurqe" path="res://elab/component/frequency_generator/frequency_generator.tscn" id="5_dlusw"]
-[ext_resource type="PackedScene" uid="uid://bpddq80asbpak" path="res://elab/component/connector/wire.tscn" id="6_uo04d"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/white.tres" id="1_x06va"]
+[ext_resource type="PackedScene" uid="uid://c8tkdok74syyp" path="res://elab/component/multiplexer/multiplexer.tscn" id="3_dfa1m"]
+[ext_resource type="PackedScene" uid="uid://btgovxcjd8hxg" path="res://elab/component/oscilliscope/oscilliscope.tscn" id="4_3lcpm"]
+[ext_resource type="PackedScene" uid="uid://novjlejxb1rb" path="res://world/box.tscn" id="5_bpoxq"]
+[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/dark_gray.tres" id="6_yk55s"]
+[ext_resource type="PackedScene" uid="uid://bdiim43et1tln" path="res://elab/component/speaker/speaker.tscn" id="7_3tmdm"]
+[ext_resource type="PackedScene" uid="uid://c51g5pwiyurqe" path="res://elab/component/frequency_generator/frequency_generator.tscn" id="8_ixtka"]
+[ext_resource type="PackedScene" uid="uid://bpddq80asbpak" path="res://elab/component/connector/wire.tscn" id="9_c5vff"]
+[ext_resource type="PackedScene" uid="uid://dfd2ju6ih12e0" path="res://elab/component/wire/wire.tscn" id="10_64rqa"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://world/elevator/elevator_door.tscn" id="11_l6td4"]
+[ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://io/button/button_square.tscn" id="12_or3jy"]
 
 [sub_resource type="Environment" id="Environment_8ybyx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0kywn"]
+size = Vector3(10, 5, 10)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mssuq"]
 size = Vector2(5, 5)
@@ -24,15 +29,15 @@ size = Vector2(5, 3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_yxbdj"]
 size = Vector3(5.5, 3.5, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0kywn"]
-size = Vector3(10, 5, 10)
+[sub_resource type="BoxShape3D" id="BoxShape3D_fv35m"]
+size = Vector3(1.9, 3.5, 0.5)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_k0o4n"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_b3qrg"]
 viewport_path = NodePath("WaveScreen/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_npsue"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ygohb"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_k0o4n")
+albedo_texture = SubResource("ViewportTexture_b3qrg")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_14tq6"]
 resource_local_to_scene = true
@@ -47,7 +52,7 @@ top_radius = 0.05
 bottom_radius = 0.05
 height = 0.8
 
-[node name="Room" type="Node3D"]
+[node name="ElectronicsLab" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8ybyx")
@@ -57,14 +62,22 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 
 spot_range = 8.0
 spot_angle = 60.0
 
+[node name="Gravity" type="Area3D" parent="."]
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_0kywn")
+
 [node name="Shell" type="Node3D" parent="."]
 
 [node name="Floor" type="MeshInstance3D" parent="Shell"]
-material_override = ExtResource("1_e3mtw")
+material_override = ExtResource("1_x06va")
 mesh = SubResource("PlaneMesh_mssuq")
 skeleton = NodePath("../..")
 
 [node name="Area3D" type="StaticBody3D" parent="Shell/Floor"]
+collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Floor/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
@@ -72,7 +85,7 @@ shape = SubResource("BoxShape3D_hky4l")
 
 [node name="Ceiling" type="MeshInstance3D" parent="Shell"]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 3, 0)
-material_override = ExtResource("1_e3mtw")
+material_override = ExtResource("1_x06va")
 mesh = SubResource("PlaneMesh_mssuq")
 skeleton = NodePath("../..")
 
@@ -84,7 +97,7 @@ shape = SubResource("BoxShape3D_hky4l")
 
 [node name="Wall" type="MeshInstance3D" parent="Shell"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -2.5)
-material_override = ExtResource("1_e3mtw")
+material_override = ExtResource("1_x06va")
 mesh = SubResource("QuadMesh_ejsov")
 skeleton = NodePath("../..")
 
@@ -96,7 +109,7 @@ shape = SubResource("BoxShape3D_yxbdj")
 
 [node name="Wall2" type="MeshInstance3D" parent="Shell"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, 1.5, 0)
-material_override = ExtResource("1_e3mtw")
+material_override = ExtResource("1_x06va")
 mesh = SubResource("QuadMesh_ejsov")
 skeleton = NodePath("../..")
 
@@ -108,19 +121,27 @@ shape = SubResource("BoxShape3D_yxbdj")
 
 [node name="Wall3" type="MeshInstance3D" parent="Shell"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5, 2.5)
-material_override = ExtResource("1_e3mtw")
+material_override = ExtResource("1_x06va")
 mesh = SubResource("QuadMesh_ejsov")
 skeleton = NodePath("../..")
 
 [node name="Area3D" type="StaticBody3D" parent="Shell/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Wall3/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
-shape = SubResource("BoxShape3D_yxbdj")
+shape = SubResource("BoxShape3D_fv35m")
+
+[node name="Area3D2" type="StaticBody3D" parent="Shell/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Wall3/Area3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
+shape = SubResource("BoxShape3D_fv35m")
 
 [node name="Wall4" type="MeshInstance3D" parent="Shell"]
 transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 2.5, 1.5, 0)
-material_override = ExtResource("1_e3mtw")
+material_override = ExtResource("1_x06va")
 mesh = SubResource("QuadMesh_ejsov")
 skeleton = NodePath("../..")
 
@@ -130,111 +151,105 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
 shape = SubResource("BoxShape3D_yxbdj")
 
-[node name="Character" parent="." instance=ExtResource("2_ueonr")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
-
-[node name="Area3D" type="Area3D" parent="."]
-gravity_space_override = 4
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-shape = SubResource("BoxShape3D_0kywn")
-
-[node name="Multiplexer" parent="." instance=ExtResource("4_uvxvb")]
+[node name="Multiplexer" parent="." instance=ExtResource("3_dfa1m")]
 transform = Transform3D(0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, 0.984808, -0.380638, 0.85, -2)
 
-[node name="TerminalInput2" parent="Multiplexer" index="2" node_paths=PackedStringArray("connection")]
+[node name="TerminalInput2" parent="Multiplexer" index="3" node_paths=PackedStringArray("connection")]
 connection = NodePath("../../Wire2")
 
-[node name="TerminalOutput" parent="Multiplexer" index="5" node_paths=PackedStringArray("connection")]
+[node name="TerminalOutput" parent="Multiplexer" index="6" node_paths=PackedStringArray("connection")]
 connection = NodePath("../../Wire3")
 
-[node name="Oscilliscope" parent="." instance=ExtResource("3_2i0df")]
+[node name="Oscilliscope" parent="." instance=ExtResource("4_3lcpm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0915235, 0.85, -1.99934)
 
-[node name="TerminalInput" parent="Oscilliscope" index="1" node_paths=PackedStringArray("connection")]
-connection = NodePath("../../Wire")
+[node name="TerminalInput" parent="Oscilliscope" index="2" node_paths=PackedStringArray("connection")]
+connection = NodePath("../../Wire3")
 
-[node name="TerminalOutput" parent="Oscilliscope" index="2" node_paths=PackedStringArray("connection")]
+[node name="TerminalOutput" parent="Oscilliscope" index="3" node_paths=PackedStringArray("connection")]
 connection = NodePath("../../Wire2")
 
-[node name="WaveScreen" parent="Oscilliscope" index="3"]
-material_override = SubResource("StandardMaterial3D_npsue")
+[node name="WaveScreen" parent="Oscilliscope" index="4"]
+material_override = SubResource("StandardMaterial3D_ygohb")
 
 [node name="Table" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
-[node name="Top" parent="Table" instance=ExtResource("4_wl50e")]
+[node name="Top" parent="Table" instance=ExtResource("5_bpoxq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 size = Vector3(2, 0.1, 0.8)
-material = ExtResource("1_6fncm")
+material = ExtResource("6_yk55s")
 
 [node name="CollisionShape3D" parent="Table/Top" index="0"]
 shape = SubResource("BoxShape3D_14tq6")
 
 [node name="MeshInstance3D" parent="Table/Top" index="1"]
-material_override = ExtResource("1_6fncm")
+material_override = ExtResource("6_yk55s")
 mesh = SubResource("BoxMesh_qty4q")
 
 [node name="Leg" type="MeshInstance3D" parent="Table"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.4, 0.3)
-material_override = ExtResource("1_6fncm")
+material_override = ExtResource("6_yk55s")
 mesh = SubResource("CylinderMesh_rdcaw")
 skeleton = NodePath("../Top")
 
 [node name="Leg2" type="MeshInstance3D" parent="Table"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.4, -0.3)
-material_override = ExtResource("1_6fncm")
+material_override = ExtResource("6_yk55s")
 mesh = SubResource("CylinderMesh_rdcaw")
 skeleton = NodePath("../Top")
 
 [node name="Leg3" type="MeshInstance3D" parent="Table"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.4, 0.3)
-material_override = ExtResource("1_6fncm")
+material_override = ExtResource("6_yk55s")
 mesh = SubResource("CylinderMesh_rdcaw")
 skeleton = NodePath("../Top")
 
 [node name="Leg4" type="MeshInstance3D" parent="Table"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.4, -0.3)
-material_override = ExtResource("1_6fncm")
+material_override = ExtResource("6_yk55s")
 mesh = SubResource("CylinderMesh_rdcaw")
 skeleton = NodePath("../Top")
 
-[node name="Speaker" parent="." instance=ExtResource("4_rs4rb")]
+[node name="Speaker" parent="." instance=ExtResource("7_3tmdm")]
 transform = Transform3D(0.894123, 0, -0.447821, 0, 1, 0, 0.447821, 0, 0.894123, 0.661, 0.85, -1.99934)
 
-[node name="FrequencyGenerator2" parent="." instance=ExtResource("5_dlusw")]
+[node name="FrequencyGenerator2" parent="." instance=ExtResource("8_ixtka")]
 transform = Transform3D(0.951057, 0, 0.309017, 0, 1, 0, -0.309017, 0, 0.951057, -0.696975, 1.05, -1.999)
 
-[node name="Box" parent="FrequencyGenerator2" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-
-[node name="TerminalOutput" parent="FrequencyGenerator2" index="3" node_paths=PackedStringArray("connection")]
+[node name="TerminalOutput" parent="FrequencyGenerator2" index="4" node_paths=PackedStringArray("connection")]
 connection = NodePath("../../Wire2")
 
-[node name="FrequencyGenerator" parent="." instance=ExtResource("5_dlusw")]
+[node name="FrequencyGenerator" parent="." instance=ExtResource("8_ixtka")]
 transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, -0.716975, 0.85, -1.99934)
 
-[node name="Box" parent="FrequencyGenerator" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
-
-[node name="TerminalOutput" parent="FrequencyGenerator" index="3" node_paths=PackedStringArray("connection")]
+[node name="TerminalOutput" parent="FrequencyGenerator" index="4" node_paths=PackedStringArray("connection")]
 connection = NodePath("../../Wire")
 
-[node name="Wire" parent="." node_paths=PackedStringArray("input", "output") instance=ExtResource("6_uo04d")]
+[node name="Wire" parent="." node_paths=PackedStringArray("input", "output") instance=ExtResource("9_c5vff")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.99934)
 input = NodePath("../FrequencyGenerator/TerminalOutput")
 output = NodePath("../Oscilliscope/TerminalInput")
 
-[node name="Wire2" parent="." node_paths=PackedStringArray("input", "output") instance=ExtResource("6_uo04d")]
+[node name="Wire2" parent="." node_paths=PackedStringArray("input", "output") instance=ExtResource("9_c5vff")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.99934)
 input = NodePath("../FrequencyGenerator2/TerminalOutput")
 output = NodePath("../Multiplexer/TerminalInput2")
 
-[node name="Wire3" parent="." node_paths=PackedStringArray("input", "output") instance=ExtResource("6_uo04d")]
+[node name="Wire3" parent="." node_paths=PackedStringArray("input", "output") instance=ExtResource("9_c5vff")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.99934)
 input = NodePath("../Multiplexer/TerminalOutput")
 output = NodePath("../Oscilliscope/TerminalInput")
+
+[node name="Wire4" parent="." instance=ExtResource("10_64rqa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00209015, 0.94821, -1.74014)
+
+[node name="ElevatorDoor" parent="." instance=ExtResource("11_l6td4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.45)
+portal_id = "ElectronicsLabElevatorDoor"
+
+[node name="Button" parent="." instance=ExtResource("12_or3jy")]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, -0.8, 1.2, 2.5)
 
 [editable path="Multiplexer"]
 [editable path="Oscilliscope"]

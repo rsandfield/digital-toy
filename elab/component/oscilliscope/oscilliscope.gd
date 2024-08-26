@@ -1,8 +1,7 @@
 class_name Oscilliscope
 extends Component
 
-@export var display: WaveFormDisplay
-
+@onready var display: WaveFormDisplay = $WaveScreen/SubViewport/WaveFormDisplay
 
 func _ready():
 	super._ready()

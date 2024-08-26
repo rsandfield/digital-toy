@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://51ikjgcwxvr0"]
+
+[ext_resource type="Script" path="res://system/science/osmostein_office/blitz_blaster.gd" id="1_0jg6w"]
+[ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/brown_dark.tres" id="2_cf6vg"]
+[ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/brass.tres" id="3_w4w0b"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ts4ga"]
+size = Vector3(0.4, 0.2, 0.4)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ifiyw"]
+size = Vector3(0.4, 0.2, 0.2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pqsht"]
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.5
+
+[node name="BlitzBlaster" type="Node3D"]
+script = ExtResource("1_0jg6w")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+material_override = ExtResource("2_cf6vg")
+mesh = SubResource("BoxMesh_ts4ga")
+
+[node name="Control" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.3, 0.1, 0)
+material_override = ExtResource("2_cf6vg")
+mesh = SubResource("PrismMesh_ifiyw")
+
+[node name="Rod" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+material_override = ExtResource("3_w4w0b")
+mesh = SubResource("CylinderMesh_pqsht")
