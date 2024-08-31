@@ -14,8 +14,7 @@ radius = 400.0
 
 [node name="Planet" type="Node3D"]
 script = ExtResource("1_f60oh")
-surface_gravity = 0.0
-influence_radius = 0.0
+influence_radius = 400.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 

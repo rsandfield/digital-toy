@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b5g1g6farjed7"]
+
+[ext_resource type="Shader" path="res://materials/bubble/bubble.gdshader" id="1_mp8ls"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_mp8ls")
+shader_parameter/fuwafuwa_speed = 1.5
+shader_parameter/fuwafuwa_size = 0.05
+shader_parameter/outline_color = Color(0.45, 0.7, 1, 1)
+shader_parameter/outline_ratio = 1.0
+shader_parameter/noise_speed = 0.2
+shader_parameter/noise_scale = 0.5

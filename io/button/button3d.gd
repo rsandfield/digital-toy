@@ -1,5 +1,5 @@
 class_name Button3D
-extends Node3D
+extends Area3D
 
 signal pressed()
 

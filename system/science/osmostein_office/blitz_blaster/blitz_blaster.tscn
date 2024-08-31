@@ -1,0 +1,105 @@
+[gd_scene load_steps=14 format=3 uid="uid://51ikjgcwxvr0"]
+
+[ext_resource type="Script" path="res://system/science/osmostein_office/blitz_blaster/blitz_blaster.gd" id="1_0jg6w"]
+[ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/brown/dark_brown.tres" id="2_1rji2"]
+[ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/metal/brass.tres" id="3_1626q"]
+[ext_resource type="Script" path="res://io/button/button3d.gd" id="4_rcp5v"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ts4ga"]
+size = Vector3(0.4, 0.2, 0.4)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pqsht"]
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.5
+
+[sub_resource type="PrismMesh" id="PrismMesh_ifiyw"]
+size = Vector3(0.4, 0.2, 0.2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_hgocj"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.1
+
+[sub_resource type="Animation" id="Animation_q2x0e"]
+resource_name = "pull_player"
+length = 1.1
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, -0.707107, 0, 0.707107, 0.1, 1, -0.0616284, -0.704416, -0.0616284, 0.704416, 0.5, 1, 0.454519, -0.541675, 0.454519, 0.541675, 1, 1, -0.0616284, -0.704416, -0.0616284, 0.704416, 1.1, 1, 0, -0.707107, 0, 0.707107)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ncqty"]
+_data = {
+"pull_player": SubResource("Animation_q2x0e")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_tv5ik"]
+radius = 0.025
+height = 0.05
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fjya0"]
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6qy35"]
+radius = 0.05
+height = 0.3
+
+[node name="BlitzBlaster" type="Node3D"]
+script = ExtResource("1_0jg6w")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+material_override = ExtResource("2_1rji2")
+mesh = SubResource("BoxMesh_ts4ga")
+
+[node name="Rod" type="MeshInstance3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+material_override = ExtResource("3_1626q")
+mesh = SubResource("CylinderMesh_pqsht")
+skeleton = NodePath("../..")
+
+[node name="Control" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.3, 0.1, 0)
+material_override = ExtResource("2_1rji2")
+mesh = SubResource("PrismMesh_ifiyw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Control"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.05, -0.05, 0)
+mesh = SubResource("CylinderMesh_hgocj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Control"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0503817, -0.05, 0)
+mesh = SubResource("CylinderMesh_hgocj")
+
+[node name="Button3D" type="Area3D" parent="Control"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5.46392e-09, 0, -0.125)
+script = ExtResource("4_rcp5v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/Button3D"]
+libraries = {
+"": SubResource("AnimationLibrary_ncqty")
+}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Control/Button3D"]
+material_override = ExtResource("3_1626q")
+mesh = SubResource("SphereMesh_tv5ik")
+
+[node name="Rod" type="MeshInstance3D" parent="Control/Button3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+material_override = ExtResource("3_1626q")
+mesh = SubResource("CylinderMesh_fjya0")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Control/Button3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+material_override = ExtResource("3_1626q")
+mesh = SubResource("SphereMesh_tv5ik")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Control/Button3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("CapsuleShape3D_6qy35")

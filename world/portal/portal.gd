@@ -254,7 +254,6 @@ func do_updates():
 	for body in _get_bodies_which_passed_through_this_frame():
 		if body.is_multiplayer_authority():
 			_move_to_other_portal(body)
-			GameManager.set_active_viewport(other_portal.get_viewport())
 	for tracked_body in _tracked_phys_bodies:
 		if (not tracked_body.body.is_multiplayer_authority()
 			and _try_detect_portal_pass_through_on_multiplayer_peer(tracked_body)):

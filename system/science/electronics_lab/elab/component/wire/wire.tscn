@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfd2ju6ih12e0"]
+
+[ext_resource type="Script" path="res://system/science/electronics_lab/elab/component/wire/wire.gd" id="1_3wgsm"]
+[ext_resource type="PackedScene" uid="uid://ci62o2ujjb43e" path="res://system/science/electronics_lab/elab/component/wire/connector_input.tscn" id="3_dp5p0"]
+[ext_resource type="PackedScene" path="res://addons/rope3d/Rope3D.tscn" id="4_jyj5j"]
+[ext_resource type="PackedScene" uid="uid://cibq40j068uje" path="res://system/science/electronics_lab/elab/component/wire/connector_output.tscn" id="4_yfyvv"]
+
+[node name="Wire" type="Node3D" node_paths=PackedStringArray("inputs", "outputs")]
+script = ExtResource("1_3wgsm")
+inputs = [NodePath("ConnectorInput")]
+outputs = [NodePath("ConnectorOutput")]
+
+[node name="ConnectorInput" parent="." instance=ExtResource("3_dp5p0")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.1, 0, 0)
+
+[node name="ConnectorOutput" parent="." instance=ExtResource("4_yfyvv")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, 0, 0)
+
+[node name="Rope3D" parent="." node_paths=PackedStringArray("start_point", "end_point") instance=ExtResource("4_jyj5j")]
+resolution = 5
+rope_length = 1.0
+start_point = NodePath("../ConnectorInput")
+end_point = NodePath("../ConnectorOutput")
+radius = 0.01

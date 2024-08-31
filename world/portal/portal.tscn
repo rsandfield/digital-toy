@@ -11,17 +11,18 @@ shader_parameter/fade_out_distance_min = 8.0
 shader_parameter/fade_out_color = Vector4(0, 0, 0, 0)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lnbcu"]
+resource_local_to_scene = true
 flip_faces = true
 size = Vector3(1, 2, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jqtyy"]
-size = Vector3(1.2, 2.2, 2)
+size = Vector3(2.2, 3.2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oytq2"]
-size = Vector3(1.2, 2.2, 2)
+size = Vector3(2.2, 3.2, 2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iibw6"]
-size = Vector3(0.2, 2.2, 0.2)
+size = Vector3(0.2, 3.2, 0.2)
 
 [node name="Portal" type="Area3D"]
 collision_mask = 3

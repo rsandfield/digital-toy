@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://c7si62mhp1quw"]
+
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/gray/white.tres" id="1_5mg2n"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/gray/gray.tres" id="2_xjdyx"]
+[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/gray/dark_gray.tres" id="3_6digw"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fa86g"]
+top_radius = 1.0
+bottom_radius = 2.1
+height = 4.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4pu37"]
+top_radius = 2.4
+bottom_radius = 2.0
+height = 1.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_dn481"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 4.0
+
+[node name="Lander" type="Node3D"]
+
+[node name="Capsule" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
+material_override = ExtResource("1_5mg2n")
+mesh = SubResource("CylinderMesh_fa86g")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
+material_override = ExtResource("2_xjdyx")
+mesh = SubResource("CylinderMesh_4pu37")
+
+[node name="Leg" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.766044, -0.642788, 0, 0.642788, 0.766044, 0, 0, 0, 1, 2.75, 1, 0)
+material_override = ExtResource("3_6digw")
+mesh = SubResource("CylinderMesh_dn481")
+
+[node name="Leg2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 0, 0, 1, -2.75, 1, 0)
+material_override = ExtResource("3_6digw")
+mesh = SubResource("CylinderMesh_dn481")
+
+[node name="Leg3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.766044, -0.642788, 0, 0.642788, 0.766044, 0, 1, -2.75)
+material_override = ExtResource("3_6digw")
+mesh = SubResource("CylinderMesh_dn481")
+
+[node name="Leg4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 1, 2.75)
+material_override = ExtResource("3_6digw")
+mesh = SubResource("CylinderMesh_dn481")

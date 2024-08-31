@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://hufdxtyh0jh6"]
+[gd_scene load_steps=12 format=3 uid="uid://hufdxtyh0jh6"]
 
 [ext_resource type="PackedScene" uid="uid://u7bv4v700ays" path="res://system/science/science_world.tscn" id="1_82qo1"]
 [ext_resource type="PackedScene" uid="uid://btsnu7unumae" path="res://system/science/entry/entry.tscn" id="1_tasic"]
@@ -11,7 +11,15 @@
 [ext_resource type="PackedScene" uid="uid://dw1gq6s8dx8u3" path="res://system/science/chemistry_lab/chemistry_lab.tscn" id="6_3lchm"]
 [ext_resource type="PackedScene" uid="uid://b0qrg1ami6gg" path="res://system/science/janitor_closet/janitor_closet.tscn" id="7_h8gnx"]
 
+[sub_resource type="Environment" id="Environment_yl7ny"]
+background_mode = 1
+ambient_light_source = 1
+reflected_light_source = 1
+
 [node name="GameManager" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yl7ny")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 anchors_preset = 15
