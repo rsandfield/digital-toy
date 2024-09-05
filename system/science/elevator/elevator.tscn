@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://world/elevator/elevator.gd" id="1_ewmj1"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/gray/white.tres" id="1_y3d5v"]
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/brown/light_brown.tres" id="2_u28y0"]
-[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/gray/gray.tres" id="4_5um2l"]
+[ext_resource type="PackedScene" uid="uid://cmndyhptq2qpy" path="res://system/science/elevator/elevator.blend" id="4_5ecpc"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://world/elevator/elevator_door.tscn" id="5_2iq45"]
+[ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/metal/steel.tres" id="5_7tpy2"]
 [ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://io/button/button_square.tscn" id="6_aabej"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gdwmc"]
@@ -16,14 +17,10 @@ size = Vector2(3, 3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_tl2fh"]
 size = Vector3(6, 0.5, 6)
 
-[sub_resource type="QuadMesh" id="QuadMesh_ob1w1"]
-size = Vector2(3, 2.5)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1tnxd"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2a8u2"]
-size = Vector3(5.5, 3.5, 0.5)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_j7cpt"]
-size = Vector2(0.25, 0.9)
+[sub_resource type="BoxMesh" id="BoxMesh_mvohm"]
+size = Vector3(0.25, 0.9, 0.01)
 
 [node name="Elevator" type="Node3D"]
 script = ExtResource("1_ewmj1")
@@ -35,96 +32,55 @@ gravity_space_override = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("BoxShape3D_gdwmc")
 
-[node name="Shell" type="Node3D" parent="."]
-
-[node name="Floor" type="MeshInstance3D" parent="Shell"]
-material_override = ExtResource("2_u28y0")
-mesh = SubResource("PlaneMesh_la4av")
-skeleton = NodePath("../..")
-
-[node name="Area3D" type="StaticBody3D" parent="Shell/Floor"]
-collision_layer = 3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Floor/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-shape = SubResource("BoxShape3D_tl2fh")
-
-[node name="Ceiling" type="MeshInstance3D" parent="Shell"]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.00475216, 2.5, 0.00142097)
+[node name="Ceiling" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.005, 2.2, 0.001)
 material_override = ExtResource("1_y3d5v")
 mesh = SubResource("PlaneMesh_la4av")
-skeleton = NodePath("../..")
 
-[node name="Area3D" type="StaticBody3D" parent="Shell/Ceiling"]
+[node name="Area3D" type="StaticBody3D" parent="Ceiling"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Ceiling/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_tl2fh")
 
-[node name="Wall" type="MeshInstance3D" parent="Shell"]
-transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 1.25, -1.5)
-material_override = ExtResource("4_5um2l")
-mesh = SubResource("QuadMesh_ob1w1")
+[node name="Floor" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_u28y0")
+mesh = SubResource("PlaneMesh_la4av")
 
-[node name="Area3D" type="StaticBody3D" parent="Shell/Wall"]
+[node name="Area3D" type="StaticBody3D" parent="Floor"]
+collision_layer = 3
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Wall/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
-shape = SubResource("BoxShape3D_2a8u2")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_tl2fh")
 
-[node name="Wall2" type="MeshInstance3D" parent="Shell"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1.5, 1.25, 0)
-material_override = ExtResource("4_5um2l")
-mesh = SubResource("QuadMesh_ob1w1")
-skeleton = NodePath("../..")
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="Area3D" type="StaticBody3D" parent="Shell/Wall2"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_1tnxd")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Wall2/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
-shape = SubResource("BoxShape3D_2a8u2")
+[node name="elevator" parent="." instance=ExtResource("4_5ecpc")]
 
-[node name="Wall3" type="MeshInstance3D" parent="Shell"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.25, 1.5)
-material_override = ExtResource("4_5um2l")
-mesh = SubResource("QuadMesh_ob1w1")
-skeleton = NodePath("../..")
-
-[node name="Area3D" type="StaticBody3D" parent="Shell/Wall3"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Wall3/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
-shape = SubResource("BoxShape3D_2a8u2")
-
-[node name="Wall4" type="MeshInstance3D" parent="Shell"]
-transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 1.5, 1.25, 0)
-material_override = ExtResource("4_5um2l")
-mesh = SubResource("QuadMesh_ob1w1")
-skeleton = NodePath("../..")
-
-[node name="Area3D" type="StaticBody3D" parent="Shell/Wall4"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Wall4/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
-shape = SubResource("BoxShape3D_2a8u2")
+[node name="Walls" parent="elevator" index="0"]
+material_override = ExtResource("5_7tpy2")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45, 0)
 light_energy = 0.5
 
 [node name="ElevatorDoor" parent="." instance=ExtResource("5_2iq45")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1.45)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1.1)
 portal_id = "ScienceComplexElevatorDoor"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
 [node name="ButtonPanel" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 1.3, -1)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.75, 1.3, 0.99)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="ButtonPanel"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.006)
 material_override = ExtResource("1_y3d5v")
-mesh = SubResource("PlaneMesh_j7cpt")
+mesh = SubResource("BoxMesh_mvohm")
 
 [node name="0" type="Node3D" parent="ButtonPanel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.375, 0)
@@ -237,3 +193,5 @@ outline_size = 2
 [connection signal="pressed" from="ButtonPanel/4/Button" to="." method="call_to_floor" binds= [4]]
 [connection signal="pressed" from="ButtonPanel/5/Button" to="." method="call_to_floor" binds= [5]]
 [connection signal="pressed" from="ButtonPanel/6/Button" to="." method="call_to_floor" binds= [6]]
+
+[editable path="elevator"]

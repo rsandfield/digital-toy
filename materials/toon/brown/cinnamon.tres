@@ -1,5 +1,8 @@
-[gd_resource type="StandardMaterial3D" format=3 uid="uid://i6cnups1ph01"]
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://i6cnups1ph01"]
+
+[ext_resource type="Material" uid="uid://15b2wm5b53vq" path="res://materials/toon/outline.tres" id="1_a51uc"]
 
 [resource]
+next_pass = ExtResource("1_a51uc")
 diffuse_mode = 3
 albedo_color = Color(0.882353, 0.756863, 0.431373, 1)
