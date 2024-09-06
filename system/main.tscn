@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bsqqblqddqyu5" path="res://system/science/elevator/elevator.tscn" id="4_thvuy"]
 [ext_resource type="PackedScene" uid="uid://c8ib1shc7ssuj" path="res://system/science/electronics_lab/electronics_lab.tscn" id="5_0wkuo"]
 [ext_resource type="PackedScene" uid="uid://dw1gq6s8dx8u3" path="res://system/science/chemistry_lab/chemistry_lab.tscn" id="6_3lchm"]
-[ext_resource type="PackedScene" uid="uid://b0qrg1ami6gg" path="res://system/science/janitor_closet/janitor_closet.tscn" id="7_h8gnx"]
+[ext_resource type="PackedScene" uid="uid://b0qrg1ami6gg" path="res://system/science/maintenance/janitor_closet.tscn" id="7_h8gnx"]
 
 [sub_resource type="Environment" id="Environment_yl7ny"]
 background_mode = 1

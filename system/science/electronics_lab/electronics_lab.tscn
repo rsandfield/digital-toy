@@ -1,10 +1,10 @@
 [gd_scene load_steps=24 format=3 uid="uid://c8ib1shc7ssuj"]
 
-[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/gray/white.tres" id="1_x06va"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_x06va"]
 [ext_resource type="PackedScene" uid="uid://c8tkdok74syyp" path="res://system/science/electronics_lab/elab/component/multiplexer/multiplexer.tscn" id="3_dfa1m"]
 [ext_resource type="PackedScene" uid="uid://btgovxcjd8hxg" path="res://system/science/electronics_lab/elab/component/oscilliscope/oscilliscope.tscn" id="4_3lcpm"]
 [ext_resource type="PackedScene" uid="uid://novjlejxb1rb" path="res://world/box.tscn" id="5_bpoxq"]
-[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/gray/dark_gray.tres" id="6_yk55s"]
+[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="6_yk55s"]
 [ext_resource type="PackedScene" uid="uid://bdiim43et1tln" path="res://system/science/electronics_lab/elab/component/speaker/speaker.tscn" id="7_3tmdm"]
 [ext_resource type="PackedScene" uid="uid://c51g5pwiyurqe" path="res://system/science/electronics_lab/elab/component/frequency_generator/frequency_generator.tscn" id="8_ixtka"]
 [ext_resource type="PackedScene" uid="uid://bpddq80asbpak" path="res://system/science/electronics_lab/elab/component/connector/wire.tscn" id="9_c5vff"]

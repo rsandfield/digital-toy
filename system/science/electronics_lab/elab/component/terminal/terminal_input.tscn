@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cwnerfcwgpjux"]
 
 [ext_resource type="Script" path="res://system/science/electronics_lab/elab/component/terminal/terminal_input.gd" id="1_bjj7l"]
-[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/blue/cornflower.tres" id="2_ehdkq"]
+[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="2_ehdkq"]
 [ext_resource type="Material" uid="uid://cl0bgm7cuq2qg" path="res://materials/translucent/white.tres" id="3_pdarp"]
 [ext_resource type="Script" path="res://system/science/electronics_lab/elab/component/terminal/terminal_collider.gd" id="4_0vuap"]
 

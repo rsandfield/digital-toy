@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://ci62o2ujjb43e"]
 
 [ext_resource type="Script" path="res://system/science/electronics_lab/elab/component/terminal/terminal_input.gd" id="1_8fsnr"]
-[ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/yellow/output.tres" id="2_ukr74"]
-[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/gray/gray.tres" id="3_d8yof"]
+[ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/flat/yellow/output.tres" id="2_ukr74"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="3_d8yof"]
 [ext_resource type="Script" path="res://io/grabbable.gd" id="4_h7ucp"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_mf5a4"]

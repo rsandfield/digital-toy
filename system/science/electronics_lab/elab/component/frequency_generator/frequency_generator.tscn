@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://system/science/electronics_lab/elab/component/frequency_generator/frequency_generator.gd" id="1_4vnsp"]
 [ext_resource type="PackedScene" uid="uid://bqh3x67i0so4s" path="res://system/science/electronics_lab/elab/component/terminal/terminal_output.tscn" id="2_b7sot"]
 [ext_resource type="Script" path="res://system/science/electronics_lab/elab/signal/sine_wave.gd" id="2_gd3eg"]
-[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/gray/gray.tres" id="3_5vmjf"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="3_5vmjf"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://io/button/button_round.tscn" id="4_q1fjy"]
 [ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://io/button/button_square.tscn" id="6_w7v7t"]
 [ext_resource type="PackedScene" uid="uid://drhj0wk517w1w" path="res://handle.tscn" id="7_wm6i1"]

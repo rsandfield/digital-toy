@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ckavj8trspter"]
+
+[ext_resource type="Material" uid="uid://etaxcng81j8o" path="res://materials/toon/textured/kitchen_tile.tres" id="1_jolja"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cmfj7"]
+size = Vector3(5, 1, 5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_nk3fs"]
+size = Vector2(5, 5)
+
+[node name="Kitchen" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_cmfj7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+material_override = ExtResource("1_jolja")
+mesh = SubResource("PlaneMesh_nk3fs")

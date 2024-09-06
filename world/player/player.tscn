@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bpyf6dv67t0bu"]
 
 [ext_resource type="Script" path="res://world/player/player.gd" id="1_vpsjh"]
-[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/gray/gray.tres" id="2_f6m87"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="2_f6m87"]
 [ext_resource type="Script" path="res://world/player/player_controller.gd" id="2_j10d1"]
 [ext_resource type="PackedScene" uid="uid://bclkrufcuif7j" path="res://world/player/hand.tscn" id="3_mq8jg"]
 [ext_resource type="Script" path="res://world/player/hud.gd" id="4_n37sw"]

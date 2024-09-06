@@ -3,10 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://biqbarit4261c" path="res://world/planet/planet.tscn" id="1_3eif2"]
 [ext_resource type="PackedScene" uid="uid://bpyf6dv67t0bu" path="res://world/player/player.tscn" id="1_njqok"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://world/portal/portal.tscn" id="3_ky6bd"]
-[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/blue/cornflower.tres" id="3_rq1or"]
-[ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/yellow/output.tres" id="5_36wqc"]
+[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="3_rq1or"]
+[ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/flat/yellow/output.tres" id="5_36wqc"]
 [ext_resource type="PackedScene" uid="uid://novjlejxb1rb" path="res://world/box.tscn" id="5_do4vw"]
-[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/gray/dark_gray.tres" id="7_fmlqv"]
+[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="7_fmlqv"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_fwkhw"]
 height = 4.0

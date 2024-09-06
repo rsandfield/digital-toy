@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://world/box.gd" id="1_0iua8"]
 [ext_resource type="PackedScene" uid="uid://novjlejxb1rb" path="res://world/box.tscn" id="2_67tu2"]
-[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/blue/cornflower.tres" id="3_pcerc"]
-[ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/yellow/output.tres" id="4_ay4gf"]
+[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="3_pcerc"]
+[ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/flat/yellow/output.tres" id="4_ay4gf"]
 [ext_resource type="Script" path="res://world/planet/gravity_area_3d.gd" id="5_fr327"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://world/portal/portal.tscn" id="5_lfptb"]
 

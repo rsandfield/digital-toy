@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://b0qrg1ami6gg"]
 
-[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/gray/white.tres" id="1_cfwj3"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_cfwj3"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://world/elevator/elevator_door.tscn" id="2_1ugxw"]
 [ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://io/button/button_square.tscn" id="3_8tib6"]
 

@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://d3parciy5wq6t"]
 
-[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/blue/cornflower.tres" id="1_lms14"]
+[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="1_lms14"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_u8iml"]
 radius = 1500.0

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://c7si62mhp1quw"]
 
-[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/gray/white.tres" id="1_5mg2n"]
-[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/gray/gray.tres" id="2_xjdyx"]
-[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/gray/dark_gray.tres" id="3_6digw"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_5mg2n"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="2_xjdyx"]
+[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="3_6digw"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_fa86g"]
 top_radius = 1.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://v0pq0pntjiw3"]
 
-[ext_resource type="Material" uid="uid://c6va14cbgsaav" path="res://materials/toon/red/tomato.tres" id="1_qlsj3"]
-[ext_resource type="Material" uid="uid://c8olidg62enqc" path="res://materials/toon/green/lime_green.tres" id="2_fvnvx"]
+[ext_resource type="Material" uid="uid://c6va14cbgsaav" path="res://materials/toon/flat/red/tomato.tres" id="1_qlsj3"]
+[ext_resource type="Material" uid="uid://c8olidg62enqc" path="res://materials/toon/flat/green/lime_green.tres" id="2_fvnvx"]
 [ext_resource type="PackedScene" uid="uid://c7si62mhp1quw" path="res://system/veg_moon/surface/landing_site/lander.tscn" id="3_afiq3"]
 [ext_resource type="PackedScene" uid="uid://da0cee4rc5vl" path="res://system/veg_moon/surface/landing_site/moon_buggy.tscn" id="4_s253k"]
 

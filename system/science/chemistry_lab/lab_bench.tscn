@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cv3pdjltjenxt"]
+
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_ercjd"]
+[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="2_vv2b2"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xx1nk"]
+size = Vector3(4, 0.9, 0.9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tivx2"]
+size = Vector3(4, 0.1, 1)
+
+[node name="LabBench" type="Node3D"]
+
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -0.05)
+material_override = ExtResource("1_ercjd")
+mesh = SubResource("BoxMesh_xx1nk")
+
+[node name="Top" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+material_override = ExtResource("2_vv2b2")
+mesh = SubResource("BoxMesh_tivx2")

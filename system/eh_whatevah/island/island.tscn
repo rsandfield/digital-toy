@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bskqs7mu2gu5t"]
 
-[ext_resource type="Material" uid="uid://bhu6jd8ixyir8" path="res://materials/toon/yellow/yellow.tres" id="1_quwfk"]
-[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/blue/cornflower.tres" id="2_i22xf"]
-[ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/brown/light_brown.tres" id="3_undna"]
+[ext_resource type="Material" uid="uid://bhu6jd8ixyir8" path="res://materials/toon/flat/yellow/yellow.tres" id="1_quwfk"]
+[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="2_i22xf"]
+[ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="3_undna"]
 [ext_resource type="PackedScene" uid="uid://drvb5ouiuodte" path="res://system/eh_whatevah/island/coconut.tscn" id="4_5q0ch"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_cfjhb"]

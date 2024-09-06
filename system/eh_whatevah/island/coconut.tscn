@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://drvb5ouiuodte"]
 
-[ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/brown/dark_brown.tres" id="1_3yfid"]
+[ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="1_3yfid"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_8k12b"]
 radius = 0.25

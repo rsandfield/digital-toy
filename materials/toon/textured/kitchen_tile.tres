@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://etaxcng81j8o"]
+
+[ext_resource type="Texture2D" uid="uid://0dr1wnw15tso" path="res://textures/tiles-black-and-white.png" id="1_yvswt"]
+[ext_resource type="Material" uid="uid://15b2wm5b53vq" path="res://materials/toon/outline.tres" id="2_734kv"]
+[ext_resource type="Texture2D" uid="uid://cxb36gt8y17pv" path="res://textures/tiles-normal.png" id="3_fnt3m"]
+
+[resource]
+next_pass = ExtResource("2_734kv")
+diffuse_mode = 3
+albedo_texture = ExtResource("1_yvswt")
+roughness = 0.1
+normal_enabled = true
+normal_texture = ExtResource("3_fnt3m")
+uv1_triplanar = true
+uv2_triplanar = true

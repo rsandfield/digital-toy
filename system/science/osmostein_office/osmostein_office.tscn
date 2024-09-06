@@ -1,9 +1,9 @@
 [gd_scene load_steps=19 format=3 uid="uid://cchecllelgvp8"]
 
-[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/gray/white.tres" id="1_p1m04"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_p1m04"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://world/elevator/elevator_door.tscn" id="2_7ao0t"]
 [ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://io/button/button_square.tscn" id="3_7cnky"]
-[ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/brown/dark_brown.tres" id="4_3bn11"]
+[ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="4_3bn11"]
 [ext_resource type="PackedScene" uid="uid://51ikjgcwxvr0" path="res://system/science/osmostein_office/blitz_blaster/blitz_blaster.tscn" id="5_lrk82"]
 [ext_resource type="PackedScene" uid="uid://dcrqiyoa3t83d" path="res://system/science/osmostein_office/chalk_board/chalk_board.tscn" id="6_bc4xc"]
 [ext_resource type="PackedScene" uid="uid://bfnyx3upy6pm3" path="res://world/osmo/osmo_placeholder.tscn" id="6_dv7yf"]
