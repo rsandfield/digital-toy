@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cibq40j068uje"]
 
-[ext_resource type="Script" path="res://system/science/electronics_lab/elab/component/terminal/terminal_output.gd" id="1_fp1d0"]
+[ext_resource type="Script" path="res://system/science/electronics_lab/component/terminal/terminal_output.gd" id="1_fp1d0"]
 [ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="2_hf12t"]
 [ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="3_gmbgr"]
 [ext_resource type="Script" path="res://io/grabbable.gd" id="4_6q0e5"]

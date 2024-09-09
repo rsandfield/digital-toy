@@ -1,0 +1,51 @@
+[gd_scene load_steps=7 format=3 uid="uid://duq07sa5f3vkx"]
+
+[ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="1_mb5os"]
+[ext_resource type="Material" uid="uid://t85cgc1iu6x8" path="res://materials/toon/flat/metal/gold.tres" id="2_q3yal"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_h3jdp"]
+top_radius = 0.4
+bottom_radius = 0.4
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wkreh"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_fa7vy"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_c3s4d"]
+top_radius = 0.01
+bottom_radius = 0.01
+height = 1.75
+
+[node name="JacobsLadder" type="Node3D"]
+
+[node name="Tier1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+material_override = ExtResource("1_mb5os")
+mesh = SubResource("CylinderMesh_h3jdp")
+
+[node name="Tier2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0)
+material_override = ExtResource("1_mb5os")
+mesh = SubResource("CylinderMesh_wkreh")
+
+[node name="Tier3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+material_override = ExtResource("1_mb5os")
+mesh = SubResource("CylinderMesh_fa7vy")
+
+[node name="Rod1" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.996195, 0.0871557, 0, -0.0871557, 0.996195, 0, 0, 0, 1, 0.115, 1.15, 0)
+material_overlay = ExtResource("2_q3yal")
+mesh = SubResource("CylinderMesh_c3s4d")
+
+[node name="Rod2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.996195, -0.0871557, 0, 0.0871557, 0.996195, 0, 0, 0, 1, -0.115, 1.15, 0)
+material_override = ExtResource("2_q3yal")
+mesh = SubResource("CylinderMesh_c3s4d")

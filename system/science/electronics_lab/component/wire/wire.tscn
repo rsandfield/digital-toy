@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://dfd2ju6ih12e0"]
 
-[ext_resource type="Script" path="res://system/science/electronics_lab/elab/component/wire/wire.gd" id="1_3wgsm"]
-[ext_resource type="PackedScene" uid="uid://ci62o2ujjb43e" path="res://system/science/electronics_lab/elab/component/wire/connector_input.tscn" id="3_dp5p0"]
-[ext_resource type="PackedScene" path="res://addons/rope3d/Rope3D.tscn" id="4_jyj5j"]
-[ext_resource type="PackedScene" uid="uid://cibq40j068uje" path="res://system/science/electronics_lab/elab/component/wire/connector_output.tscn" id="4_yfyvv"]
+[ext_resource type="Script" path="res://system/science/electronics_lab/component/wire/wire.gd" id="1_3wgsm"]
+[ext_resource type="PackedScene" uid="uid://ci62o2ujjb43e" path="res://system/science/electronics_lab/component/wire/connector_input.tscn" id="3_dp5p0"]
+[ext_resource type="PackedScene" uid="uid://cxcrxm8x8terr" path="res://addons/rope3d/Rope3D.tscn" id="4_jyj5j"]
+[ext_resource type="PackedScene" uid="uid://cibq40j068uje" path="res://system/science/electronics_lab/component/wire/connector_output.tscn" id="4_yfyvv"]
 
 [node name="Wire" type="Node3D" node_paths=PackedStringArray("inputs", "outputs")]
 script = ExtResource("1_3wgsm")

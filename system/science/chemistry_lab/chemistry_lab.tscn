@@ -13,11 +13,11 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_pdc8f"]
 size = Vector3(10, 5, 10)
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_y8qoc"]
-size = Vector2(5, 5)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ehxr"]
 size = Vector3(6, 0.5, 6)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_y8qoc"]
+size = Vector2(5, 5)
 
 [node name="ChemistryLab" type="Node3D"]
 
@@ -36,27 +36,22 @@ gravity_space_override = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("BoxShape3D_pdc8f")
 
-[node name="Shell" type="Node3D" parent="."]
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 3
 
-[node name="Floor" type="MeshInstance3D" parent="Shell"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_6ehxr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 material_override = ExtResource("1_s8suv")
 mesh = SubResource("PlaneMesh_y8qoc")
 skeleton = NodePath("../..")
 
-[node name="Area3D" type="StaticBody3D" parent="Shell/Floor"]
-collision_layer = 3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Floor/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-shape = SubResource("BoxShape3D_6ehxr")
-
-[node name="Ceiling" type="MeshInstance3D" parent="Shell"]
+[node name="Ceiling" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.4, 0)
 material_override = ExtResource("1_lavwm")
 mesh = SubResource("PlaneMesh_y8qoc")
-skeleton = NodePath("../..")
-
-[node name="Area3D" type="StaticBody3D" parent="Shell/Ceiling"]
 
 [node name="ElevatorDoor" parent="." instance=ExtResource("2_l2nfu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.2)
