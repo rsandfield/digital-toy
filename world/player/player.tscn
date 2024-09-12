@@ -8,6 +8,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tlvg5"]
 radius = 0.25
+height = 1.75
 
 [sub_resource type="SphereMesh" id="SphereMesh_usj8j"]
 radius = 0.1

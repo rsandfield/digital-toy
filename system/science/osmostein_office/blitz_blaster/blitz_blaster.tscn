@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://51ikjgcwxvr0"]
+[gd_scene load_steps=15 format=3 uid="uid://51ikjgcwxvr0"]
 
 [ext_resource type="Script" path="res://system/science/osmostein_office/blitz_blaster/blitz_blaster.gd" id="1_0jg6w"]
 [ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="2_iljeu"]
 [ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="3_1626q"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="4_b6xa8"]
 [ext_resource type="Script" path="res://io/button/button3d.gd" id="4_rcp5v"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ts4ga"]
@@ -71,6 +72,7 @@ mesh = SubResource("PrismMesh_ifiyw")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Control"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.05, -0.05, 0)
+material_override = ExtResource("4_b6xa8")
 mesh = SubResource("CylinderMesh_hgocj")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="Control"]

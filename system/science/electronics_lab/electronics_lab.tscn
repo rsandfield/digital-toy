@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c8ib1shc7ssuj"]
+[gd_scene load_steps=25 format=3 uid="uid://c8ib1shc7ssuj"]
 
 [ext_resource type="Material" uid="uid://xf2b11l8y7k5" path="res://materials/toon/flat/gray/light_gray.tres" id="2_ruqsi"]
 [ext_resource type="PackedScene" uid="uid://c8tkdok74syyp" path="res://system/science/electronics_lab/component/multiplexer/multiplexer.tscn" id="3_dfa1m"]
@@ -14,6 +14,7 @@
 [ext_resource type="Material" uid="uid://dhah1rj3f2g6" path="res://materials/toon/flat/green/dark_green.tres" id="13_cwvcd"]
 [ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://system/science/elevator/elevator_call_button.tscn" id="13_dt4vr"]
 [ext_resource type="PackedScene" uid="uid://duq07sa5f3vkx" path="res://system/science/electronics_lab/jacobs_ladder/jacobs_ladder.tscn" id="14_8f2n3"]
+[ext_resource type="PackedScene" uid="uid://dxv841elmc0h" path="res://system/science/electronics_lab/clock/clock.tscn" id="15_57e8f"]
 
 [sub_resource type="Environment" id="Environment_8ybyx"]
 
@@ -26,12 +27,12 @@ size = Vector2(5, 5)
 [sub_resource type="BoxShape3D" id="BoxShape3D_hky4l"]
 size = Vector3(6, 0.5, 6)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_7pdvw"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_uw2d8"]
 viewport_path = NodePath("WaveScreen/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l1fya"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ht1vi"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_7pdvw")
+albedo_texture = SubResource("ViewportTexture_uw2d8")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_14tq6"]
 resource_local_to_scene = true
@@ -112,7 +113,7 @@ connection = NodePath("../../Wire3")
 connection = NodePath("../../Wire2")
 
 [node name="WaveScreen" parent="Oscilliscope" index="4"]
-material_override = SubResource("StandardMaterial3D_l1fya")
+material_override = SubResource("StandardMaterial3D_ht1vi")
 
 [node name="Table" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
@@ -195,6 +196,9 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.
 
 [node name="JacobsLadder" parent="." instance=ExtResource("14_8f2n3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 0, -1.55)
+
+[node name="Clock" parent="." instance=ExtResource("15_57e8f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.75, -2)
 
 [editable path="Lab"]
 [editable path="Multiplexer"]

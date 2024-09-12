@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://ckanln7h5hc43"]
+
+[ext_resource type="Texture2D" uid="uid://cw0u35lk372ei" path="res://textures/earth-texture_1110-696.jpg" id="1_keppx"]
+[ext_resource type="Material" uid="uid://15b2wm5b53vq" path="res://materials/toon/outline.tres" id="2_stpu3"]
+
+[resource]
+next_pass = ExtResource("2_stpu3")
+diffuse_mode = 3
+albedo_texture = ExtResource("1_keppx")
+uv1_triplanar = true
+uv2_triplanar = true

@@ -14,8 +14,8 @@ func _physics_process(delta):
 	# Add the gravity.
 	gravity = PhysicsServer3D.body_get_direct_state(get_rid()).total_gravity
 	var orientation = _get_gravity_orientation()
-	# rotation = rotation.move_toward(orientation, delta)
-	rotation = orientation
+	rotation = rotation.move_toward(orientation, delta)
+	# rotation = orientation
 	if gravity != Vector3.ZERO:
 		up_direction = -gravity.normalized()
 
@@ -38,14 +38,9 @@ func move(delta, input_dir):
 
 func _get_gravity_orientation() -> Vector3:	
 	var orientation_direction = Quaternion(global_basis.y, -gravity) * global_basis.get_rotation_quaternion()
-	orientation_direction *= Quaternion($Head.basis.y, $Head.rotation.y)
-	$Head.rotation.y = 0
+	# orientation_direction *= Quaternion(global_basis.y, $Head.rotation.y)
+	# $Head.rotation.y = 0
 	var eulered = orientation_direction.normalized().get_euler()
-	if !eulered.is_equal_approx(global_rotation):
-		print($Head.rotation.y)
-	# 	return global_rotation
-	# print("E%s != G%s [A%s]" % [eulered, rotation, eulered.angle_to(rotation)])
-	# print("H%s" % [$Head.rotation])
 	return eulered
 
 func _on_portal_tracking_enter(portal: Portal) -> void:

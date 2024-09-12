@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://cjsrewmy7joht"]
+
+[ext_resource type="Texture2D" uid="uid://bsab23h150cqx" path="res://textures/gray-marble-slate-textured-background_53876-104660.jpg" id="1_avhnb"]
+[ext_resource type="Material" uid="uid://15b2wm5b53vq" path="res://materials/toon/outline.tres" id="2_o1604"]
+
+[resource]
+next_pass = ExtResource("2_o1604")
+diffuse_mode = 3
+albedo_texture = ExtResource("1_avhnb")
+uv1_triplanar = true
+uv2_triplanar = true

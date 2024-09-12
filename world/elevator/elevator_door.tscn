@@ -1,7 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://pwn6uehsrwta"]
+[gd_scene load_steps=9 format=3 uid="uid://pwn6uehsrwta"]
 
 [ext_resource type="Script" path="res://world/elevator/elevator_door.gd" id="1_ba277"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://world/portal/portal.tscn" id="2_k0rvu"]
+
+[sub_resource type="Animation" id="Animation_tjbk3"]
+length = 0.001
+tracks/0/type = "scale_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorL")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 1, 1)
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorR")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 1, 1, 1)
 
 [sub_resource type="Animation" id="Animation_t32mc"]
 resource_name = "close"
@@ -12,14 +29,28 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("DoorL")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.5, 0, 0, 0.4, 1, 0, 0, 0)
+tracks/0/keys = PackedFloat32Array(0.0333333, 1, -0.48, 0, 0, 0.4, 1, 0, 0, 0)
 tracks/1/type = "position_3d"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("DoorR")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0.5, 0, 0, 0.4, 1, 0, 0, 0)
+tracks/1/keys = PackedFloat32Array(0, 1, 0.48, 0, 0, 0.366667, 1, 0, 0, 0)
+tracks/2/type = "scale_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DoorL")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0.0333333, 1, 0.05, 1, 1, 0.4, 1, 1, 1, 1)
+tracks/3/type = "scale_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DoorR")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.05, 1, 1, 0.366667, 1, 1, 1, 1)
 
 [sub_resource type="Animation" id="Animation_8ldqg"]
 resource_name = "open"
@@ -30,23 +61,38 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("DoorL")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.4, 1, -0.5, 0, 0)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.366667, 1, -0.48, 0, 0)
 tracks/1/type = "position_3d"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("DoorR")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.4, 1, 0.5, 0, 0)
+tracks/1/keys = PackedFloat32Array(0.0333333, 1, 0, 0, 0, 0.4, 1, 0.48, 0, 0)
+tracks/2/type = "scale_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("DoorL")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.366667, 1, 0.05, 1, 1)
+tracks/3/type = "scale_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("DoorR")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0.0333333, 1, 1, 1, 1, 0.4, 1, 0.05, 1, 1)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_651lw"]
 _data = {
+"RESET": SubResource("Animation_tjbk3"),
 "close": SubResource("Animation_t32mc"),
 "open": SubResource("Animation_8ldqg")
 }
 
 [sub_resource type="BoxMesh" id="BoxMesh_j7io0"]
-size = Vector3(0.6, 2.1, 0.1)
+size = Vector3(0.6, 2.1, 0.05)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_olwgd"]
 size = Vector3(0.6, 2, 0.1)
@@ -64,7 +110,12 @@ libraries = {
 [node name="DoorL" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DoorL"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 1, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 1, -0.03)
+mesh = SubResource("BoxMesh_j7io0")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="DoorL"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 1, 0.03)
 mesh = SubResource("BoxMesh_j7io0")
 skeleton = NodePath("../..")
 
@@ -77,7 +128,12 @@ shape = SubResource("BoxShape3D_olwgd")
 [node name="DoorR" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="DoorR"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.293734, 1, -0.00348806)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 1, -0.03)
+mesh = SubResource("BoxMesh_j7io0")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="DoorR"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 1, 0.03)
 mesh = SubResource("BoxMesh_j7io0")
 skeleton = NodePath("../..")
 

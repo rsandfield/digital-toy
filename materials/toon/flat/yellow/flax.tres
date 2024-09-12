@@ -5,4 +5,4 @@
 [resource]
 next_pass = ExtResource("1_wyb6h")
 diffuse_mode = 3
-albedo_color = Color(0.760784, 0.815686, 0.482353, 1)
+albedo_color = Color(0.933333, 0.862745, 0.509804, 1)

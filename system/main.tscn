@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://u7bv4v700ays" path="res://system/science/science_world.tscn" id="1_82qo1"]
 [ext_resource type="PackedScene" uid="uid://btsnu7unumae" path="res://system/science/entry/entry.tscn" id="1_tasic"]
-[ext_resource type="PackedScene" uid="uid://carko7khdtrcy" path="res://system/science/ant_farm/ant_farm.tscn" id="2_3xqbs"]
+[ext_resource type="PackedScene" uid="uid://carko7khdtrcy" path="res://system/science/ant_farm/elevator_entry/ant_farm.tscn" id="2_3xqbs"]
 [ext_resource type="PackedScene" uid="uid://cchecllelgvp8" path="res://system/science/osmostein_office/osmostein_office.tscn" id="2_ophj3"]
 [ext_resource type="PackedScene" uid="uid://8rlunwwypb1g" path="res://system/science/microscope_lab/microscope_lab.tscn" id="3_mgtbk"]
 [ext_resource type="PackedScene" uid="uid://bpyf6dv67t0bu" path="res://world/player/player.tscn" id="3_xhle6"]
@@ -95,7 +95,6 @@ render_target_update_mode = 4
 floors = Array[String](["ScienceEntryElevatorDoor", "OsmosteinOfficeElevatorDoor", "MicroscopeLabElevatorDoor", "AntFarmElevatorDoor", "ElectronicsLabElevatorDoor", "ChemistryLabElevatorDoor", "JanitorClosetElevatorDoor"])
 
 [node name="Player" parent="SubViewportContainer/ScienceElevatorSubViewport" instance=ExtResource("3_xhle6")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="ScienceWorldViewport" type="SubViewport" parent="SubViewportContainer"]
 own_world_3d = true

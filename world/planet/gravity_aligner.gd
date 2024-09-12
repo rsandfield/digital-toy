@@ -28,7 +28,5 @@ func _physics_process(_delta):
 
 func align_parent() -> void:
     var up = -PhysicsServer3D.body_get_direct_state(get_rid()).total_gravity
-    print(up)
     var orientation_direction = Quaternion(global_basis.y, up) * global_basis.get_rotation_quaternion()
     get_parent().global_rotation = orientation_direction.normalized().get_euler()
-    print(get_parent().global_rotation)
