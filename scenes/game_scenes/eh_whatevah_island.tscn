@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://bskqs7mu2gu5t"]
+
+[ext_resource type="Material" uid="uid://bhu6jd8ixyir8" path="res://materials/toon/flat/yellow/yellow.tres" id="1_quwfk"]
+[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="2_i22xf"]
+[ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="3_undna"]
+[ext_resource type="PackedScene" uid="uid://drvb5ouiuodte" path="res://scenes/props/eh_whatevah/island/coconut.tscn" id="4_5q0ch"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_cfjhb"]
+radius = 20.0
+height = 2.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_cr5um"]
+size = Vector2(80, 80)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_owkka"]
+top_radius = 0.25
+bottom_radius = 0.25
+height = 8.0
+
+[node name="Island" type="Node3D"]
+
+[node name="Sand" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("1_quwfk")
+mesh = SubResource("SphereMesh_cfjhb")
+
+[node name="Sea" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_i22xf")
+mesh = SubResource("PlaneMesh_cr5um")
+
+[node name="Trunk" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
+material_override = ExtResource("3_undna")
+mesh = SubResource("CylinderMesh_owkka")
+
+[node name="Coconut" parent="." instance=ExtResource("4_5q0ch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.590832, 8.00594, 0)

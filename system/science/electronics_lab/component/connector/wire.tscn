@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bpddq80asbpak"]
-
-[ext_resource type="Script" path="res://system/science/electronics_lab/component/connector/connector.gd" id="1_wfp7h"]
-
-[node name="Wire" type="Node3D"]
-script = ExtResource("1_wfp7h")

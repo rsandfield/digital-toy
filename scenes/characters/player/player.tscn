@@ -1,0 +1,59 @@
+[gd_scene load_steps=8 format=3 uid="uid://bpyf6dv67t0bu"]
+
+[ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_vpsjh"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="2_f6m87"]
+[ext_resource type="Script" path="res://scenes/characters/player/player_controller.gd" id="2_j10d1"]
+[ext_resource type="PackedScene" uid="uid://bclkrufcuif7j" path="res://scenes/characters/player/hand.tscn" id="3_mq8jg"]
+[ext_resource type="Script" path="res://scenes/characters/player/hud.gd" id="4_n37sw"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tlvg5"]
+radius = 0.25
+height = 1.75
+
+[sub_resource type="SphereMesh" id="SphereMesh_usj8j"]
+radius = 0.1
+height = 0.2
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_vpsjh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_tlvg5")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+script = ExtResource("2_j10d1")
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0.1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
+material_override = ExtResource("2_f6m87")
+mesh = SubResource("SphereMesh_usj8j")
+skeleton = NodePath("../..")
+
+[node name="Hand L" type="Node3D" parent="Head"]
+transform = Transform3D(-0.5, -0.866025, 8.74228e-08, -0.866025, 0.5, 0, -4.37114e-08, -7.57103e-08, -1, -0.25, -0.3, 0.5)
+
+[node name="Hand" parent="Head/Hand L" instance=ExtResource("3_mq8jg")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Hand R" type="Node3D" parent="Head"]
+transform = Transform3D(-0.5, 0.866025, -8.74228e-08, 0.866025, 0.5, 0, 4.37114e-08, -7.57103e-08, -1, 0.25, -0.3, 0.5)
+
+[node name="Hand" parent="Head/Hand R" instance=ExtResource("3_mq8jg")]
+
+[node name="HoldPosition" type="Node3D" parent="Head"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.2, 0.8)
+
+[node name="RayCast" type="RayCast3D" parent="Head"]
+target_position = Vector3(0, 0, 2)
+collide_with_areas = true
+
+[node name="HUD" type="Node2D" parent="Head"]
+script = ExtResource("4_n37sw")
+color = Color(1, 1, 1, 0.752941)
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]

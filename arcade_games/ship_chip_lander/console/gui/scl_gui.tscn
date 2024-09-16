@@ -1,0 +1,114 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5s7feyq1m5ke"]
+
+[ext_resource type="Theme" uid="uid://ceictlo3adj2v" path="res://arcade_games/ship_chip_lander/scl_theme.tres" id="1_lnn0s"]
+[ext_resource type="Script" path="res://arcade_games/ship_chip_lander/console/gui/scl_gui.gd" id="2_ld2bv"]
+
+[node name="HUD" type="MarginContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = ExtResource("1_lnn0s")
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 40
+script = ExtResource("2_ld2bv")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+alignment = 1
+
+[node name="game" type="GridContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_lnn0s")
+columns = 2
+
+[node name="score_label" type="Label" parent="HBoxContainer/game"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "SCORE"
+
+[node name="score_display" type="Label" parent="HBoxContainer/game"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "  0"
+horizontal_alignment = 2
+
+[node name="time_label" type="Label" parent="HBoxContainer/game"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "TIME"
+
+[node name="time_display" type="Label" parent="HBoxContainer/game"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "0"
+horizontal_alignment = 2
+
+[node name="fuel_label" type="Label" parent="HBoxContainer/game"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "FUEL"
+
+[node name="fuel_display" type="Label" parent="HBoxContainer/game"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "0"
+horizontal_alignment = 2
+
+[node name="vectors" type="GridContainer" parent="HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+columns = 3
+
+[node name="altitude_label" type="Label" parent="HBoxContainer/vectors"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "ALTITUDE"
+
+[node name="altitude_display" type="Label" parent="HBoxContainer/vectors"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "  0"
+horizontal_alignment = 2
+
+[node name="altitude_arrow" type="Label" parent="HBoxContainer/vectors"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+horizontal_alignment = 1
+
+[node name="horizontal_label" type="Label" parent="HBoxContainer/vectors"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "HORIZONTAL SPEED"
+
+[node name="horizontal_display" type="Label" parent="HBoxContainer/vectors"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "  0"
+horizontal_alignment = 2
+
+[node name="horizontal_arrow" type="Label" parent="HBoxContainer/vectors"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "→"
+horizontal_alignment = 1
+
+[node name="vertical_label" type="Label" parent="HBoxContainer/vectors"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "VERTICAL SPEED"
+
+[node name="vertical_display" type="Label" parent="HBoxContainer/vectors"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "  0"
+horizontal_alignment = 2
+
+[node name="vertical_arrow" type="Label" parent="HBoxContainer/vectors"]
+layout_mode = 2
+theme = ExtResource("1_lnn0s")
+text = "↑"
+horizontal_alignment = 1

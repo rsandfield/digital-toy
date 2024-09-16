@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://caatomjay5b4q"]
+
+[ext_resource type="PackedScene" uid="uid://ks0em41b8fap" path="res://arcade_games/ship_chip_lander/console/controller/ship_chip_lander.tscn" id="2_c1hgl"]
+[ext_resource type="Theme" uid="uid://ceictlo3adj2v" path="res://arcade_games/ship_chip_lander/scl_theme.tres" id="2_gq2ao"]
+
+[node name="Control" type="VBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Tester" type="SubViewportContainer" parent="."]
+layout_mode = 2
+
+[node name="ShipChipLander" parent="Tester" instance=ExtResource("2_c1hgl")]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+theme = ExtResource("2_gq2ao")
+text = "BEGIN"
+
+[connection signal="pressed" from="Button" to="Tester/ShipChipLander" method="start_game"]

@@ -1,0 +1,87 @@
+[gd_scene load_steps=13 format=3 uid="uid://carko7khdtrcy"]
+
+[ext_resource type="PackedScene" uid="uid://csivoeik6cap1" path="res://scenes/props/science/ant_farm/elevator_entry/ant_farm.blend" id="2_fgmsl"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_jx50l"]
+[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="2_rgrxn"]
+[ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://scenes/props/io/button/button_square.tscn" id="3_fj65n"]
+[ext_resource type="Material" uid="uid://dg71nts2qy11r" path="res://materials/toon/flat/green/green.tres" id="3_tyoey"]
+[ext_resource type="Material" uid="uid://ckanln7h5hc43" path="res://materials/toon/textured/soil.tres" id="4_gagp4"]
+[ext_resource type="PackedScene" uid="uid://dcga1ygfqc2ts" path="res://scenes/props/science/ant_farm/light_bulb.tscn" id="6_f4br4"]
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="8_eq5vn"]
+
+[sub_resource type="Environment" id="Environment_buxm4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pdc8f"]
+size = Vector3(10, 10, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_y8qoc"]
+size = Vector2(5, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ehxr"]
+size = Vector3(6, 0.5, 6)
+
+[node name="AntFarm" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_buxm4")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
+spot_range = 8.0
+spot_angle = 60.0
+
+[node name="Gravity" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_pdc8f")
+
+[node name="Shell" type="Node3D" parent="."]
+
+[node name="Ceiling" type="MeshInstance3D" parent="Shell"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.4, 0)
+material_override = ExtResource("2_rgrxn")
+mesh = SubResource("PlaneMesh_y8qoc")
+skeleton = NodePath("../..")
+
+[node name="Area3D" type="StaticBody3D" parent="Shell/Ceiling"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Ceiling/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_6ehxr")
+
+[node name="ant_farm" parent="." instance=ExtResource("2_fgmsl")]
+
+[node name="Walls" parent="ant_farm" index="0"]
+layers = 3
+material_override = ExtResource("3_tyoey")
+
+[node name="StaticBody3D" parent="ant_farm/Walls" index="0"]
+collision_layer = 3
+
+[node name="Floor" parent="ant_farm" index="1"]
+layers = 3
+material_override = ExtResource("4_gagp4")
+
+[node name="StaticBody3D" parent="ant_farm/Floor" index="0"]
+collision_layer = 3
+
+[node name="ElevatorDoor" parent="." instance=ExtResource("2_jx50l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.45)
+portal_id = "science_ant_farm_elevator_door"
+
+[node name="Button" parent="." instance=ExtResource("3_fj65n")]
+transform = Transform3D(4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, -0.8, 1.2, 2.5)
+
+[node name="LightBulb" parent="." instance=ExtResource("6_f4br4")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -2.28348, 1.02228)
+
+[node name="Portal" parent="." instance=ExtResource("8_eq5vn")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.9, -4, 0.25)
+portal_id = "AntFarmPortal"
+other_portal_id = "AntTunnelFarmPortal"
+size = Vector2(2.5, 3)
+
+[editable path="ant_farm"]

@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://dw1gq6s8dx8u3"]
+
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_lavwm"]
+[ext_resource type="Material" uid="uid://c6e7pege12uqm" path="res://materials/toon/flat/brown/russet.tres" id="1_s8suv"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_l2nfu"]
+[ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/science/elevator/elevator_call_button.tscn" id="4_4fvvl"]
+[ext_resource type="PackedScene" uid="uid://cv3pdjltjenxt" path="res://scenes/props/science/chemistry_lab/lab_bench.tscn" id="4_aoxnq"]
+[ext_resource type="PackedScene" uid="uid://x4cpkdjdg013" path="res://scenes/props/science/chemistry_lab/Lab.blend" id="6_ri7nf"]
+[ext_resource type="Material" uid="uid://dk0kkauetiv64" path="res://materials/toon/flat/gray/slate.tres" id="7_bkbvn"]
+
+[sub_resource type="Environment" id="Environment_buxm4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pdc8f"]
+size = Vector3(10, 5, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6ehxr"]
+size = Vector3(6, 0.5, 6)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_y8qoc"]
+size = Vector2(5, 5)
+
+[node name="ChemistryLab" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_buxm4")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
+spot_range = 8.0
+spot_angle = 60.0
+
+[node name="Gravity" type="Area3D" parent="."]
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_pdc8f")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_6ehxr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+material_override = ExtResource("1_s8suv")
+mesh = SubResource("PlaneMesh_y8qoc")
+skeleton = NodePath("../..")
+
+[node name="Ceiling" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.4, 0)
+material_override = ExtResource("1_lavwm")
+mesh = SubResource("PlaneMesh_y8qoc")
+
+[node name="ElevatorDoor" parent="." instance=ExtResource("2_l2nfu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.2)
+portal_id = "science_chemistry_elevator_door"
+
+[node name="LabBench" parent="." instance=ExtResource("4_aoxnq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[node name="ElevatorCallButton" parent="." instance=ExtResource("4_4fvvl")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 2)
+
+[node name="Lab" parent="." instance=ExtResource("6_ri7nf")]
+
+[node name="Walls" parent="Lab" index="0"]
+material_override = ExtResource("7_bkbvn")
+
+[editable path="Lab"]

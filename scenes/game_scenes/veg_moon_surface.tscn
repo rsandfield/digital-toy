@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://v0pq0pntjiw3"]
+
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_05fuw"]
+[ext_resource type="Material" uid="uid://c6va14cbgsaav" path="res://materials/toon/flat/red/tomato.tres" id="1_qlsj3"]
+[ext_resource type="Material" uid="uid://c8olidg62enqc" path="res://materials/toon/flat/green/lime_green.tres" id="2_fvnvx"]
+[ext_resource type="PackedScene" uid="uid://c7si62mhp1quw" path="res://scenes/props/veg_moon/surface/landing_site/lander.tscn" id="3_afiq3"]
+[ext_resource type="PackedScene" uid="uid://da0cee4rc5vl" path="res://scenes/props/veg_moon/surface/landing_site/moon_buggy.tscn" id="4_s253k"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qc602"]
+radius = 300.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_uun1e"]
+radius = 200.0
+height = 400.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_6qatl"]
+size = Vector3(70, 2, 70)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gsph2"]
+radius = 3.0
+height = 20.0
+
+[node name="VegMoon" type="Node3D"]
+script = ExtResource("1_05fuw")
+
+[node name="Planet" type="Area3D" parent="."]
+gravity_space_override = 1
+gravity_point = true
+gravity_point_unit_distance = 200.0
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet"]
+shape = SubResource("SphereShape3D_qc602")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Planet"]
+material_override = ExtResource("1_qlsj3")
+mesh = SubResource("SphereMesh_uun1e")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Planet"]
+transform = Transform3D(0.965868, 0.0374793, -0.256311, 0.179332, 0.617265, 0.766044, 0.186923, -0.785862, 0.589475, 0, 120, -160)
+material_override = ExtResource("2_fvnvx")
+mesh = SubResource("BoxMesh_6qatl")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Planet/MeshInstance3D2"]
+transform = Transform3D(1, -2.98023e-08, 0, 0, 1, 2.98023e-08, -7.45058e-09, 0, 1, 0, 8, 0)
+material_override = ExtResource("2_fvnvx")
+mesh = SubResource("CapsuleMesh_gsph2")
+skeleton = NodePath("../..")
+
+[node name="Lander" parent="." instance=ExtResource("3_afiq3")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -200)
+
+[node name="MoonBuggy" parent="." instance=ExtResource("4_s253k")]
+transform = Transform3D(1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, -10, -9, -199)
