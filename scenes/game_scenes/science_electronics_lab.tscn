@@ -8,9 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://bdiim43et1tln" path="res://scenes/props/science/electronics_lab/component/speaker/speaker.tscn" id="7_3tmdm"]
 [ext_resource type="PackedScene" uid="uid://c51g5pwiyurqe" path="res://scenes/props/science/electronics_lab/component/frequency_generator/frequency_generator.tscn" id="8_ixtka"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="11_l6td4"]
-[ext_resource type="PackedScene" uid="uid://x4cpkdjdg013" path="res://scenes/props/science/chemistry_lab/Lab.blend" id="12_m28k6"]
+[ext_resource type="PackedScene" uid="uid://x4cpkdjdg013" path="res://models/rooms/science/lab.blend" id="12_m28k6"]
 [ext_resource type="Material" uid="uid://dhah1rj3f2g6" path="res://materials/toon/flat/green/dark_green.tres" id="13_cwvcd"]
-[ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/science/elevator/elevator_call_button.tscn" id="13_dt4vr"]
+[ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="13_dt4vr"]
 [ext_resource type="PackedScene" uid="uid://duq07sa5f3vkx" path="res://scenes/props/science/electronics_lab/jacobs_ladder/jacobs_ladder.tscn" id="14_8f2n3"]
 [ext_resource type="PackedScene" uid="uid://dxv841elmc0h" path="res://scenes/props/science/electronics_lab/clock/clock.tscn" id="15_57e8f"]
 

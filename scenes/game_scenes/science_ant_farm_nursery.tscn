@@ -1,0 +1,182 @@
+[gd_scene load_steps=24 format=3 uid="uid://i3olwijans8q"]
+
+[ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="1_8r4t7"]
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_20ns8"]
+[ext_resource type="PackedScene" uid="uid://3kmqctkv66io" path="res://scenes/props/science/ant_farm/baby_bell.tscn" id="2_liuvs"]
+[ext_resource type="PackedScene" uid="uid://ba6t5e8qgtyya" path="res://scenes/props/science/ant_farm/baby_ant.tscn" id="2_tu7lk"]
+[ext_resource type="PackedScene" uid="uid://cux5fo1kppqjw" path="res://models/rooms/science/ant_nursery.blend" id="3_cwi3s"]
+[ext_resource type="PackedScene" uid="uid://dcga1ygfqc2ts" path="res://scenes/props/io/lights/light_bulb.tscn" id="3_om2xx"]
+[ext_resource type="Material" uid="uid://ckanln7h5hc43" path="res://materials/toon/textured/soil.tres" id="4_fa2hj"]
+[ext_resource type="Script" path="res://scripts/io/music/music_box.gd" id="5_hxy15"]
+[ext_resource type="Script" path="res://scripts/io/music/tone.gd" id="6_gx87j"]
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="7_a12ie"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c5thh"]
+size = Vector3(10, 5, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fbesk"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_px1p8"]
+size = Vector3(10, 0.5, 10)
+
+[sub_resource type="Resource" id="Resource_okiey"]
+script = ExtResource("6_gx87j")
+note = 4
+shift = 0
+octave = 3
+
+[sub_resource type="Resource" id="Resource_dwlmr"]
+script = ExtResource("6_gx87j")
+note = 5
+shift = 0
+octave = 3
+
+[sub_resource type="Resource" id="Resource_1bexy"]
+script = ExtResource("6_gx87j")
+note = 6
+shift = 0
+octave = 3
+
+[sub_resource type="Resource" id="Resource_o8nl5"]
+script = ExtResource("6_gx87j")
+note = 0
+shift = 0
+octave = 4
+
+[sub_resource type="Resource" id="Resource_7uj0o"]
+script = ExtResource("6_gx87j")
+note = 1
+shift = 0
+octave = 4
+
+[sub_resource type="Resource" id="Resource_5q47o"]
+script = ExtResource("6_gx87j")
+note = 2
+shift = 0
+octave = 4
+
+[sub_resource type="Resource" id="Resource_ff5dh"]
+script = ExtResource("6_gx87j")
+note = 3
+shift = 0
+octave = 4
+
+[sub_resource type="Resource" id="Resource_eckld"]
+script = ExtResource("6_gx87j")
+note = 4
+shift = 0
+octave = 4
+
+[sub_resource type="Resource" id="Resource_uf02e"]
+script = ExtResource("6_gx87j")
+note = 5
+shift = 0
+octave = 4
+
+[sub_resource type="Resource" id="Resource_k8vac"]
+script = ExtResource("6_gx87j")
+note = 6
+shift = 0
+octave = 4
+
+[node name="ScienceAntFarmNursery" type="Node3D"]
+script = ExtResource("1_20ns8")
+
+[node name="Gravity" type="Area3D" parent="."]
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_c5thh")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+material_override = ExtResource("1_8r4t7")
+mesh = SubResource("PlaneMesh_fbesk")
+
+[node name="Area3D" type="StaticBody3D" parent="Floor"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_px1p8")
+
+[node name="LightBulb" parent="Floor" instance=ExtResource("3_om2xx")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2.8, 2.25, -0.75)
+
+[node name="LightBulb2" parent="Floor" instance=ExtResource("3_om2xx")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 2.7, 2.25, 1)
+
+[node name="LightBulb3" parent="Floor" instance=ExtResource("3_om2xx")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.8, 2.25, 3.5)
+
+[node name="LightBulb4" parent="Floor" instance=ExtResource("3_om2xx")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.6, 2.25, -5.25)
+
+[node name="ant_nursery" parent="." instance=ExtResource("3_cwi3s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Walls" parent="ant_nursery" index="0"]
+material_override = ExtResource("4_fa2hj")
+
+[node name="Bell" parent="." instance=ExtResource("2_liuvs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 3)
+
+[node name="Cribs" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="MusicBox" type="Node" parent="Cribs"]
+script = ExtResource("5_hxy15")
+delay = 1.0
+score_filepath = "res://scores/mary_had_a_little_lamb.txt"
+
+[node name="BabyAnt" parent="Cribs" instance=ExtResource("2_tu7lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0.4)
+tone = SubResource("Resource_okiey")
+
+[node name="BabyAnt2" parent="Cribs" instance=ExtResource("2_tu7lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, 0.4)
+tone = SubResource("Resource_dwlmr")
+
+[node name="BabyAnt3" parent="Cribs" instance=ExtResource("2_tu7lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.4)
+tone = SubResource("Resource_1bexy")
+
+[node name="BabyAnt4" parent="Cribs" instance=ExtResource("2_tu7lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, 0.4)
+tone = SubResource("Resource_o8nl5")
+
+[node name="BabyAnt5" parent="Cribs" instance=ExtResource("2_tu7lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, 0.4)
+tone = SubResource("Resource_7uj0o")
+
+[node name="BabyAnt6" parent="Cribs" instance=ExtResource("2_tu7lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, -0.4)
+tone = SubResource("Resource_5q47o")
+
+[node name="BabyAnt7" parent="Cribs" instance=ExtResource("2_tu7lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0, -0.4)
+tone = SubResource("Resource_ff5dh")
+
+[node name="BabyAnt8" parent="Cribs" instance=ExtResource("2_tu7lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4)
+tone = SubResource("Resource_eckld")
+
+[node name="BabyAnt9" parent="Cribs" instance=ExtResource("2_tu7lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0, -0.4)
+tone = SubResource("Resource_uf02e")
+
+[node name="BabyAnt10" parent="Cribs" instance=ExtResource("2_tu7lk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, -0.4)
+tone = SubResource("Resource_k8vac")
+
+[node name="Portal" parent="." instance=ExtResource("7_a12ie")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+portal_id = "AntNurseryPortal"
+other_portal_id = "AntTunnelNuseryPortal"
+size = Vector2(2.5, 3)
+
+[connection signal="pressed" from="Bell" to="Cribs/MusicBox" method="play"]
+
+[editable path="ant_nursery"]

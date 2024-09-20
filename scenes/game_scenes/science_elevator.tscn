@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/props/elevator/elevator.gd" id="1_ewmj1"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_y3d5v"]
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="2_u28y0"]
-[ext_resource type="PackedScene" uid="uid://cmndyhptq2qpy" path="res://scenes/props/science/elevator/elevator.blend" id="4_5ecpc"]
+[ext_resource type="PackedScene" uid="uid://cmndyhptq2qpy" path="res://models/rooms/science/science_elevator.blend" id="4_5ecpc"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="5_2iq45"]
 [ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="5_7tpy2"]
 [ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://scenes/props/io/button/button_square.tscn" id="6_aabej"]

@@ -95,9 +95,6 @@ func _ready():
     _update_portal_area_size()
     _set_portal_camera_environment_to_world3d_environment_no_tonemap()
 
-func _notification(what):
-    if (what == NOTIFICATION_PREDELETE):
-        GameManager.deregister_portal(self)
 
 func _set_portal_camera_environment_to_world3d_environment_no_tonemap():
     var world_3d = get_viewport().world_3d

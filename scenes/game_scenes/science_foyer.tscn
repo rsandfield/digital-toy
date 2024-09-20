@@ -2,10 +2,10 @@
 
 [ext_resource type="Material" uid="uid://pg5a3ul3uo3f" path="res://materials/toon/flat/brown/brown.tres" id="1_xwubu"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_7jnv3"]
-[ext_resource type="PackedScene" uid="uid://bqrslte4ifj7x" path="res://scenes/props/science/entry/science_foyer.blend" id="3_ns4bu"]
+[ext_resource type="PackedScene" uid="uid://bqrslte4ifj7x" path="res://models/rooms/science/science_foyer.blend" id="3_ns4bu"]
 [ext_resource type="Material" uid="uid://bt4efxme6lh8d" path="res://materials/toon/flat/brown/camel.tres" id="4_7unax"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="4_rkr0p"]
-[ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/science/elevator/elevator_call_button.tscn" id="5_yvv7h"]
+[ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="5_yvv7h"]
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="7_wjkka"]
 [ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="8_6uk4r"]
 
@@ -79,8 +79,8 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.
 
 [node name="Portal" parent="." instance=ExtResource("4_rkr0p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.98)
-portal_id = "ScienceWorldEntry"
-other_portal_id = "ScienceWorldSurface"
+portal_id = "ScienceFoyer"
+other_portal_id = "ScienceSurface"
 cull_layer = 2
 
 [node name="Directory" type="MeshInstance3D" parent="."]
