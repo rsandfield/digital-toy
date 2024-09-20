@@ -5,7 +5,7 @@ func get_value_at_time(t: float) -> float:
     if connection:
         return connection.get_value_at_time(t)
     return 0
-	
+    
 func get_values_in_range(t: PackedFloat32Array) -> PackedFloat32Array:
     if connection:
         return connection.get_values_in_range(t)
