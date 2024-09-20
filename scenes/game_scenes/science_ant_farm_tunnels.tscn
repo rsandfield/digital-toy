@@ -1,11 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbduttcphpu0m"]
+[gd_scene load_steps=6 format=3 uid="uid://dbduttcphpu0m"]
 
-[ext_resource type="PackedScene" uid="uid://dn0e1vqovwnff" path="res://scenes/props/science/ant_farm/tunnels/tunnels.blend" id="1_umjn2"]
+[ext_resource type="PackedScene" uid="uid://dn0e1vqovwnff" path="res://models/rooms/science/ant_tunnels.blend" id="1_umjn2"]
 [ext_resource type="Material" uid="uid://ckanln7h5hc43" path="res://materials/toon/textured/soil.tres" id="2_vd3s2"]
-[ext_resource type="PackedScene" uid="uid://dcga1ygfqc2ts" path="res://scenes/props/science/ant_farm/light_bulb.tscn" id="3_ejic1"]
+[ext_resource type="PackedScene" uid="uid://dcga1ygfqc2ts" path="res://scenes/props/io/lights/light_bulb.tscn" id="3_ejic1"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="4_hkm22"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_nyxad"]
+size = Vector3(10, 5, 10)
+
 [node name="Tunnels" type="Node3D"]
+
+[node name="Gravity" type="Area3D" parent="."]
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_nyxad")
 
 [node name="tunnels" parent="." instance=ExtResource("1_umjn2")]
 
@@ -19,13 +29,13 @@ collision_layer = 3
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.33387, -11.9458)
 
 [node name="LightBulb2" parent="." instance=ExtResource("3_ejic1")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -1.22385, 2.33387, -8.33936)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.72385, 2.33387, -8.33936)
 
 [node name="LightBulb3" parent="." instance=ExtResource("3_ejic1")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -1.18098, 2.33387, -1.91087)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.88098, 2.33387, -1.91087)
 
 [node name="LightBulb4" parent="." instance=ExtResource("3_ejic1")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -4.05647, 2.33387, -6.08501)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -4.05647, 2.33387, -5.68501)
 
 [node name="Portal" parent="." instance=ExtResource("4_hkm22")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
@@ -35,6 +45,8 @@ size = Vector2(2.5, 3)
 
 [node name="Portal2" parent="." instance=ExtResource("4_hkm22")]
 transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -5.48132, 0, -4.64433)
+portal_id = "AntTunnelNuseryPortal"
+other_portal_id = "AntNurseryPortal"
 size = Vector2(2.5, 3)
 
 [editable path="tunnels"]

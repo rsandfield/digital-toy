@@ -39,12 +39,15 @@ transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 
 
 [node name="Portal" parent="Planet/Box/Entrance" instance=ExtResource("5_lfptb")]
 transform = Transform3D(-1, -8.74227e-08, 3.82137e-15, 0, -4.37114e-08, -1, 8.74228e-08, -1, 4.37114e-08, 0, 0, 0)
-portal_id = "ScienceWorldSurface"
+portal_id = "ScienceSurface"
+other_portal_id = "ScienceFoyer"
 cull_layer = 2
 
 [node name="Area3D" type="Area3D" parent="Planet/Box/Entrance"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 gravity_space_override = 3
+gravity_point_center = Vector3(0, -0.816137, 0.577858)
+gravity_direction = Vector3(0, -0.816137, 0.577858)
 script = ExtResource("5_fr327")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/Box/Entrance/Area3D"]
@@ -55,6 +58,8 @@ shape = SubResource("BoxShape3D_2tid6")
 transform = Transform3D(1, -2.98023e-08, 2.98023e-08, 2.98023e-08, -8.9407e-08, 1, -8.9407e-08, -1, -2.98023e-08, -1.90735e-06, -1.90735e-06, -50)
 gravity_space_override = 1
 gravity_point_unit_distance = 100.0
+gravity_point_center = Vector3(-4.21469e-08, -0.816137, 0.577858)
+gravity_direction = Vector3(-4.21469e-08, -0.816137, 0.577858)
 script = ExtResource("5_fr327")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/Box/Gravity"]
@@ -71,6 +76,8 @@ material = ExtResource("4_ay4gf")
 transform = Transform3D(1, 8.9407e-08, -5.96046e-08, -5.96046e-08, 2.98023e-08, 1, 0, -1, 0, 3.8147e-06, 3.8147e-06, -50)
 gravity_space_override = 1
 gravity_point_unit_distance = 100.0
+gravity_point_center = Vector3(-0.716807, -0.390216, 0.577858)
+gravity_direction = Vector3(-0.716807, -0.390216, 0.577858)
 script = ExtResource("5_fr327")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/Box2/Gravity"]
@@ -81,6 +88,8 @@ shape = SubResource("BoxShape3D_4pgrk")
 transform = Transform3D(1, -1.19209e-07, -5.96046e-08, -5.96046e-08, 1, -5.96046e-08, 0, 0, 1, -1.90735e-06, 50, 1.90735e-06)
 gravity_space_override = 1
 gravity_point_unit_distance = 100.0
+gravity_point_center = Vector3(-0.0207908, -0.816411, -0.577096)
+gravity_direction = Vector3(-0.0207908, -0.816411, -0.577096)
 script = ExtResource("5_fr327")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/Box2/Gravity2"]
