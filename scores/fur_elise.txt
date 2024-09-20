@@ -1,0 +1,13 @@
+4-E-Natural
+4-D-Sharp
+4-E-Natural
+4-D-Sharp
+4-E-Natural
+4-E-Natural
+4-B-Natural
+4-D-Flat
+4-C-Natural
+2-A-Natural,4-A-Natural
+2-A-Natural
+2-G-Natural
+3-A-Natural,4-A-Natural,4-C-Natural
