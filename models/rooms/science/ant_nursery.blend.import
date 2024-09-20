@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bqrslte4ifj7x"
-path="res://.godot/imported/science_foyer.blend-0af844ea01cc1c7abac98de969a291c3.scn"
+uid="uid://cux5fo1kppqjw"
+path="res://.godot/imported/ant_nursery.blend-a0d1bfad619ba26f1175b6d91c5f872a.scn"
 
 [deps]
 
-source_file="res://scenes/props/science/entry/science_foyer.blend"
-dest_files=["res://.godot/imported/science_foyer.blend-0af844ea01cc1c7abac98de969a291c3.scn"]
+source_file="res://models/rooms/science/ant_nursery.blend"
+dest_files=["res://.godot/imported/ant_nursery.blend-a0d1bfad619ba26f1175b6d91c5f872a.scn"]
 
 [params]
 

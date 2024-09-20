@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://csivoeik6cap1"
-path="res://.godot/imported/ant_farm.blend-f58e9627564d460bc0b9129bd1d2f32a.scn"
+path="res://.godot/imported/ant_farm.blend-2d61e43240f170f54d2051da32d1c8cc.scn"
 
 [deps]
 
-source_file="res://scenes/props/science/ant_farm/elevator_entry/ant_farm.blend"
-dest_files=["res://.godot/imported/ant_farm.blend-f58e9627564d460bc0b9129bd1d2f32a.scn"]
+source_file="res://models/rooms/science/ant_farm.blend"
+dest_files=["res://.godot/imported/ant_farm.blend-2d61e43240f170f54d2051da32d1c8cc.scn"]
 
 [params]
 

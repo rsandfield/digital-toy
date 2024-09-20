@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://pwn6uehsrwta"]
+[gd_scene load_steps=10 format=3 uid="uid://pwn6uehsrwta"]
 
 [ext_resource type="Script" path="res://scenes/props/elevator/elevator_door.gd" id="1_ba277"]
+[ext_resource type="AudioStream" uid="uid://c1q1puoeuji42" path="res://audio/effects/door/opening-metal-door-199581.mp3" id="2_hxu5o"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="2_k0rvu"]
 
 [sub_resource type="Animation" id="Animation_tjbk3"]
@@ -104,6 +105,9 @@ script = ExtResource("1_ba277")
 libraries = {
 "": SubResource("AnimationLibrary_651lw")
 }
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_hxu5o")
 
 [node name="Portal" parent="." instance=ExtResource("2_k0rvu")]
 

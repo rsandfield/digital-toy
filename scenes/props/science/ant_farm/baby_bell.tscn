@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://3kmqctkv66io"]
+
+[ext_resource type="Script" path="res://scripts/io/button3d.gd" id="1_y4gmb"]
+[ext_resource type="AudioStream" uid="uid://cgfmmsubykxn3" path="res://audio/effects/bell/servant-bell-ring-1-211684.mp3" id="2_fvwxh"]
+[ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="3_e5x7k"]
+
+[sub_resource type="Animation" id="Animation_dhb6a"]
+resource_name = "push"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bell")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.07, 1, 0, 0, 0.382683, 0.92388, 0.19, 1, 0, 0, -0.383, 0.924, 0.29, 1, 0, 0, 0.382683, 0.92388, 0.4, 1, 0, 0, -0.19509, 0.980785, 0.5, 1, 0, 0, 0.195, 0.981, 0.6, 1, 0, 0, -0.098, 0.995, 0.7, 1, 0, 0, 0.0738909, 0.997266, 0.8, 1, 0, 0, -0.049, 0.999, 0.9, 1, 0, 0, 0.0492856, 0.998785, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_w2wo1"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bell")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cpfn3"]
+_data = {
+"RESET": SubResource("Animation_w2wo1"),
+"push": SubResource("Animation_dhb6a")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qfe0c"]
+size = Vector3(0.3, 0.5, 0.3)
+
+[sub_resource type="SphereMesh" id="SphereMesh_gsyxu"]
+radius = 0.1
+height = 0.1
+is_hemisphere = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_au724"]
+top_radius = 0.1
+bottom_radius = 0.15
+height = 0.2
+
+[node name="Bell" type="Area3D"]
+script = ExtResource("1_y4gmb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cpfn3")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_fvwxh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_qfe0c")
+
+[node name="Bell" type="Node3D" parent="."]
+
+[node name="Dome" type="MeshInstance3D" parent="Bell"]
+material_override = ExtResource("3_e5x7k")
+mesh = SubResource("SphereMesh_gsyxu")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bell"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+material_override = ExtResource("3_e5x7k")
+mesh = SubResource("CylinderMesh_au724")
+skeleton = NodePath("../..")

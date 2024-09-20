@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://x4cpkdjdg013"
-path="res://.godot/imported/Lab.blend-ba7c099f6180ffb01ad0b25d8666dd86.scn"
+uid="uid://cgvaeljvvfq23"
+path="res://.godot/imported/round_button.blend-1657efef16e613ca16c5fb598d2bb2c7.scn"
 
 [deps]
 
-source_file="res://scenes/props/science/chemistry_lab/Lab.blend"
-dest_files=["res://.godot/imported/Lab.blend-ba7c099f6180ffb01ad0b25d8666dd86.scn"]
+source_file="res://models/round_button.blend"
+dest_files=["res://.godot/imported/round_button.blend-1657efef16e613ca16c5fb598d2bb2c7.scn"]
 
 [params]
 

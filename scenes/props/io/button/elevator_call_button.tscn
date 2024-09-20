@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bqtifryslt765"]
 
-[ext_resource type="Script" path="res://scenes/props/io/button/button3d.gd" id="1_em3pq"]
-[ext_resource type="PackedScene" uid="uid://cgvaeljvvfq23" path="res://scenes/props/science/elevator/call_button.blend" id="2_em3s2"]
+[ext_resource type="Script" path="res://scripts/io/button3d.gd" id="1_em3pq"]
+[ext_resource type="PackedScene" uid="uid://cgvaeljvvfq23" path="res://models/round_button.blend" id="2_em3s2"]
 [ext_resource type="Material" uid="uid://xf2b11l8y7k5" path="res://materials/toon/flat/gray/light_gray.tres" id="3_gfofb"]
 [ext_resource type="Material" uid="uid://dw06ud1dbq53u" path="res://materials/toon/flat/red/red.tres" id="4_amcg0"]
 

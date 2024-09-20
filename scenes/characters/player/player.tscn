@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://bpyf6dv67t0bu"]
 
-[ext_resource type="Script" path="res://scenes/characters/player/player.gd" id="1_vpsjh"]
+[ext_resource type="Script" path="res://scripts/character/player/player.gd" id="1_vpsjh"]
 [ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="2_f6m87"]
-[ext_resource type="Script" path="res://scenes/characters/player/player_controller.gd" id="2_j10d1"]
-[ext_resource type="PackedScene" uid="uid://bclkrufcuif7j" path="res://scenes/characters/player/hand.tscn" id="3_mq8jg"]
-[ext_resource type="Script" path="res://scenes/characters/player/hud.gd" id="4_n37sw"]
+[ext_resource type="Script" path="res://scripts/character/player/player_controller.gd" id="2_j10d1"]
+[ext_resource type="PackedScene" uid="uid://bclkrufcuif7j" path="res://scenes/characters/hand.tscn" id="3_mq8jg"]
+[ext_resource type="Script" path="res://scripts/character/player/hud.gd" id="4_n37sw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tlvg5"]
 radius = 0.25
@@ -49,7 +49,7 @@ transform = Transform3D(-0.5, 0.866025, -8.74228e-08, 0.866025, 0.5, 0, 4.37114e
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.2, 0.8)
 
 [node name="RayCast" type="RayCast3D" parent="Head"]
-target_position = Vector3(0, 0, 2)
+target_position = Vector3(0, 0, 10)
 collide_with_areas = true
 
 [node name="HUD" type="Node2D" parent="Head"]

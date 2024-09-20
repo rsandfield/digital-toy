@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cmndyhptq2qpy"
-path="res://.godot/imported/elevator.blend-501bf86dbfef515b3dac9ed56194eb12.scn"
+uid="uid://dn0e1vqovwnff"
+path="res://.godot/imported/ant_tunnels.blend-a6d59b8454e338ba9c0af64ccc605ec9.scn"
 
 [deps]
 
-source_file="res://scenes/props/science/elevator/elevator.blend"
-dest_files=["res://.godot/imported/elevator.blend-501bf86dbfef515b3dac9ed56194eb12.scn"]
+source_file="res://models/rooms/science/ant_tunnels.blend"
+dest_files=["res://.godot/imported/ant_tunnels.blend-a6d59b8454e338ba9c0af64ccc605ec9.scn"]
 
 [params]
 

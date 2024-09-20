@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="2_iljeu"]
 [ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="3_1626q"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="4_b6xa8"]
-[ext_resource type="Script" path="res://scenes/props/io/button/button3d.gd" id="4_rcp5v"]
+[ext_resource type="Script" path="res://scripts/io/button3d.gd" id="4_rcp5v"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ts4ga"]
 size = Vector3(0.4, 0.2, 0.4)

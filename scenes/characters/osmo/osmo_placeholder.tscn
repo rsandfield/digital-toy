@@ -3,7 +3,7 @@
 [ext_resource type="Material" uid="uid://c8olidg62enqc" path="res://materials/toon/flat/green/lime_green.tres" id="1_2hut5"]
 [ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="2_1cb7a"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="3_5appu"]
-[ext_resource type="PackedScene" uid="uid://bclkrufcuif7j" path="res://scenes/characters/player/hand.tscn" id="4_mh8p3"]
+[ext_resource type="PackedScene" uid="uid://bclkrufcuif7j" path="res://scenes/characters/hand.tscn" id="4_mh8p3"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_xv2tc"]
 radius = 0.4

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cgvaeljvvfq23"
-path="res://.godot/imported/call_button.blend-688f48e571d0876bf6746bc7ade6d745.scn"
+uid="uid://bqrslte4ifj7x"
+path="res://.godot/imported/science_foyer.blend-9a576b85f9106dc4386c9f62c7a44b94.scn"
 
 [deps]
 
-source_file="res://scenes/props/science/elevator/call_button.blend"
-dest_files=["res://.godot/imported/call_button.blend-688f48e571d0876bf6746bc7ade6d745.scn"]
+source_file="res://models/rooms/science/science_foyer.blend"
+dest_files=["res://.godot/imported/science_foyer.blend-9a576b85f9106dc4386c9f62c7a44b94.scn"]
 
 [params]
 
