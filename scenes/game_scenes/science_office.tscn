@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://cchecllelgvp8"]
+[gd_scene load_steps=20 format=3 uid="uid://cchecllelgvp8"]
 
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_jhy17"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_p1m04"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_7ao0t"]
-[ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://scenes/props/io/button/button_square.tscn" id="3_7cnky"]
+[ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="3_iywhs"]
 [ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="4_3bn11"]
 [ext_resource type="PackedScene" uid="uid://51ikjgcwxvr0" path="res://scenes/props/science/osmostein_office/blitz_blaster/blitz_blaster.tscn" id="5_lrk82"]
 [ext_resource type="PackedScene" uid="uid://dcrqiyoa3t83d" path="res://scenes/props/science/osmostein_office/chalk_board/chalk_board.tscn" id="6_bc4xc"]
@@ -41,6 +42,8 @@ size = Vector3(0.15, 0.15, 0.15)
 size = Vector3(0.08, 0.04, 0.02)
 
 [node name="OsmosteinOffice" type="Node3D"]
+script = ExtResource("1_jhy17")
+dynamic_connections = ["science_elevator_door"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_buxm4")
@@ -142,9 +145,11 @@ shape = SubResource("BoxShape3D_ug3va")
 [node name="ElevatorDoor" parent="." instance=ExtResource("2_7ao0t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.45)
 portal_id = "science_office_elevator_door"
+elevator = "science_elevator"
+floor_index = 1
 
-[node name="Button" parent="." instance=ExtResource("3_7cnky")]
-transform = Transform3D(4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, -0.8, 1.2, 2.5)
+[node name="ElevatorCallButton" parent="." instance=ExtResource("3_iywhs")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 2.5)
 
 [node name="Desk" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1)
@@ -177,3 +182,5 @@ mesh = SubResource("BoxMesh_puo2l")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73593, 0.10599)
 material_override = ExtResource("1_p1m04")
 mesh = SubResource("BoxMesh_n0688")
+
+[connection signal="pressed" from="ElevatorCallButton" to="ElevatorDoor" method="call_elevator"]

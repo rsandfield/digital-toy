@@ -1,37 +1,69 @@
 class_name Elevator
 extends GameScene
 
-var current_floor: int = 0
+@export var id: String
+@export var door_close_delay: int = 6
+
 @onready var _door: ElevatorDoor = $ElevatorDoor
 @onready var _anim: AnimationPlayer = $AnimationPlayer
 
+var current_floor: int = 0
+var close_timer: float = 0
+var opened: bool = false
+
+func _enter_tree():
+    GameManager.register_elevator(self)
+
+
+func _exit_tree():
+    GameManager.deregister_elevator(self)
+
+
+func _process(delta):
+    if opened:
+        close_timer += delta
+        if close_timer > door_close_delay:
+            _close_doors()
+
 
 func reset_elevator():
-    select_floor(0)
-    _door.open()
-    if _door.other_door:
-        _door.other_door.open()
-
-
-func call_to_floor(value: int):
-    if current_floor == value:
-        return
-    
     _door.close()
     if _door.other_door:
         _door.other_door.close()
-    await _door.closed
 
-    # await animate_move(current_floor, value)
-    print("%s moving from %d to %d" % [name, current_floor, value])
+
+func call_to_floor(value: int):
+    if current_floor != value:
+        print("Elevator %s currently on %d, moving to %d" % [id, current_floor, value])
+        _close_doors()
+        await _door.closed
+        # await animate_move(current_floor, value)
+    else:
+        print("%s already on %d" % [name, value])
+
     select_floor(value)
+    _open_doors()
 
+
+func _open_doors():
+    opened = true
     _door.open()
     if _door.other_door:
         _door.other_door.open()
 
 
+func _close_doors():
+    opened = false
+    close_timer = 0
+    _door.close()
+    if _door.other_door:
+        _door.other_door.close()
+
+
 func animate_move(from: int, to: int):
+    if from == to:
+        return
+    
     var low = from
     var high = to
     var reverse = false
@@ -39,6 +71,11 @@ func animate_move(from: int, to: int):
         low = to
         high = from
         reverse = true
+
+    if low < 0:
+        low = 0
+        if high == 0:
+            high = 1
 
     var animations: Array[String]
     for i in range(abs(high - low)):

@@ -26,9 +26,7 @@ class SceneLoadingHelper:
             populate(SceneManager._get_portal_scene_name(connection), depth - 1)
 
     func engage(container: SubViewportContainer):
-        to_unload.assign(to_unload.filter(func(name: String): return !to_load.has(name)))
-        print("Loading: ", to_load)
-        print("Unloading: ", to_unload)
+        to_unload.assign(to_unload.filter(func(scene: SceneData): return !to_load.has(scene)))
         for scene in to_load:
             scene.Load(container)
         for scene in to_unload:
@@ -99,7 +97,10 @@ func _find_portals(scenes: Dictionary):
         var scene_nodes = scene.nodes
         var root_node = scene_nodes[0]
         var dynamic_connections_string: String = root_node.get("dynamic_connections", "")
-        var dynamic_connections = dynamic_connections_string.substr(15, dynamic_connections_string.length() - 17).replace('"', '').split(', ')
+        var start: int = 1
+        if dynamic_connections_string.begins_with("PackedStringArray"): # Only sometimes?
+            start = 15
+        var dynamic_connections = dynamic_connections_string.substr(start, dynamic_connections_string.length() - (start + 2)).replace('"', '').split(', ')
         for connection in dynamic_connections:#.filter(func (val): return len(val) > 0):
             if len(connection) == 0:
                 continue

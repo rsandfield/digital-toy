@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://8rlunwwypb1g"]
+[gd_scene load_steps=14 format=3 uid="uid://8rlunwwypb1g"]
 
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_mmfed"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_nb6m0"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_3l7d2"]
-[ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://scenes/props/io/button/button_square.tscn" id="3_f2jkv"]
+[ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="4_xvo0t"]
 [ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="5_mt2cq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pdc8f"]
@@ -31,6 +32,8 @@ top_radius = 0.25
 bottom_radius = 0.25
 
 [node name="MicroscopeLab" type="Node3D"]
+script = ExtResource("1_mmfed")
+dynamic_connections = ["science_elevator_door"]
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
@@ -127,13 +130,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, -0.25, -0.25)
 shape = SubResource("BoxShape3D_ug3va")
 
-[node name="ElevatorDoor" parent="." instance=ExtResource("2_3l7d2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.45)
-portal_id = "science_microscope_elevator_door"
-
-[node name="Button" parent="." instance=ExtResource("3_f2jkv")]
-transform = Transform3D(4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, -0.8, 1.2, 2.5)
-
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0, 1.25, 0)
 
@@ -143,3 +139,14 @@ shape = SubResource("CylinderShape3D_bmulr")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 material_override = ExtResource("5_mt2cq")
 mesh = SubResource("CylinderMesh_vsmjg")
+
+[node name="ElevatorDoor" parent="." instance=ExtResource("2_3l7d2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.19209e-07, 2.45)
+portal_id = "science_microscope_elevator_door"
+elevator = "science_elevator"
+floor_index = 2
+
+[node name="ElevatorCallButton" parent="." instance=ExtResource("4_xvo0t")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 2.5)
+
+[connection signal="pressed" from="ElevatorCallButton" to="ElevatorDoor" method="call_elevator"]

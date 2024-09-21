@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://ir3ia8kqtksa"]
+
+[ext_resource type="Script" path="res://scripts/io/light.gd" id="1_ydfvq"]
+[ext_resource type="Material" uid="uid://cnh1xcfi4l8ev" path="res://materials/toon/flat/yellow/cream.tres" id="2_uphqc"]
+[ext_resource type="Material" uid="uid://4rwflfqjmwbi" path="res://materials/toon/flat/yellow/cream_lit.tres" id="3_gwsje"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="4_imw8g"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_lx8xp"]
+size = Vector3(0.6, 0.06, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_7yv2s"]
+size = Vector3(0.5, 0.05, 0.5)
+
+[node name="CeilingLight" type="Node3D"]
+script = ExtResource("1_ydfvq")
+unlit = ExtResource("2_uphqc")
+lit = ExtResource("3_gwsje")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03, 0)
+material_override = ExtResource("4_imw8g")
+mesh = SubResource("BoxMesh_lx8xp")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." groups=["bulbs"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+mesh = SubResource("BoxMesh_7yv2s")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1, 0)
+spot_angle = 85.0

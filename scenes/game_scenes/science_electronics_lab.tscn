@@ -1,14 +1,13 @@
-[gd_scene load_steps=23 format=3 uid="uid://c8ib1shc7ssuj"]
+[gd_scene load_steps=20 format=3 uid="uid://c8ib1shc7ssuj"]
 
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_yqj8k"]
 [ext_resource type="Material" uid="uid://xf2b11l8y7k5" path="res://materials/toon/flat/gray/light_gray.tres" id="2_ruqsi"]
-[ext_resource type="PackedScene" uid="uid://c8tkdok74syyp" path="res://scenes/props/science/electronics_lab/component/multiplexer/multiplexer.tscn" id="3_dfa1m"]
-[ext_resource type="PackedScene" uid="uid://btgovxcjd8hxg" path="res://scenes/props/science/electronics_lab/component/oscilliscope/oscilliscope.tscn" id="4_3lcpm"]
+[ext_resource type="PackedScene" uid="uid://bsx1btabok7yy" path="res://models/rooms/science/elab.blend" id="4_3ac2w"]
+[ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="4_bpb17"]
 [ext_resource type="PackedScene" uid="uid://novjlejxb1rb" path="res://world/box.tscn" id="5_bpoxq"]
 [ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="6_yk55s"]
 [ext_resource type="PackedScene" uid="uid://bdiim43et1tln" path="res://scenes/props/science/electronics_lab/component/speaker/speaker.tscn" id="7_3tmdm"]
-[ext_resource type="PackedScene" uid="uid://c51g5pwiyurqe" path="res://scenes/props/science/electronics_lab/component/frequency_generator/frequency_generator.tscn" id="8_ixtka"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="11_l6td4"]
-[ext_resource type="PackedScene" uid="uid://x4cpkdjdg013" path="res://models/rooms/science/lab.blend" id="12_m28k6"]
 [ext_resource type="Material" uid="uid://dhah1rj3f2g6" path="res://materials/toon/flat/green/dark_green.tres" id="13_cwvcd"]
 [ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="13_dt4vr"]
 [ext_resource type="PackedScene" uid="uid://duq07sa5f3vkx" path="res://scenes/props/science/electronics_lab/jacobs_ladder/jacobs_ladder.tscn" id="14_8f2n3"]
@@ -20,17 +19,10 @@
 size = Vector3(10, 5, 10)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_mssuq"]
-size = Vector2(5, 5)
+size = Vector2(10, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hky4l"]
-size = Vector3(6, 0.5, 6)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_3s1s3"]
-viewport_path = NodePath("WaveScreen/SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0a5ay"]
-resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_3s1s3")
+size = Vector3(10, 0.5, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_14tq6"]
 resource_local_to_scene = true
@@ -46,14 +38,11 @@ bottom_radius = 0.05
 height = 0.8
 
 [node name="ElectronicsLab" type="Node3D"]
+script = ExtResource("1_yqj8k")
+dynamic_connections = ["science_elevator_door"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8ybyx")
-
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 4, 0)
-spot_range = 8.0
-spot_angle = 60.0
 
 [node name="Gravity" type="Area3D" parent="."]
 gravity_space_override = 3
@@ -63,6 +52,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("BoxShape3D_0kywn")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, 0)
 material_override = ExtResource("6_yk55s")
 mesh = SubResource("PlaneMesh_mssuq")
 
@@ -74,7 +64,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_hky4l")
 
 [node name="Ceiling" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.4, 0)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2.1, 2.4, 0)
 material_override = ExtResource("2_ruqsi")
 mesh = SubResource("PlaneMesh_mssuq")
 
@@ -84,22 +74,19 @@ mesh = SubResource("PlaneMesh_mssuq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_hky4l")
 
-[node name="Lab" parent="." instance=ExtResource("12_m28k6")]
+[node name="CeilingLight" parent="." instance=ExtResource("4_bpb17")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
 
-[node name="Walls" parent="Lab" index="0"]
+[node name="CeilingLight3" parent="." instance=ExtResource("4_bpb17")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 3.6)
+
+[node name="CeilingLight2" parent="." instance=ExtResource("4_bpb17")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 2.4, 0)
+
+[node name="elab" parent="." instance=ExtResource("4_3ac2w")]
+
+[node name="Walls" parent="elab" index="0"]
 material_override = ExtResource("13_cwvcd")
-
-[node name="Multiplexer" parent="." instance=ExtResource("3_dfa1m")]
-transform = Transform3D(0.984808, 0, 0.173648, 0, 1, 0, -0.173648, 0, 0.984808, -0.380638, 0.85, -1.5)
-
-[node name="MeshInstance3D" parent="Multiplexer" index="1"]
-transform = Transform3D(1, 0, 1.49012e-08, 0, 1, 0, -1.49012e-08, 0, 1, 0, 0.1, 0)
-
-[node name="Oscilliscope" parent="." instance=ExtResource("4_3lcpm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0915235, 0.85, -1.49934)
-
-[node name="WaveScreen" parent="Oscilliscope" index="4"]
-material_override = SubResource("StandardMaterial3D_0a5ay")
 
 [node name="Table" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
@@ -143,15 +130,11 @@ skeleton = NodePath("../Top")
 [node name="Speaker" parent="." instance=ExtResource("7_3tmdm")]
 transform = Transform3D(0.894123, 0, -0.447821, 0, 1, 0, 0.447821, 0, 0.894123, 0.661, 0.85, -1.49934)
 
-[node name="FrequencyGenerator2" parent="." instance=ExtResource("8_ixtka")]
-transform = Transform3D(0.951057, 0, 0.309017, 0, 1, 0, -0.309017, 0, 0.951057, -0.696975, 1.05, -1.499)
-
-[node name="FrequencyGenerator" parent="." instance=ExtResource("8_ixtka")]
-transform = Transform3D(0.939693, 0, 0.34202, 0, 1, 0, -0.34202, 0, 0.939693, -0.716975, 0.85, -1.49934)
-
 [node name="ElevatorDoor" parent="." instance=ExtResource("11_l6td4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.2)
 portal_id = "science_electronics_elevator_door"
+elevator = "science_elevator"
+floor_index = 4
 
 [node name="ElevatorCallButton" parent="." instance=ExtResource("13_dt4vr")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.2, 2)
@@ -162,10 +145,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55, 0, -1.55)
 [node name="Clock" parent="." instance=ExtResource("15_57e8f")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.75, -2)
 
-[editable path="Lab"]
-[editable path="Multiplexer"]
-[editable path="Oscilliscope"]
+[connection signal="pressed" from="ElevatorCallButton" to="ElevatorDoor" method="call_elevator"]
+
+[editable path="elab"]
 [editable path="Table/Top"]
 [editable path="Speaker"]
-[editable path="FrequencyGenerator2"]
-[editable path="FrequencyGenerator"]

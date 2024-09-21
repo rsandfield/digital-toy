@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://dw1gq6s8dx8u3"]
+[gd_scene load_steps=13 format=3 uid="uid://dw1gq6s8dx8u3"]
 
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_j8hce"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_lavwm"]
 [ext_resource type="Material" uid="uid://c6e7pege12uqm" path="res://materials/toon/flat/brown/russet.tres" id="1_s8suv"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_l2nfu"]
@@ -20,6 +21,8 @@ size = Vector3(6, 0.5, 6)
 size = Vector2(5, 5)
 
 [node name="ChemistryLab" type="Node3D"]
+script = ExtResource("1_j8hce")
+dynamic_connections = ["science_elevator_door"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_buxm4")
@@ -53,9 +56,16 @@ transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.4
 material_override = ExtResource("1_lavwm")
 mesh = SubResource("PlaneMesh_y8qoc")
 
+[node name="Lab" parent="." instance=ExtResource("6_ri7nf")]
+
+[node name="Walls" parent="Lab" index="0"]
+material_override = ExtResource("7_bkbvn")
+
 [node name="ElevatorDoor" parent="." instance=ExtResource("2_l2nfu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.2)
 portal_id = "science_chemistry_elevator_door"
+elevator = "science_elevator"
+floor_index = 5
 
 [node name="LabBench" parent="." instance=ExtResource("4_aoxnq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
@@ -63,9 +73,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 [node name="ElevatorCallButton" parent="." instance=ExtResource("4_4fvvl")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 2)
 
-[node name="Lab" parent="." instance=ExtResource("6_ri7nf")]
-
-[node name="Walls" parent="Lab" index="0"]
-material_override = ExtResource("7_bkbvn")
+[connection signal="pressed" from="ElevatorCallButton" to="ElevatorDoor" method="call_elevator"]
 
 [editable path="Lab"]

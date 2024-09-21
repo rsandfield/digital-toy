@@ -11,12 +11,12 @@ var name: String
 func _init(fp: String, n: Array[Dictionary]):
     filepath = fp
     nodes = n
+    name = SceneManager.file_path_to_name(filepath)
 
 
 func Load(container: SubViewportContainer):
     if IsLoaded():
         return
-    name = SceneManager.file_path_to_name(filepath)
     print("Loading %s" % name)
     viewport_node = SubViewport.new()
     viewport_node.name = name
@@ -39,11 +39,10 @@ func Load(container: SubViewportContainer):
 
 func Unload():
     if !IsLoaded():
+        print("Failed unloading %s" % self)
         return
-    print("Unoading %s" % self)
-    # for portal_id in portal_ids:
-    #     GameManager.deregister_portal_id(portal_id)
-    viewport_node.queue_free()
+    print("Unloading %s" % self)
+    GameManager.queue_kill(viewport_node)
 
 
 func IsLoaded() -> bool:

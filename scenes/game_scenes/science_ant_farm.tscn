@@ -1,13 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://carko7khdtrcy"]
+[gd_scene load_steps=14 format=3 uid="uid://carko7khdtrcy"]
 
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_b3mc0"]
 [ext_resource type="PackedScene" uid="uid://csivoeik6cap1" path="res://models/rooms/science/ant_farm.blend" id="2_fgmsl"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_jx50l"]
 [ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="2_rgrxn"]
-[ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://scenes/props/io/button/button_square.tscn" id="3_fj65n"]
 [ext_resource type="Material" uid="uid://dg71nts2qy11r" path="res://materials/toon/flat/green/green.tres" id="3_tyoey"]
 [ext_resource type="Material" uid="uid://ckanln7h5hc43" path="res://materials/toon/textured/soil.tres" id="4_gagp4"]
 [ext_resource type="PackedScene" uid="uid://dcga1ygfqc2ts" path="res://scenes/props/io/lights/light_bulb.tscn" id="6_f4br4"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="8_eq5vn"]
+[ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="8_sv1c6"]
 
 [sub_resource type="Environment" id="Environment_buxm4"]
 
@@ -21,6 +22,8 @@ size = Vector2(5, 5)
 size = Vector3(6, 0.5, 6)
 
 [node name="AntFarm" type="Node3D"]
+script = ExtResource("1_b3mc0")
+dynamic_connections = ["science_elevator_door"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_buxm4")
@@ -71,9 +74,8 @@ collision_layer = 3
 [node name="ElevatorDoor" parent="." instance=ExtResource("2_jx50l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.45)
 portal_id = "science_ant_farm_elevator_door"
-
-[node name="Button" parent="." instance=ExtResource("3_fj65n")]
-transform = Transform3D(4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, -0.8, 1.2, 2.5)
+elevator = "science_elevator"
+floor_index = 3
 
 [node name="LightBulb" parent="." instance=ExtResource("6_f4br4")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -2.28348, 1.02228)
@@ -83,5 +85,10 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.9, -
 portal_id = "AntFarmPortal"
 other_portal_id = "AntTunnelFarmPortal"
 size = Vector2(2.5, 3)
+
+[node name="ElevatorCallButton" parent="." instance=ExtResource("8_sv1c6")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 2)
+
+[connection signal="pressed" from="ElevatorCallButton" to="ElevatorDoor" method="call_elevator"]
 
 [editable path="ant_farm"]

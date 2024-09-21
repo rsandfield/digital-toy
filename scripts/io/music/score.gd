@@ -28,7 +28,6 @@ func out_of_range(index: int) -> bool:
 func chord_at_index(index: int) -> Array[Tone]:
     if out_of_range(index):
         return []
-    print(_score[index])
     var chord: Array[Tone]
     chord.assign(_score[index])
     return chord

@@ -27,6 +27,7 @@ size = Vector3(0.2, 3.2, 0.2)
 [node name="Portal" type="Area3D"]
 collision_mask = 3
 script = ExtResource("1_1fyry")
+portal_area_z_margin = 0.25
 
 [node name="PortalVisual" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

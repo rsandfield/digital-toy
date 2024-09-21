@@ -4,7 +4,7 @@ extends CharacterBody3D
 @onready var _head: Node3D = $Head
 
 var gravity: Vector3
-const SPEED = 6.0
+const SPEED = 1.5
 const JUMP_VELOCITY = 4.5
 
 func _init():
@@ -26,12 +26,19 @@ func jump():
     if is_on_floor():
         velocity.y = JUMP_VELOCITY
 
+func crouch(down: bool = true):
+    if down:
+        _head.position = Vector3(0, 0.75, 0)
+    else:
+        _head.position = Vector3(0, 1.75, 0)
+
+
 func move(delta, input_dir):
     var movement_basis = global_basis.rotated(transform.basis.y, _head.rotation.y)
     var direction = movement_basis.x * input_dir.x + movement_basis.z * input_dir.y
 
     if is_on_floor():
-        velocity = velocity.move_toward(-direction, SPEED * delta)
+        velocity = velocity.move_toward(-direction * SPEED, 1)
     else:
         velocity = lerp(velocity, -direction * SPEED, delta)
     move_and_slide()

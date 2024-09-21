@@ -22,6 +22,8 @@ var other_portal : Node3D
 ## only solution I found was to lower near cull plane on camera
 @export var enable_camera_near_plane_fix: bool = true
 
+var is_in_world: bool = true
+
 var portal_visual : MeshInstance3D
 var camera_viewport : SubViewport
 var viewport_camera : Camera3D
@@ -36,6 +38,11 @@ const MOVE_WAS_TELEPORT_THRESHOLD = 5.0
 var _tracked_phys_bodies = []
 
 func set_other_portal(other: Portal):
+    if other_portal:
+        var i = len(_tracked_phys_bodies) - 1
+        while i >= 0:
+            other_portal._remove_tracked_phys_body(_tracked_phys_bodies[i].body)
+
     other_portal = other
     if not other:
         camera_viewport.reparent(self)
@@ -62,23 +69,30 @@ func _enter_tree():
         return
 
     var portal_material = ShaderMaterial.new()
-    # var portal_material = portal_visual.material_override
     portal_material.shader = preload("res://scenes/props/portal/portal_sps.gdshader")
     portal_material.resource_local_to_scene = true
-    # portal_material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-    # portal_material.disable_ambient_light = true
-    # portal_material.set_shader_parameter("texture_albedo", camera_viewport.get_texture())
     portal_material.set_shader_parameter("albedo", camera_viewport.get_texture())
-    # portal_material.albedo_texture = camera_viewport.get_texture()
     portal_visual.material_override = portal_material
 
     GameManager.register_portal(self)
 
 
+func _exit_tree():
+    if Engine.is_editor_hint():
+        return
+    GameManager.deregister_portal(self)
+
+
 func _notification(what):
+    if Engine.is_editor_hint():
+        return
     match what:
-        NOTIFICATION_PREDELETE:
-            GameManager.deregister_portal(self)
+        NOTIFICATION_EXIT_WORLD:
+            is_in_world = false
+        1, 11, 13, 16, 17, 19, 24, 27, 1002, 1003, 1004, 1005, 2000, 2010, 2016, 2017:
+            pass
+        _:
+            print("%s %s" % [portal_id, what])
 
 
 func _ready():
@@ -306,7 +320,7 @@ func _remove_hanging_body_check():
         var track_duration = Time.get_ticks_msec() - _tracked_phys_bodies[i].track_start_time
         if track_duration > 250.0 and not overlaps_body(tracked_body):
             _remove_tracked_phys_body(tracked_body)
-            print("Removed tracked body for edge case")
+            print("%s removed tracked body [%s] for edge case" % [portal_id, tracked_body])
         i -= 1
     
 func _move_to_other_portal(body: PhysicsBody3D):
@@ -318,10 +332,16 @@ func _move_to_other_portal(body: PhysicsBody3D):
     body.global_transform = moved_to_other_portal
 
     var r = other_portal.global_transform.basis.get_euler() - global_transform.basis.get_euler()
-    body.velocity = body.velocity \
-        .rotated(Vector3(1, 0, 0), r.x) \
-        .rotated(Vector3(0, 1, 0), r.y) \
-        .rotated(Vector3(0, 0, 1), r.z)
+    if body.get("velocity"):
+        body.velocity = body.velocity \
+            .rotated(Vector3(1, 0, 0), r.x) \
+            .rotated(Vector3(0, 1, 0), r.y) \
+            .rotated(Vector3(0, 0, 1), r.z)
+    elif body.get("linear_velocity"):
+        body.linear_velocity = body.linear_velocity \
+            .rotated(Vector3(1, 0, 0), r.x) \
+            .rotated(Vector3(0, 1, 0), r.y) \
+            .rotated(Vector3(0, 0, 1), r.z)
     
     _remove_tracked_phys_body(body)
     var newly_tracked_body = other_portal._add_tracked_phys_body(body)
@@ -362,7 +382,8 @@ func _clear_mesh_duplicate_cache():
             mesh_duplicate_cache_to_remove.push_back(item)
             mesh_duplicate_cache.remove_at(reverse_idx)
     for item in mesh_duplicate_cache_to_remove:
-        item[1].queue_free()
+        if is_instance_valid(item[1]):
+            item[1].queue_free()
 
 func _store_mesh_duplicate_in_cache(body, mesh_duplicate):
     mesh_duplicate_cache.push_back([body, mesh_duplicate, Time.get_ticks_msec()])
@@ -430,11 +451,12 @@ func _add_tracked_phys_body(body):
 func _remove_tracked_phys_body(body):
     for i in len(_tracked_phys_bodies):
         if _tracked_phys_bodies[i].body == body:
-            print("removed body")
+            print("%s removed body %s" % [portal_id, body])
             
             if _tracked_phys_bodies[i].mesh_duplicator:
-                other_portal.remove_child(_tracked_phys_bodies[i].mesh_duplicator)
-                _store_mesh_duplicate_in_cache(_tracked_phys_bodies[i].body, _tracked_phys_bodies[i].mesh_duplicator)
+                if is_instance_valid(_tracked_phys_bodies[i].mesh_duplicator):
+                    other_portal.remove_child(_tracked_phys_bodies[i].mesh_duplicator)
+                    _store_mesh_duplicate_in_cache(_tracked_phys_bodies[i].body, _tracked_phys_bodies[i].mesh_duplicator)
             if _tracked_phys_bodies[i].camera:
                 _tracked_phys_bodies[i].camera.near = _tracked_phys_bodies[i].prev_camera_near
             _tracked_phys_bodies.remove_at(i)
@@ -460,6 +482,8 @@ func find_by_class(node: Node, name_of_class : String):
 # rubberbands very quickly between the 2 portals. May happen rarely even without the incorrect y
 # rotation set
 func _check_shapecast_collision(body):
+    if !is_in_world || !is_inside_tree():
+        return false
     $ShapeCast3D.force_shapecast_update()
     for i in $ShapeCast3D.get_collision_count():
         if $ShapeCast3D.get_collider(i) == body:
@@ -470,6 +494,7 @@ func _on_body_entered(body):
     # Disable non-moving static bodes from teleporting (except AnimatableBody3Ds which are considered static).
     # CSGShape3Ds are also static if you enable their use_collision property so disable them.
     if (not body.is_class("StaticBody3D") or body.is_class("AnimatableBody3D")) and not body.is_class("CSGShape3D"):
+        print("%s entered %s, other portal: %s" % [body, portal_id, other_portal])
         if other_portal and _check_shapecast_collision(body):
             _add_tracked_phys_body(body)
 

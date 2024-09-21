@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcga1ygfqc2ts"]
+[gd_scene load_steps=7 format=3 uid="uid://dcga1ygfqc2ts"]
 
+[ext_resource type="Script" path="res://scripts/io/light.gd" id="1_ft1yw"]
 [ext_resource type="Material" uid="uid://4rwflfqjmwbi" path="res://materials/toon/flat/yellow/cream_lit.tres" id="1_w0ek5"]
 [ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="2_axorl"]
+[ext_resource type="Material" uid="uid://cnh1xcfi4l8ev" path="res://materials/toon/flat/yellow/cream.tres" id="2_e12ei"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_cjtqb"]
 radius = 0.05
@@ -13,8 +15,11 @@ bottom_radius = 0.025
 height = 0.05
 
 [node name="LightBulb" type="Node3D"]
+script = ExtResource("1_ft1yw")
+unlit = ExtResource("2_e12ei")
+lit = ExtResource("1_w0ek5")
 
-[node name="Bulb" type="MeshInstance3D" parent="."]
+[node name="Bulb" type="MeshInstance3D" parent="." groups=["bulb"]]
 material_override = ExtResource("1_w0ek5")
 mesh = SubResource("SphereMesh_cjtqb")
 
