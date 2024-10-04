@@ -40,6 +40,7 @@ size = Vector3(0.05, 0.1, 0.01)
 
 [node name="ElectronicsLab" type="Node3D"]
 script = ExtResource("1_yqj8k")
+dynamic_connections = ["science_elevator_door"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8ybyx")

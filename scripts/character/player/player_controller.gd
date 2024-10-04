@@ -15,12 +15,56 @@ signal picked_up
 signal dropped
 
 
+enum ControlState {
+    FreeMove,
+    Paused
+}
+
+var previus_state := ControlState.FreeMove
+var current_state := ControlState.FreeMove
+
+
+func _change_control_state(new_state: ControlState):
+    # Prevent overwriting previous state with multiple pauses
+    if current_state != ControlState.Paused:
+        previus_state = current_state
+    current_state = new_state
+    match new_state:
+        ControlState.FreeMove:
+            Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+            _hud.visible = true
+        ControlState.Paused:
+            Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+            _hud.visible = false
+
+
+func _is_paused() -> bool:
+    return current_state == ControlState.Paused
+
+
+func _unpause():
+    if _is_paused():
+        _change_control_state(previus_state)
+
+
+func _can_free_look() -> bool:
+    return current_state == ControlState.FreeMove
+
+
+func get_interactiable_at_shapecast() -> Node3D:
+    return null
+
+
+func _handle_shapecast_interactions():
+    pass
+
+
 func _ready():
-    Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+    _change_control_state(ControlState.FreeMove)
 
 
 func _process(delta):
-    _capture_input()
+    _handle_shapecast_interactions()
     _handle_input()
     if _held_object:
         _move_held_object(delta)
@@ -28,7 +72,7 @@ func _process(delta):
         _set_reticle()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
     if Input.is_action_just_pressed("ui_accept"):
         _player.jump()
 
@@ -41,25 +85,31 @@ func _physics_process(delta):
     # Get the input direction and handle the movement/deceleration.
     # As good practice, you should replace UI actions with custom gameplay actions.
     var input_dir = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-    _player.move(delta, input_dir)
+    _player.move(-input_dir)
 
 
-func _capture_input():
-    if Input.is_action_just_pressed("ui_cancel"):
-        if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-            Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-            _hud.visible = false
-        elif Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-            Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-            _hud.visible = true
+func _handle_pause(event: InputEvent):
+    if _is_paused() &&  event is InputEventMouseButton:
+        _unpause()
+    elif event.is_action_pressed("ui_cancel"):
+        _change_control_state(ControlState.Paused)
 
 
-func _unhandled_input(event):
-    if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+func _handle_camera_input(event):    
+    if event is InputEventMouseMotion and _can_free_look():
         rotation_degrees.y -= event.relative.x * mouse_sensitivity
         rotation_degrees.x += event.relative.y * mouse_sensitivity
         rotation.y = fposmod(rotation.y, TAU)
         rotation.x = clamp(rotation.x, -PI / 2, PI / 2)
+
+
+func _unhandled_input(event):
+    _handle_pause(event)
+    if _is_paused():
+        return
+    
+    _handle_camera_input(event)
+
 
 
 func _handle_input():
