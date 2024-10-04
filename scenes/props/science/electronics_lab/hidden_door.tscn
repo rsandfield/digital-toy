@@ -1,0 +1,89 @@
+[gd_scene load_steps=10 format=3 uid="uid://cs8vpu53ia612"]
+
+[ext_resource type="Script" path="res://scripts/io/door.gd" id="1_a6muw"]
+[ext_resource type="AudioStream" uid="uid://dnpxubv722k1l" path="res://audio/effects/door/spaceship-door-opening-43604.mp3" id="2_2wsjo"]
+[ext_resource type="Material" uid="uid://dhah1rj3f2g6" path="res://materials/toon/flat/green/dark_green.tres" id="3_n0hmw"]
+
+[sub_resource type="Animation" id="Animation_3nisc"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+
+[sub_resource type="Animation" id="Animation_mj3c6"]
+resource_name = "close"
+length = 1.8
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 0, 0, 1, 1, 0, 0, 0)
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(1.6, 1, 1, 1, 0.8, 1.8, 1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_vmoml"]
+resource_name = "open"
+length = 1.8
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.8, 1, 0, 0, 0, 1.8, 1, 1, 0, 0)
+tracks/1/type = "scale_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node3D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 1, 1, 1, 0.2, 1, 1, 1, 0.8)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wjukm"]
+_data = {
+"RESET": SubResource("Animation_3nisc"),
+"close": SubResource("Animation_mj3c6"),
+"open": SubResource("Animation_vmoml")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hp6fy"]
+size = Vector3(1, 2, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_rsfkq"]
+size = Vector3(1, 2, 0.2)
+
+[node name="HiddenDoor" type="Node3D"]
+script = ExtResource("1_a6muw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wjukm")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_2wsjo")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_hp6fy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = ExtResource("3_n0hmw")
+mesh = SubResource("BoxMesh_rsfkq")
+skeleton = NodePath("../..")
