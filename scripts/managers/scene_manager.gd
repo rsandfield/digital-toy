@@ -152,14 +152,18 @@ func parse_tscn_nodes_nested(filepath) -> Dictionary:
 
 
 func get_flat_nodes(content: String) -> Array[Dictionary]:
+    var regex = RegEx.new()
+    regex.compile(r'(\w+)\s*=\s*"([^"]*)"|(\w+)')
+
     var _prune_quotations = func (data: String) -> String:
         if data.begins_with('"') && data.ends_with('"'):
             return data.replace('"', '')
         return data
 
-    var  _get_header_data = func (header_kvp: String) -> Dictionary:
-        var kvp = header_kvp.split("=")
-        return { kvp[0]: _prune_quotations.call(kvp[1]) }
+    var  _get_header_data = func (header_kvp: PackedStringArray) -> Dictionary:
+        if len(header_kvp) != 2 || header_kvp[0] == "":
+            return {}
+        return { header_kvp[0]: _prune_quotations.call(header_kvp[1]) }
     
     var  _get_override_data = func (override_kvp: String) -> Dictionary:
         var kvp = override_kvp.split(" = ")
@@ -176,9 +180,9 @@ func get_flat_nodes(content: String) -> Array[Dictionary]:
             break
         elif line.begins_with("[node") && line.ends_with("]"):
             current_node = {}
-            var header_data = line.substr(6, line.length()-7).split(" ")
-            for kvp in header_data:
-                current_node.merge(_get_header_data.call(kvp))
+            var node_string = line.lstrip("[").rstrip("]")
+            for match in regex.search_all(node_string):
+                current_node.merge(_get_header_data.call(match.strings.slice(1, 3)))
         elif current_node != null:
             if len(line) > 0:
                 current_node.merge(_get_override_data.call(line))
