@@ -24,7 +24,7 @@ func _physics_process(delta):
 
 func jump():
     if is_on_floor():
-        velocity.y = JUMP_VELOCITY
+        velocity += JUMP_VELOCITY * -gravity.normalized()
 
 func crouch(down: bool = true):
     if down:

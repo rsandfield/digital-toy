@@ -7,6 +7,7 @@ var connections: PackedStringArray
 var portal_ids: PackedStringArray
 var viewport_node: SubViewport
 var name: String
+var mutex: Mutex = Mutex.new()
 
 func _init(fp: String, n: Array[Dictionary]):
     filepath = fp
@@ -16,7 +17,9 @@ func _init(fp: String, n: Array[Dictionary]):
 
 func Load(container: SubViewportContainer):
     if IsLoaded():
+        # print("%s already loaded" % name)
         return
+    mutex.lock()
     print("Loading %s" % name)
     viewport_node = SubViewport.new()
     viewport_node.name = name
@@ -27,6 +30,7 @@ func Load(container: SubViewportContainer):
     viewport_node.add_child(instance)
     container.add_child(viewport_node)
     reset_elevators.call_deferred(instance)
+    mutex.unlock()
 
     for portal_id in portal_ids:
         var portal = GameManager.get_portal(portal_id)
@@ -39,10 +43,22 @@ func Load(container: SubViewportContainer):
 
 func Unload():
     if !IsLoaded():
-        print("Failed unloading %s" % self)
+        # print("%s already unloaded" % self)
         return
     print("Unloading %s" % self)
-    GameManager.queue_kill(viewport_node)
+    mutex.lock()
+    viewport_node.free()
+    mutex.unlock()
+
+
+func SetActive(container: SubViewportContainer, player: Player):
+    if IsLoaded():
+        if player.get_viewport() != viewport_node:
+            player.reparent(viewport_node)
+        container.move_child(viewport_node, -1)
+        var scene = viewport_node.get_child(0) as GameScene
+        if scene:
+            scene.on_enter()
 
 
 func IsLoaded() -> bool:

@@ -39,14 +39,23 @@ var _tracked_phys_bodies = []
 
 func set_other_portal(other: Portal):
     if other_portal:
+        # Purge current tracked bodies
         var i = len(_tracked_phys_bodies) - 1
         while i >= 0:
             other_portal._remove_tracked_phys_body(_tracked_phys_bodies[i].body)
+            i -= 1
 
     other_portal = other
-    if not other:
+    if other_portal:
+        # Populate tracked bodies
+        $ShapeCast3D.force_shapecast_update()
+        for i in $ShapeCast3D.get_collision_count():
+            _on_body_entered($ShapeCast3D.get_collider(i))
+    else:
+        # Bring it home so it doesn't get cleaned up
         camera_viewport.reparent(self)
         return
+    
     viewport_camera.set_cull_mask_value(other_portal.cull_layer, false)
     if get_viewport() != other_portal.get_viewport():
         camera_viewport.reparent(other_portal)
@@ -89,10 +98,6 @@ func _notification(what):
     match what:
         NOTIFICATION_EXIT_WORLD:
             is_in_world = false
-        1, 11, 13, 16, 17, 19, 24, 27, 1002, 1003, 1004, 1005, 2000, 2010, 2016, 2017:
-            pass
-        _:
-            print("%s %s" % [portal_id, what])
 
 
 func _ready():
@@ -326,6 +331,8 @@ func _remove_hanging_body_check():
 func _move_to_other_portal(body: PhysicsBody3D):
     if not other_portal:
         return
+
+    print("%s moving %s to %s" % [portal_id, body, other_portal_id])
     
     var transform_rel_to_this_portal = self.global_transform.affine_inverse() * body.global_transform
     var moved_to_other_portal = other_portal.global_transform * transform_rel_to_this_portal
@@ -444,8 +451,9 @@ func _add_tracked_phys_body(body):
     _tracked_phys_bodies.push_back(newly_tracked_body)
     
     if body.has_method("_on_portal_tracking_enter"):
+        print("%s calling %s _on_portal_tracking_enter" % [portal_id, body])
         body._on_portal_tracking_enter(self)
-    
+    print("Entered")
     return newly_tracked_body
     
 func _remove_tracked_phys_body(body):
@@ -482,7 +490,7 @@ func find_by_class(node: Node, name_of_class : String):
 # rubberbands very quickly between the 2 portals. May happen rarely even without the incorrect y
 # rotation set
 func _check_shapecast_collision(body):
-    if !is_in_world || !is_inside_tree():
+    if !(is_in_world && is_inside_tree()):
         return false
     $ShapeCast3D.force_shapecast_update()
     for i in $ShapeCast3D.get_collision_count():
@@ -494,8 +502,8 @@ func _on_body_entered(body):
     # Disable non-moving static bodes from teleporting (except AnimatableBody3Ds which are considered static).
     # CSGShape3Ds are also static if you enable their use_collision property so disable them.
     if (not body.is_class("StaticBody3D") or body.is_class("AnimatableBody3D")) and not body.is_class("CSGShape3D"):
-        print("%s entered %s, other portal: %s" % [body, portal_id, other_portal])
         if other_portal and _check_shapecast_collision(body):
+            print("%s entered %s, other portal: %s" % [body, portal_id, other_portal])
             _add_tracked_phys_body(body)
 
 func _on_body_exited(body):

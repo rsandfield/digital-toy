@@ -5,6 +5,7 @@ const SCENE_ROOT_DIR: String = "res://scenes/game_scenes"
 var _container: SubViewportContainer
 var _game_scenes: Dictionary = {}
 var _portals: Dictionary = {}
+var _current_scene: String
 
 func file_path_to_name(filepath: String) -> String:
     return filepath.split("/")[-1].split(".")[0]
@@ -22,15 +23,16 @@ class SceneLoadingHelper:
             return
         if !to_load.has(scene):
             to_load.append(scene)
-        for connection in scene.connections:
-            populate(SceneManager._get_portal_scene_name(connection), depth - 1)
+            for connection in scene.connections:
+                populate(SceneManager._get_portal_scene_name(connection), depth - 1)
 
     func engage(container: SubViewportContainer):
+        # populate() does a depth-first search and will definitely misqueue nodes for unloading
         to_unload.assign(to_unload.filter(func(scene: SceneData): return !to_load.has(scene)))
-        for scene in to_load:
-            scene.Load(container)
         for scene in to_unload:
             scene.Unload()
+        for scene in to_load:
+            scene.Load(container)
 
 
 func _ready():
@@ -41,22 +43,18 @@ func _ready():
     _find_portals(_game_scenes)
     for scene in _game_scenes.keys():
         _game_scenes[scene].nodes.clear()
-    load_scene(_game_root.starting_scene)
     set_active_scene(_game_root.starting_scene, GameManager._player)
 
 
 func set_active_scene(scene_name: String, player: Player):
-    var viewport = _get_scene_data(scene_name).viewport_node
-    if player.get_viewport() != viewport:
-        player.reparent(viewport)
-    load_scene(scene_name)
-    _container.move_child(viewport, -1)
-
-
-func load_scene(scene_name: String, depth: int = 2):
+    if scene_name == _current_scene:
+        return
     var helper = SceneLoadingHelper.new()
-    helper.populate(scene_name, depth)
+    helper.populate(scene_name, 2)
     helper.engage(_container)
+    _get_scene_data(scene_name).SetActive(_container, player)
+    print("Active scene is now %s" % [scene_name])
+    _current_scene = scene_name
 
     
 func _get_scene_data(scene_name: String) -> SceneData:
