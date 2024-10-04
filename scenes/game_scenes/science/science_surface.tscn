@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://u7bv4v700ays"]
+[gd_scene load_steps=13 format=3 uid="uid://u7bv4v700ays"]
 
-[ext_resource type="Script" path="res://world/box.gd" id="1_0iua8"]
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_pgn0e"]
 [ext_resource type="PackedScene" uid="uid://novjlejxb1rb" path="res://world/box.tscn" id="2_67tu2"]
 [ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="3_pcerc"]
+[ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="4_7qv81"]
 [ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/flat/yellow/flax.tres" id="4_ay4gf"]
 [ext_resource type="Script" path="res://world/planet/gravity_area_3d.gd" id="5_fr327"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="5_lfptb"]
@@ -25,7 +26,7 @@ size = Vector3(3, 1, 2)
 size = Vector3(110, 5, 110)
 
 [node name="ScienceWorld" type="Node3D"]
-script = ExtResource("1_0iua8")
+script = ExtResource("1_pgn0e")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_grv2v")
@@ -40,13 +41,18 @@ collision_layer = 3
 size = Vector3(100, 100, 100)
 material = ExtResource("3_pcerc")
 
+[node name="Osmobile" parent="Planet/Box" instance=ExtResource("4_7qv81")]
+transform = Transform3D(-0.707107, -7.462e-08, -0.707107, 0.707107, 3.09086e-08, -0.707107, 7.462e-08, -1, 3.09086e-08, 40, 40, -50)
+portal_id = "osmobile_science_surface"
+world_index = 1
+
 [node name="Entrance" type="Node3D" parent="Planet/Box"]
 transform = Transform3D(0.707107, -2.98023e-08, 0.707107, -0.707107, -2.98023e-08, 0.707107, 0, -1, -1.19209e-07, 25.5, 25.5, -50)
 
 [node name="Portal" parent="Planet/Box/Entrance" instance=ExtResource("5_lfptb")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
-portal_id = "ScienceSurface"
-other_portal_id = "ScienceFoyer"
+transform = Transform3D(-1, -1.51808e-08, -8.60946e-08, 0, 0.984808, -0.173648, 8.74228e-08, -0.173648, -0.984808, 0, 0, 0)
+portal_id = "science_surface_portal"
+other_portal_id = "science_foyer_portal"
 cull_layer = 2
 
 [node name="Gravity" type="Area3D" parent="Planet/Box/Entrance"]

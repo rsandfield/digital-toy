@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cbqouvxyg355x"]
+
+[ext_resource type="PackedScene" uid="uid://dbn5js4oa78db" path="res://models/enode.blend" id="1_e2p7e"]
+[ext_resource type="Material" uid="uid://t85cgc1iu6x8" path="res://materials/toon/flat/metal/gold.tres" id="2_mbsyx"]
+
+[node name="Enode" type="Node3D"]
+
+[node name="enode" parent="." instance=ExtResource("1_e2p7e")]
+
+[node name="Circle" parent="enode" index="0"]
+material_override = ExtResource("2_mbsyx")
+
+[editable path="enode"]

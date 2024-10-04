@@ -85,9 +85,9 @@ elevator = "science_elevator"
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.2, 2)
 
 [node name="Portal" parent="." instance=ExtResource("4_rkr0p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.98)
-portal_id = "ScienceFoyer"
-other_portal_id = "ScienceSurface"
+transform = Transform3D(1, 0, 0, 0, 0.984808, -0.173648, 0, 0.173648, 0.984808, 0, 0, -1.99)
+portal_id = "science_foyer_portal"
+other_portal_id = "science_surface_portal"
 cull_layer = 2
 
 [node name="Directory" type="MeshInstance3D" parent="."]

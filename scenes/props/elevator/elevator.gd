@@ -28,8 +28,6 @@ func _process(delta):
 
 func reset_elevator():
     _door.close()
-    if _door.other_door:
-        _door.other_door.close()
 
 
 func call_to_floor(value: int):
@@ -42,22 +40,19 @@ func call_to_floor(value: int):
         print("%s already on %d" % [name, value])
 
     select_floor(value)
+    print("%s opening doors" % id)
     _open_doors()
 
 
 func _open_doors():
-    opened = true
+    opened = door_close_delay >= 0
     _door.open()
-    if _door.other_door:
-        _door.other_door.open()
 
 
 func _close_doors():
     opened = false
     close_timer = 0
     _door.close()
-    if _door.other_door:
-        _door.other_door.close()
 
 
 func animate_move(from: int, to: int):
@@ -95,6 +90,8 @@ func animate_move(from: int, to: int):
 
 func select_floor(value: int):
     current_floor = value
-    var other_portal = GameManager.get_portal(dynamic_connections[value])
-    _door.set_other_door(other_portal.get_parent())
-    _door.other_door.set_other_door(_door)
+    var other_door = GameManager.get_portal(dynamic_connections[value]).get_parent()
+    if _door._other_door == other_door:
+        return
+    _door.set_other_door(other_door)
+    _door._other_door.set_other_door(_door)

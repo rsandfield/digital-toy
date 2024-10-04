@@ -82,8 +82,8 @@ transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -2.
 
 [node name="Portal" parent="." instance=ExtResource("8_eq5vn")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.9, -4, 0.25)
-portal_id = "AntFarmPortal"
-other_portal_id = "AntTunnelFarmPortal"
+portal_id = "ant_farm_portal"
+other_portal_id = "ant_tunnel_farm_portal"
 size = Vector2(2.5, 3)
 
 [node name="ElevatorCallButton" parent="." instance=ExtResource("8_sv1c6")]

@@ -1,0 +1,86 @@
+[gd_scene load_steps=13 format=3 uid="uid://cq2tfhbcxb0v7"]
+
+[ext_resource type="Script" path="res://scenes/props/elevator/elevator.gd" id="1_xkn4c"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="2_1x1l0"]
+[ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="3_tbnfv"]
+[ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="4_nku63"]
+[ext_resource type="PackedScene" uid="uid://cmndyhptq2qpy" path="res://models/rooms/science/science_elevator.blend" id="5_c82t2"]
+[ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="6_news2"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="7_8bldb"]
+[ext_resource type="Material" uid="uid://td7ic7gdoxlm" path="res://materials/translucent/glass/glass.tres" id="8_qmwjh"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_woqo7"]
+size = Vector3(10, 5, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_vob6e"]
+size = Vector2(2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_eyb26"]
+size = Vector3(6, 0.5, 6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2d50k"]
+size = Vector3(0.2, 0.6, 0.025)
+
+[node name="UrbanElevatorCastle" type="Node3D"]
+script = ExtResource("1_xkn4c")
+id = "urban_castle_elevator"
+dynamic_connections = ["mine_castle_elevator_door", "castle_elevator_door"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Gravity" type="Area3D" parent="."]
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_woqo7")
+
+[node name="Ceiling" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.005, 2.2, 0.001)
+material_override = ExtResource("2_1x1l0")
+mesh = SubResource("PlaneMesh_vob6e")
+
+[node name="Area3D" type="StaticBody3D" parent="Ceiling"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ceiling/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_eyb26")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+material_override = ExtResource("3_tbnfv")
+mesh = SubResource("PlaneMesh_vob6e")
+
+[node name="Area3D" type="StaticBody3D" parent="Floor"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_eyb26")
+
+[node name="CeilingLight" parent="." instance=ExtResource("4_nku63")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+
+[node name="elevator" parent="." instance=ExtResource("5_c82t2")]
+
+[node name="Walls" parent="elevator" index="0"]
+material_override = ExtResource("6_news2")
+
+[node name="StaticBody3D" parent="elevator/Walls" index="0"]
+collision_layer = 3
+
+[node name="ElevatorDoor" parent="." instance=ExtResource("7_8bldb")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1.1)
+portal_id = "urban_castle_elevator_door"
+
+[node name="GlassL" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0.45, 1.075)
+material_override = ExtResource("8_qmwjh")
+mesh = SubResource("BoxMesh_2d50k")
+
+[node name="GlassR" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0.45, 1.075)
+material_override = ExtResource("8_qmwjh")
+mesh = SubResource("BoxMesh_2d50k")
+
+[editable path="elevator"]

@@ -110,7 +110,6 @@ libraries = {
 stream = ExtResource("2_hxu5o")
 
 [node name="Portal" parent="." instance=ExtResource("2_k0rvu")]
-portal_id = "elevator_door"
 
 [node name="DoorL" type="Node3D" parent="."]
 

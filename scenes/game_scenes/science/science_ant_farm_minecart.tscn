@@ -1,0 +1,64 @@
+[gd_scene load_steps=9 format=3 uid="uid://65v017qdquqq"]
+
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_5ke7v"]
+[ext_resource type="PackedScene" uid="uid://dcga1ygfqc2ts" path="res://scenes/props/io/lights/light_bulb.tscn" id="3_bg8bm"]
+[ext_resource type="PackedScene" uid="uid://cux5fo1kppqjw" path="res://models/rooms/science/ant_nursery.blend" id="4_sbwvb"]
+[ext_resource type="Material" uid="uid://ckanln7h5hc43" path="res://materials/toon/textured/soil.tres" id="5_7gp4s"]
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="10_cgrhn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c5thh"]
+size = Vector3(10, 5, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_fbesk"]
+size = Vector2(10, 10)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_px1p8"]
+size = Vector3(10, 0.5, 10)
+
+[node name="ScienceAntFarmMinecart" type="Node3D"]
+script = ExtResource("1_5ke7v")
+
+[node name="Gravity" type="Area3D" parent="."]
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_c5thh")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+material_override = ExtResource("5_7gp4s")
+mesh = SubResource("PlaneMesh_fbesk")
+
+[node name="Area3D" type="StaticBody3D" parent="Floor"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_px1p8")
+
+[node name="LightBulb" parent="Floor" instance=ExtResource("3_bg8bm")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -2.8, 2.25, -0.75)
+
+[node name="LightBulb2" parent="Floor" instance=ExtResource("3_bg8bm")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 2.7, 2.25, 1)
+
+[node name="LightBulb3" parent="Floor" instance=ExtResource("3_bg8bm")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.8, 2.25, 3.5)
+
+[node name="LightBulb4" parent="Floor" instance=ExtResource("3_bg8bm")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.6, 2.25, -5.25)
+
+[node name="ant_nursery" parent="." instance=ExtResource("4_sbwvb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="Walls" parent="ant_nursery" index="0"]
+material_override = ExtResource("5_7gp4s")
+
+[node name="Portal" parent="." instance=ExtResource("10_cgrhn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+portal_id = "ant_minecart_portal"
+other_portal_id = "ant_tunnel_minecart_portal"
+size = Vector2(2.5, 3)
+
+[editable path="ant_nursery"]

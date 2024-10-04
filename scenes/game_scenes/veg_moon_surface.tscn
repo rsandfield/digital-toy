@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://v0pq0pntjiw3"]
+[gd_scene load_steps=12 format=3 uid="uid://v0pq0pntjiw3"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_05fuw"]
 [ext_resource type="Material" uid="uid://c6va14cbgsaav" path="res://materials/toon/flat/red/tomato.tres" id="1_qlsj3"]
 [ext_resource type="Material" uid="uid://c8olidg62enqc" path="res://materials/toon/flat/green/lime_green.tres" id="2_fvnvx"]
 [ext_resource type="PackedScene" uid="uid://c7si62mhp1quw" path="res://scenes/props/veg_moon/surface/landing_site/lander.tscn" id="3_afiq3"]
+[ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="4_fyamq"]
 [ext_resource type="PackedScene" uid="uid://da0cee4rc5vl" path="res://scenes/props/veg_moon/surface/landing_site/moon_buggy.tscn" id="4_s253k"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qc602"]
@@ -19,6 +20,9 @@ size = Vector3(70, 2, 70)
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gsph2"]
 radius = 3.0
 height = 20.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xk3ds"]
+radius = 200.0
 
 [node name="VegMoon" type="Node3D"]
 script = ExtResource("1_05fuw")
@@ -49,8 +53,20 @@ material_override = ExtResource("2_fvnvx")
 mesh = SubResource("CapsuleMesh_gsph2")
 skeleton = NodePath("../..")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="Planet"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/StaticBody3D"]
+shape = SubResource("SphereShape3D_xk3ds")
+
+[node name="Osmobile" parent="." instance=ExtResource("4_fyamq")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 200)
+portal_id = "osmobile_veg_moon_surface"
+
 [node name="Lander" parent="." instance=ExtResource("3_afiq3")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -200)
 
 [node name="MoonBuggy" parent="." instance=ExtResource("4_s253k")]
 transform = Transform3D(1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, -10, -9, -199)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

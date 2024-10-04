@@ -1,0 +1,71 @@
+[gd_scene load_steps=9 format=3 uid="uid://d3vfqnj2h16up"]
+
+[ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="1_5n5ns"]
+[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_erq06"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_k28tf"]
+[ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="3_85l44"]
+[ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="3_co0sf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4vof2"]
+size = Vector3(10, 5, 10)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kco23"]
+size = Vector2(8, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8tvjv"]
+size = Vector3(8, 0.5, 8)
+
+[node name="UrbanMineFoyer" type="Node3D"]
+script = ExtResource("1_erq06")
+dynamic_connections = ["urban_tree_elevator_door", "urban_studio_elevator_door", "urban_castle_elevator_door"]
+
+[node name="Gravity" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0.5)
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_4vof2")
+
+[node name="Floor" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+material_override = ExtResource("1_5n5ns")
+mesh = SubResource("PlaneMesh_kco23")
+
+[node name="Area3D" type="StaticBody3D" parent="Floor"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+shape = SubResource("BoxShape3D_8tvjv")
+
+[node name="ElevatorDoorTree" parent="." instance=ExtResource("2_k28tf")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -2, 0, -2)
+portal_id = "mine_tree_elevator_door"
+elevator = "urban_tree_elevator"
+
+[node name="ElevatorCallButton" parent="ElevatorDoorTree" instance=ExtResource("3_85l44")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 1.25, 0)
+
+[node name="ElevatorDoorStudio" parent="." instance=ExtResource("2_k28tf")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -3)
+portal_id = "mine_studio_elevator_door"
+elevator = "urban_studio_elevator"
+
+[node name="ElevatorCallButton" parent="ElevatorDoorStudio" instance=ExtResource("3_85l44")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 1.25, 0)
+
+[node name="ElevatorDoorCastle" parent="." instance=ExtResource("2_k28tf")]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 2, 0, -2)
+portal_id = "mine_castle_elevator_door"
+elevator = "urban_castle_elevator"
+
+[node name="ElevatorCallButton" parent="ElevatorDoorCastle" instance=ExtResource("3_85l44")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1, 1.25, 0)
+
+[node name="CeilingLight" parent="." instance=ExtResource("3_co0sf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[connection signal="pressed" from="ElevatorDoorTree/ElevatorCallButton" to="ElevatorDoorTree" method="call_elevator"]
+[connection signal="pressed" from="ElevatorDoorStudio/ElevatorCallButton" to="ElevatorDoorStudio" method="call_elevator"]
+[connection signal="pressed" from="ElevatorDoorCastle/ElevatorCallButton" to="ElevatorDoorCastle" method="call_elevator"]

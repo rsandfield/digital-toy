@@ -10,7 +10,7 @@ reflected_light_source = 1
 
 [node name="Root" type="Node3D"]
 script = ExtResource("1_hkln8")
-starting_scene = "science_elevator"
+starting_scene = "science_electronics_lab"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yl7ny")

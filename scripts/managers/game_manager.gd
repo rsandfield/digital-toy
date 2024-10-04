@@ -6,20 +6,11 @@ var _portals = {}
 var _elevators = {}
 var _player: Player
 
-var _kill_queue: Array[Node] = []
-
 func _ready():
     var controller = _player.get_child(1) as PlayerController
     for portal_id in _portals:
         var portal = _portals[portal_id] as Portal
         controller._raycast.add_exception(portal)
-
-
-func _process(_delta):
-    if _kill_queue.size() > 0:
-        var queued = _kill_queue.pop_front()
-        if is_instance_valid(queued):
-            queued.queue_free()
 
 
 func register_player(player: Player):
@@ -63,6 +54,7 @@ func get_portal(id: String):
 
 
 func link_portals(portal: Portal, link_id: String):
+    assert(portal, "Cannot link portals, first portal is undefined")
     var other_portal = _portals.get(link_id)
     assert(other_portal, "Cannot link portals %s and %s, [%s] not registered" % [portal.portal_id,  link_id,  link_id])
     portal.set_other_portal(other_portal)
@@ -91,8 +83,3 @@ func call_elevator(elevator_id: String, index: int):
     print("Calling %s to %d" % [elevator_id, index])
     var elevator = _elevators.get(elevator_id) as Elevator
     elevator.call_to_floor(index)
-
-
-func queue_kill(node: Node):
-    if !_kill_queue.has(node):
-        _kill_queue.append(node)

@@ -1,8 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://byc4yvagb6m8b"]
+[gd_scene load_steps=10 format=3 uid="uid://byc4yvagb6m8b"]
 
-[ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_7axmg"]
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="1_7dm4n"]
-[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="3_538ma"]
+[ext_resource type="Script" path="res://scenes/props/elevator/elevator.gd" id="1_hneul"]
+[ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="4_rl2ly"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="5_mtfsq"]
+[ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="5_uswy5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t514v"]
+size = Vector3(10, 5, 10)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_oed7q"]
 size = Vector2(4, 6)
@@ -10,8 +15,23 @@ size = Vector2(4, 6)
 [sub_resource type="BoxShape3D" id="BoxShape3D_we1lv"]
 size = Vector3(6, 0.5, 6)
 
+[sub_resource type="BoxMesh" id="BoxMesh_q4do3"]
+size = Vector3(0.08, 0.01, 0.16)
+
 [node name="OsmobileInterior" type="Node3D"]
-script = ExtResource("1_7axmg")
+script = ExtResource("1_hneul")
+id = "osmobile"
+door_close_delay = -1
+dynamic_connections = ["osmobile_veg_moon_surface", "osmobile_science_surface"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Gravity" type="Area3D" parent="."]
+gravity_space_override = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("BoxShape3D_t514v")
 
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
@@ -25,6 +45,51 @@ collision_layer = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_we1lv")
 
-[node name="Portal" parent="." instance=ExtResource("3_538ma")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2, 0, 0)
-portal_id = "osmobile_exit"
+[node name="CeilingLight" parent="." instance=ExtResource("4_rl2ly")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+
+[node name="WorldSelectPanel" type="Node3D" parent="."]
+transform = Transform3D(-8.74228e-08, -1.73205, -1, 0, 1, -1.73205, 2, -7.57103e-08, -4.37114e-08, 2, 1.17532, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldSelectPanel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, 0)
+mesh = SubResource("BoxMesh_q4do3")
+skeleton = NodePath("../..")
+
+[node name="Button0" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, -0.06)
+
+[node name="Button1" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, -0.02)
+
+[node name="Button2" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, 0.02)
+
+[node name="Button3" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, 0.06)
+
+[node name="Button4" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, -0.06)
+
+[node name="Button5" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, -0.02)
+
+[node name="Button6" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.02)
+
+[node name="Button7" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.06)
+
+[node name="ElevatorDoor" parent="." instance=ExtResource("5_mtfsq")]
+transform = Transform3D(-4.2222e-08, 0.258819, 0.965926, 1.13133e-08, 0.965926, -0.258819, -1, 0, -4.37114e-08, 2, 0, 0)
+portal_id = "osmobile_exit_door"
+elevator = "osmobile"
+
+[connection signal="pressed" from="WorldSelectPanel/Button0" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="WorldSelectPanel/Button1" to="." method="call_to_floor" binds= [1]]
+[connection signal="pressed" from="WorldSelectPanel/Button2" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="WorldSelectPanel/Button3" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="WorldSelectPanel/Button4" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="WorldSelectPanel/Button5" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="WorldSelectPanel/Button6" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="WorldSelectPanel/Button7" to="." method="call_to_floor" binds= [0]]

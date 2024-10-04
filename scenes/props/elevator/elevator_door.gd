@@ -1,24 +1,14 @@
 class_name ElevatorDoor
-extends Node3D
+extends Door3D
 
-signal closed
 
 @export var portal_id : String
 @export var elevator: String
 @export var floor_index: int
 
 var _portal: Portal
-@onready var _animation: AnimationPlayer = $AnimationPlayer
-@onready var _audio: AudioStreamPlayer3D = $AudioStreamPlayer3D
-var _door_state: DoorState = DoorState.CLOSED
-var other_door: ElevatorDoor
+var _other_door: ElevatorDoor
 
-enum DoorState {
-    OPEN,
-    CLOSED,
-    OPENING,
-    CLOSING,
-}
 
 func _enter_tree():
     _portal = $Portal
@@ -31,52 +21,26 @@ func call_elevator():
 
 
 func set_other_door(other: ElevatorDoor):
-    if not _portal:
+    if !_portal:
         _portal = $Portal
-    other_door = other
-    if other_door:
-        _portal.set_other_portal(other_door._portal)
-    else:
-        _portal.set_other_portal(null)
+    _other_door = other
+    var other_portal = null
+    if has_other_door():
+        other_portal = _other_door._portal
+    _portal.set_other_portal(other_portal)
+
+
+func has_other_door() -> bool:
+    return _other_door != null
 
 
 func open():
-    if _door_state == DoorState.CLOSED:
-        _door_state = DoorState.OPENING
-        _animation.play("open")
-        _audio.play()
-        await _animation.animation_finished
-        _door_state = DoorState.OPEN
-    if _door_state == DoorState.CLOSING:
-        _door_state = DoorState.OPENING
-        var pos = _animation.current_animation_position
-        _animation.stop()
-        _animation.play_backwards("close")
-        _animation.seek(pos)
-        await _animation.animation_finished
-        _door_state = DoorState.OPEN
+    _open()
+    if _other_door:
+        _other_door._open()
 
 
 func close():
-    match _door_state:
-        DoorState.OPEN:
-            _door_state = DoorState.CLOSING
-            _animation.play("close")
-            _audio.play()
-            await _animation.animation_finished
-            _door_state = DoorState.CLOSED
-            closed.emit()
-        DoorState.OPENING:
-            _door_state = DoorState.CLOSING
-            var pos = _animation.current_animation_position
-            _animation.stop()
-            _animation.play_backwards("open")
-            _animation.seek(pos)
-            await _animation.animation_finished
-            _door_state = DoorState.CLOSED
-        DoorState.CLOSING:
-            return
-        DoorState.CLOSED:
-            closed.emit()
-        _:
-            print('%s given unknown state: %s' % [name, _door_state])
+    _close()
+    if _other_door:
+        _other_door._close()

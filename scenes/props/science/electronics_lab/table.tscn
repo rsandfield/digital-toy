@@ -1,0 +1,58 @@
+[gd_scene load_steps=6 format=3 uid="uid://c5x28j5gof5n2"]
+
+[ext_resource type="PackedScene" uid="uid://novjlejxb1rb" path="res://world/box.tscn" id="1_13qxy"]
+[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="2_3072t"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_14tq6"]
+resource_local_to_scene = true
+size = Vector3(2, 0.1, 0.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_qty4q"]
+resource_local_to_scene = true
+size = Vector3(2, 0.1, 0.8)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rdcaw"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.8
+
+[node name="Table" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
+
+[node name="Top" parent="." instance=ExtResource("1_13qxy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+size = Vector3(2, 0.1, 0.8)
+material = ExtResource("2_3072t")
+
+[node name="CollisionShape3D" parent="Top" index="0"]
+shape = SubResource("BoxShape3D_14tq6")
+
+[node name="MeshInstance3D" parent="Top" index="1"]
+material_override = ExtResource("2_3072t")
+mesh = SubResource("BoxMesh_qty4q")
+
+[node name="Leg" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.4, 0.3)
+material_override = ExtResource("2_3072t")
+mesh = SubResource("CylinderMesh_rdcaw")
+skeleton = NodePath("../Top")
+
+[node name="Leg2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.4, -0.3)
+material_override = ExtResource("2_3072t")
+mesh = SubResource("CylinderMesh_rdcaw")
+skeleton = NodePath("../Top")
+
+[node name="Leg3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.4, 0.3)
+material_override = ExtResource("2_3072t")
+mesh = SubResource("CylinderMesh_rdcaw")
+skeleton = NodePath("../Top")
+
+[node name="Leg4" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0.4, -0.3)
+material_override = ExtResource("2_3072t")
+mesh = SubResource("CylinderMesh_rdcaw")
+skeleton = NodePath("../Top")
+
+[editable path="Top"]

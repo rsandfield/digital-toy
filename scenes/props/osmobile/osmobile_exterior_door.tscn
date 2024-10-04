@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://do5puu7uhxox0"]
+
+[ext_resource type="Script" path="res://scenes/props/elevator/elevator_door.gd" id="1_mod3d"]
+[ext_resource type="AudioStream" uid="uid://dnpxubv722k1l" path="res://audio/effects/door/spaceship-door-opening-43604.mp3" id="2_pkmnf"]
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="3_dhfy0"]
+
+[sub_resource type="Animation" id="Animation_u8lfj"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_ycq4l"]
+resource_name = "close"
+
+[sub_resource type="Animation" id="Animation_qc7nx"]
+resource_name = "open"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oabdh"]
+_data = {
+"RESET": SubResource("Animation_u8lfj"),
+"close": SubResource("Animation_ycq4l"),
+"open": SubResource("Animation_qc7nx")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_wx84n"]
+size = Vector3(1.2, 2.1, 0.2)
+
+[node name="ElevatorDoor" type="Node3D"]
+script = ExtResource("1_mod3d")
+elevator = "osmobile"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_oabdh")
+}
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_pkmnf")
+
+[node name="Portal" parent="." instance=ExtResource("3_dhfy0")]
+
+[node name="Door" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+mesh = SubResource("BoxMesh_wx84n")
