@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_b3mc0"]
 [ext_resource type="PackedScene" uid="uid://csivoeik6cap1" path="res://models/rooms/science/ant_farm.blend" id="2_fgmsl"]
-[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_jx50l"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="2_jx50l"]
 [ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="2_rgrxn"]
 [ext_resource type="Material" uid="uid://dg71nts2qy11r" path="res://materials/toon/flat/green/green.tres" id="3_tyoey"]
 [ext_resource type="Material" uid="uid://ckanln7h5hc43" path="res://materials/toon/textured/soil.tres" id="4_gagp4"]

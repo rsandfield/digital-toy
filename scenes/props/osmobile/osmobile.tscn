@@ -1,9 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://bwe15kxlqj7bv"]
+[gd_scene load_steps=13 format=3 uid="uid://bwe15kxlqj7bv"]
 
 [ext_resource type="Script" path="res://scripts/vehicle/osmobile/osmobile_exterior.gd" id="1_nuukb"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="2_gb5x3"]
-[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_tsw6l"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="2_tsw6l"]
+[ext_resource type="Script" path="res://scripts/io/button3d.gd" id="3_3dqqi"]
 [ext_resource type="Material" uid="uid://ytxy85mjblgl" path="res://materials/toon/flat/gray/black.tres" id="3_juo8w"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ick0"]
+size = Vector3(1.25, 2.2, 0.2)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_v1se5"]
 top_radius = 4.0
@@ -32,6 +36,13 @@ script = ExtResource("1_nuukb")
 [node name="ElevatorDoor" parent="." instance=ExtResource("2_tsw6l")]
 transform = Transform3D(1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 2, 4)
 elevator = "osmobile"
+
+[node name="Button3D" type="Area3D" parent="ElevatorDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 4.76837e-07)
+script = ExtResource("3_3dqqi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElevatorDoor/Button3D"]
+shape = SubResource("BoxShape3D_2ick0")
 
 [node name="Nose" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 6, 0)
@@ -72,3 +83,5 @@ collision_layer = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ramp/StaticBody3D"]
 shape = SubResource("BoxShape3D_2q1ch")
+
+[connection signal="pressed" from="ElevatorDoor/Button3D" to="ElevatorDoor" method="call_elevator"]

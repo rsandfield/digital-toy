@@ -27,6 +27,7 @@ size = Vector3(110, 5, 110)
 
 [node name="ScienceWorld" type="Node3D"]
 script = ExtResource("1_pgn0e")
+dynamic_connections = ["osmobile_exit_door"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_grv2v")

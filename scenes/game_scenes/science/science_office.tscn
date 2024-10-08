@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_jhy17"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_p1m04"]
-[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="2_7ao0t"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="2_7ao0t"]
 [ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="3_iywhs"]
 [ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="4_3bn11"]
 [ext_resource type="PackedScene" uid="uid://51ikjgcwxvr0" path="res://scenes/props/science/osmostein_office/blitz_blaster/blitz_blaster.tscn" id="5_lrk82"]

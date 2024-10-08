@@ -78,7 +78,7 @@ func _enter_tree():
         return
 
     var portal_material = ShaderMaterial.new()
-    portal_material.shader = preload("res://scenes/props/portal/portal_sps.gdshader")
+    portal_material.shader = preload("res://scripts/transit/portal/portal_sps.gdshader")
     portal_material.resource_local_to_scene = true
     portal_material.set_shader_parameter("albedo", camera_viewport.get_texture())
     portal_visual.material_override = portal_material

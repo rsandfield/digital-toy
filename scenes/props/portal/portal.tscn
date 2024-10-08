@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bp4gfvu45cim1"]
 
-[ext_resource type="Script" path="res://scenes/props/portal/portal.gd" id="1_1fyry"]
-[ext_resource type="Shader" path="res://scenes/props/portal/portal_sps.gdshader" id="2_vwqcg"]
+[ext_resource type="Script" path="res://scripts/transit/portal/portal.gd" id="1_1fyry"]
+[ext_resource type="Shader" path="res://scripts/transit/portal/portal_sps.gdshader" id="2_vwqcg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mk3a3"]
 render_priority = 0

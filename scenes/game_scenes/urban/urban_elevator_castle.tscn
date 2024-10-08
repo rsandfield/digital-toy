@@ -1,12 +1,12 @@
 [gd_scene load_steps=13 format=3 uid="uid://cq2tfhbcxb0v7"]
 
-[ext_resource type="Script" path="res://scenes/props/elevator/elevator.gd" id="1_xkn4c"]
+[ext_resource type="Script" path="res://scripts/transit/elevator/elevator.gd" id="1_xkn4c"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="2_1x1l0"]
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="3_tbnfv"]
 [ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="4_nku63"]
 [ext_resource type="PackedScene" uid="uid://cmndyhptq2qpy" path="res://models/rooms/science/science_elevator.blend" id="5_c82t2"]
 [ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="6_news2"]
-[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="7_8bldb"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="7_8bldb"]
 [ext_resource type="Material" uid="uid://td7ic7gdoxlm" path="res://materials/translucent/glass/glass.tres" id="8_qmwjh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_woqo7"]

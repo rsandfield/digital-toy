@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://byc4yvagb6m8b"]
+[gd_scene load_steps=11 format=3 uid="uid://byc4yvagb6m8b"]
 
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="1_7dm4n"]
-[ext_resource type="Script" path="res://scenes/props/elevator/elevator.gd" id="1_hneul"]
+[ext_resource type="Script" path="res://scripts/transit/elevator/elevator.gd" id="1_hneul"]
 [ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="4_rl2ly"]
-[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator/elevator_door.tscn" id="5_mtfsq"]
+[ext_resource type="PackedScene" uid="uid://dsdr5swy788a6" path="res://scenes/props/osmobile/floor_lamp.tscn" id="5_ig8ep"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="5_mtfsq"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="5_uswy5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t514v"]
@@ -33,6 +34,11 @@ gravity_space_override = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("BoxShape3D_t514v")
 
+[node name="ElevatorDoor" parent="." instance=ExtResource("5_mtfsq")]
+transform = Transform3D(-4.2222e-08, 0.258819, 0.965926, 1.13133e-08, 0.965926, -0.258819, -1, 0, -4.37114e-08, 2, 0, 0)
+portal_id = "osmobile_exit_door"
+elevator = "osmobile"
+
 [node name="Floor" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 material_override = ExtResource("1_7dm4n")
@@ -45,51 +51,54 @@ collision_layer = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_we1lv")
 
-[node name="CeilingLight" parent="." instance=ExtResource("4_rl2ly")]
+[node name="Cabin" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="CeilingLight" parent="Cabin" instance=ExtResource("4_rl2ly")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
-[node name="WorldSelectPanel" type="Node3D" parent="."]
-transform = Transform3D(-8.74228e-08, -1.73205, -1, 0, 1, -1.73205, 2, -7.57103e-08, -4.37114e-08, 2, 1.17532, -1)
+[node name="LivingRoom" type="Node3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="WorldSelectPanel"]
+[node name="FloorLamp" parent="LivingRoom" instance=ExtResource("5_ig8ep")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+
+[node name="WorldSelectPanel" type="Node3D" parent="LivingRoom"]
+transform = Transform3D(-8.74228e-08, -1.73205, -1, 0, 1, -1.73205, 2, -7.57103e-08, -4.37114e-08, 2, 1.175, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LivingRoom/WorldSelectPanel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, 0)
 mesh = SubResource("BoxMesh_q4do3")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="Button0" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+[node name="Button0" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, -0.06)
 
-[node name="Button1" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+[node name="Button1" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, -0.02)
 
-[node name="Button2" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+[node name="Button2" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, 0.02)
 
-[node name="Button3" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+[node name="Button3" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, 0.06)
 
-[node name="Button4" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+[node name="Button4" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, -0.06)
 
-[node name="Button5" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+[node name="Button5" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, -0.02)
 
-[node name="Button6" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+[node name="Button6" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.02)
 
-[node name="Button7" parent="WorldSelectPanel" instance=ExtResource("5_uswy5")]
+[node name="Button7" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.06)
 
-[node name="ElevatorDoor" parent="." instance=ExtResource("5_mtfsq")]
-transform = Transform3D(-4.2222e-08, 0.258819, 0.965926, 1.13133e-08, 0.965926, -0.258819, -1, 0, -4.37114e-08, 2, 0, 0)
-portal_id = "osmobile_exit_door"
-elevator = "osmobile"
-
-[connection signal="pressed" from="WorldSelectPanel/Button0" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="WorldSelectPanel/Button1" to="." method="call_to_floor" binds= [1]]
-[connection signal="pressed" from="WorldSelectPanel/Button2" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="WorldSelectPanel/Button3" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="WorldSelectPanel/Button4" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="WorldSelectPanel/Button5" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="WorldSelectPanel/Button6" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="WorldSelectPanel/Button7" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button0" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button1" to="." method="call_to_floor" binds= [1]]
+[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button2" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button3" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button4" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button5" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button6" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button7" to="." method="call_to_floor" binds= [0]]
