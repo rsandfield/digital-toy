@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cwnerfcwgpjux" path="res://scenes/props/science/electronics_lab/component/terminal/terminal_input.tscn" id="2_7iw8d"]
 [ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="2_fiwfa"]
 [ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="3_fl5gn"]
-[ext_resource type="PackedScene" uid="uid://drhj0wk517w1w" path="res://handle.tscn" id="5_fwp6h"]
+[ext_resource type="PackedScene" uid="uid://drhj0wk517w1w" path="res://scenes/props/io/handle.tscn" id="5_fwp6h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_y25ml"]
 size = Vector3(0.1, 0.2, 0.07)

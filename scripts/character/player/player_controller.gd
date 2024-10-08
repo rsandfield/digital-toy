@@ -11,9 +11,6 @@ extends Node3D
 
 var _held_object: RigidBody3D
 
-signal picked_up
-signal dropped
-
 
 enum ControlState {
     FreeMove,
@@ -51,12 +48,8 @@ func _can_free_look() -> bool:
     return current_state == ControlState.FreeMove
 
 
-func get_interactiable_at_shapecast() -> Node3D:
-    return null
-
-
-func _handle_shapecast_interactions():
-    pass
+func _can_interact() -> bool:
+    return current_state == ControlState.FreeMove
 
 
 func _ready():
@@ -64,8 +57,6 @@ func _ready():
 
 
 func _process(delta):
-    _handle_shapecast_interactions()
-    _handle_input()
     if _held_object:
         _move_held_object(delta)
     else:
@@ -103,102 +94,57 @@ func _handle_camera_input(event):
         rotation.x = clamp(rotation.x, -PI / 2, PI / 2)
 
 
+func get_interactiable_at_raycast() -> InteractableComponent:
+    var object = _raycast.get_collider()
+    return object.get_node_or_null("InteractableComponent")
+
+
+func _on_grab_object(object: RigidBody3D):
+    if !object:
+        return
+    assert(_held_object == null, "Player cannot pick up %s because they are already holding %s" % [object, _held_object])
+    _held_object = object
+    _player.add_collision_exception_with(object)
+    _hud.visible = false
+
+
+func _drop_held_object():
+    if _held_object.has_method("_on_drop_by_character"):
+        _held_object._on_drop_by_character()
+    _player.remove_collision_exception_with(_held_object)
+    _held_object = null
+    _hud.visible = true
+
+
+func _handle_interaction():
+    if !_can_interact():
+        return
+    
+    if Input.is_action_just_pressed("left_click"):
+        if _held_object:
+            _drop_held_object()
+        else:
+            var interactable = get_interactiable_at_raycast()
+            if interactable:
+                interactable.interact_with(self)
+    
+    if Input.is_action_just_pressed("right_click"):
+        if _held_object && _held_object.has_method("_on_use_by_character"):
+            _held_object._on_use_by_character(self)
+
+
 func _unhandled_input(event):
     _handle_pause(event)
     if _is_paused():
         return
     
     _handle_camera_input(event)
-
-
-
-func _handle_input():
-    if Input.is_action_just_pressed("left_click") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-        if _handle_clicking():
-            return
-        if _handle_grabbing():
-            return
-
-
-func _handle_clicking() -> bool:
-    var object = _raycast_clickable()
-    if !object:
-        return false
-    object.on_click()
-
-    return true
-
-
-func _handle_grabbing() -> bool:
-    var handled = false
-    if _held_object:
-        _drop_held_object()
-        handled = true
-    else:
-        _pick_up_object(_raycast_grabbable())
-        handled = !!_held_object
-    _hud.visible = !_held_object
-    return handled
-
-
-func _pick_up_object(object: RigidBody3D):
-    if !object:
-        return
-    _held_object = object
-    _player.add_collision_exception_with(object)
-    _connect_signal(dropped, _held_object, "_on_picked_up")
-    _connect_signal(dropped, _held_object, "_on_dropped")
-    picked_up.emit()
-
-
-func _drop_held_object():
-    dropped.emit()
-    _disconnect_signal(dropped, _held_object, "_on_picked_up")
-    _disconnect_signal(dropped, _held_object, "_on_dropped")
-    _player.remove_collision_exception_with(_held_object)
-    _held_object = null
-
-
-func _connect_signal(sig: Signal, object: Node, method_name: String):
-    if object.has_method(method_name):
-        sig.connect(object.get_method(method_name))
-
-
-func _disconnect_signal(sig: Signal, object: Node, method_name: String):
-    if object.has_method(method_name):
-        sig.disconnect(object.get_method(method_name))
+    _handle_interaction()
 
 
 func _move_held_object(delta):
     _held_object.global_position = _held_object.global_position.move_toward(_hold_position.global_position, delta * 10)
     _held_object.global_rotation = _held_object.global_rotation.move_toward(_hold_position.global_rotation, delta * 10)
-
-
-func _is_grabbable(object: Object) -> bool:
-    if object and object is RigidBody3D:
-        var shape = object.shape_owner_get_owner(object.shape_find_owner(_raycast.get_collider_shape()))
-        return (
-            shape && shape is Grabbable &&
-            _is_in_interaction_range(shape)
-        )
-    return false
-
-
-func _raycast_grabbable():
-    var object = _raycast.get_collider()
-    if _is_grabbable(object):
-        return object
-
-
-func _is_clickable(object: Object) -> bool:
-    if object:
-        var shape = object.shape_owner_get_owner(object.shape_find_owner(_raycast.get_collider_shape()))
-        var parent = shape.get_parent()
-        return (
-            parent.has_method("on_click") &&
-            _is_in_interaction_range(parent)
-        )
-    return false
 
 
 func _is_in_interaction_range(object: Node3D) -> bool:
@@ -212,17 +158,9 @@ func _is_in_interaction_range(object: Node3D) -> bool:
     return global_position.distance_to(object.global_position) < max_distance
 
 
-func _raycast_clickable():
-    var object = _raycast.get_collider()
-    if _is_clickable(object):
-        return object as Button3D
-
-
 func _set_reticle():    
     var object = _raycast.get_collider()
-    if _is_clickable(object):
-        _hud.set_state(HUD.ReticleState.CIRCLE)
-    elif _is_grabbable(object):
-        _hud.set_state(HUD.ReticleState.RING)
+    if object && object.has_method("_reticle_shape_on_hover"):
+        _hud.set_state(object._reticle_shape_on_hover())
     else:
         _hud.set_state(HUD.ReticleState.PINPOINT)

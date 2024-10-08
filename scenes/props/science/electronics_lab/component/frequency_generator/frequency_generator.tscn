@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="3_5vmjf"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="4_q1fjy"]
 [ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://scenes/props/io/button/button_square.tscn" id="6_w7v7t"]
-[ext_resource type="PackedScene" uid="uid://drhj0wk517w1w" path="res://handle.tscn" id="7_wm6i1"]
+[ext_resource type="PackedScene" uid="uid://drhj0wk517w1w" path="res://scenes/props/io/handle.tscn" id="7_wm6i1"]
 
 [sub_resource type="Resource" id="Resource_1qt27"]
 script = ExtResource("2_gd3eg")

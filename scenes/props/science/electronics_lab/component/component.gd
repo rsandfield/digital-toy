@@ -21,5 +21,10 @@ func get_value_at_time(t: float) -> float:
         value += i.get_value_at_time(t)
     return value
 
+
+func _on_grab_by_character(character: PlayerController):
+    character._on_grab_object(self)
+
+
 func _to_string():
     return "Component[%s]" % name

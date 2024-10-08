@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://c30oo4fukyltu"]
+[gd_scene load_steps=11 format=3 uid="uid://c30oo4fukyltu"]
 
 [ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="1_3tam1"]
 [ext_resource type="Script" path="res://scripts/io/button3d.gd" id="1_5kd1b"]
 [ext_resource type="Material" uid="uid://dw06ud1dbq53u" path="res://materials/toon/flat/red/red.tres" id="2_x1m5a"]
 [ext_resource type="Material" uid="uid://bghs0f41tgdv2" path="res://materials/toon/flat/red/red_lit.tres" id="3_ijn7s"]
+[ext_resource type="Script" path="res://scripts/io/interactable.gd" id="4_wykwp"]
 
 [sub_resource type="Animation" id="Animation_bmgxa"]
 resource_name = "push"
@@ -34,6 +35,9 @@ size = Vector3(0.015, 0.004, 0.015)
 script = ExtResource("1_5kd1b")
 unlit = ExtResource("2_x1m5a")
 lit = ExtResource("3_ijn7s")
+
+[node name="InteractableComponent" type="Node" parent="."]
+script = ExtResource("4_wykwp")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

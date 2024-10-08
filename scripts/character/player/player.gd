@@ -9,10 +9,10 @@ const MINIMUM_PUSHABLE_MASS_RATIO := 0.25
 const PUSH_FORCE_MULTIPLIER := 5.0
 
 @export var walk_speed := 1.5
-@export var sprint_speed := 5.0
+@export var sprint_speed := 2.5
 @export var ground_accel := 7.0
 @export var ground_decel := 3.0
-@export var ground_friction := 3.5
+@export var ground_friction := 2.5
 
 @export var jump_velocity := 6.0
 @export var climb_speed := 7.0
@@ -78,7 +78,6 @@ func _push_away_rigid_bodies():
 func _handle_ground_physics(delta: float):
     var curr_speed_in_wish_dir = velocity.dot(wish_dir)
     var move_speed = get_move_speed()
-    print(move_speed)
     var speed_cap_delta = move_speed - curr_speed_in_wish_dir
     if speed_cap_delta > 0:
         var accel_speed = ground_accel * delta * move_speed
