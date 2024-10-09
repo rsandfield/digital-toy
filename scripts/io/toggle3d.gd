@@ -2,22 +2,22 @@ class_name Toggle3D
 extends Area3D
 
 
-signal toggled(on: bool)
+signal toggled()
 
 
 @export var light_when_on: bool = false
 @export var unlit: StandardMaterial3D
 @export var lit: StandardMaterial3D
 
-@onready var anim: AnimationPlayer
+@onready var _anim: AnimationPlayer
 @onready var audio: AudioStreamPlayer3D
 
-var _on: bool
-var _up: bool
+var _on := true
+var _up := true
 
 
 func _ready():
-    anim = get_node_or_null("AnimationPlayer")
+    _anim = get_node_or_null("AnimationPlayer")
     audio = get_node_or_null("AudioStreamPlayer3D")
 
 
@@ -41,26 +41,26 @@ func set_lit(on: bool):
         push_error("%s does not have a material for %s state" % [name, state])
 
 
-func _on_toggled(on: bool):
-    _on = on
-    if on && light_when_on:
-        set_lit(true)
-    if !on && light_when_on:
-        set_lit(false)
+func _on_toggled():
+    _on = !_on
+    if light_when_on:
+        set_lit(_on)
+    toggled.emit()
 
 
 func _toggle():
     _up = !_up
-    if anim:
+    if _anim:
         if _up:
-            anim.play("up")
+            _anim.play("up")
         else:
-            anim.play("down")
+            _anim.play("down")
     if audio:
         audio.play()
 
 
 func _on_interact():
+    if _anim && _anim.is_playing():
+        return
     _toggle()
-    _on_toggled(_on)
-    toggled.emit(_on)
+    _on_toggled()

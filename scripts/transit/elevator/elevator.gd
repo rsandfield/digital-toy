@@ -56,7 +56,7 @@ func _close_doors():
 
 
 func animate_move(from: int, to: int):
-    if from == to:
+    if !_anim || from == to:
         return
     
     var low = from

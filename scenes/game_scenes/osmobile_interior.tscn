@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://byc4yvagb6m8b"]
+[gd_scene load_steps=15 format=3 uid="uid://byc4yvagb6m8b"]
 
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="1_7dm4n"]
 [ext_resource type="Script" path="res://scripts/transit/elevator/elevator.gd" id="1_hneul"]
+[ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="4_fmaf0"]
 [ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="4_rl2ly"]
 [ext_resource type="PackedScene" uid="uid://dsdr5swy788a6" path="res://scenes/props/osmobile/floor_lamp.tscn" id="5_ig8ep"]
+[ext_resource type="PackedScene" uid="uid://dbu0xvmrc2jqu" path="res://scenes/props/io/wall_switch.tscn" id="5_jdli4"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="5_mtfsq"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="5_uswy5"]
 
@@ -11,10 +13,16 @@
 size = Vector3(10, 5, 10)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_oed7q"]
-size = Vector2(4, 6)
+size = Vector2(4, 12)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_we1lv"]
-size = Vector3(6, 0.5, 6)
+size = Vector3(4, 0.5, 12)
+
+[sub_resource type="BoxMesh" id="BoxMesh_d6hx8"]
+size = Vector3(1.25, 2.5, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_erjwj"]
+size = Vector3(1.25, 2.5, 0.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_q4do3"]
 size = Vector3(0.08, 0.01, 0.16)
@@ -44,12 +52,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
 material_override = ExtResource("1_7dm4n")
 mesh = SubResource("PlaneMesh_oed7q")
 
-[node name="Area3D" type="StaticBody3D" parent="Floor"]
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
 collision_layer = 3
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_we1lv")
+
+[node name="WallLeft" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.375, 1.25, -2.5)
+material_override = ExtResource("4_fmaf0")
+mesh = SubResource("BoxMesh_d6hx8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor/WallLeft"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/WallLeft/StaticBody3D"]
+shape = SubResource("BoxShape3D_erjwj")
+disabled = true
+
+[node name="WallRight" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.375, 1.25, -2.5)
+material_override = ExtResource("4_fmaf0")
+mesh = SubResource("BoxMesh_d6hx8")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor/WallRight"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/WallRight/StaticBody3D"]
+shape = SubResource("BoxShape3D_erjwj")
+disabled = true
 
 [node name="Cabin" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
@@ -94,6 +124,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.02)
 [node name="Button7" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.06)
 
+[node name="WallSwitch" parent="LivingRoom" instance=ExtResource("5_jdli4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.375, 1.25, -1.9)
+
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button0" to="." method="call_to_floor" binds= [0]]
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button1" to="." method="call_to_floor" binds= [1]]
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button2" to="." method="call_to_floor" binds= [0]]
@@ -102,3 +135,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.06)
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button5" to="." method="call_to_floor" binds= [0]]
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button6" to="." method="call_to_floor" binds= [0]]
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button7" to="." method="call_to_floor" binds= [0]]
+[connection signal="toggled" from="LivingRoom/WallSwitch" to="LivingRoom/FloorLamp" method="_on_toggled"]

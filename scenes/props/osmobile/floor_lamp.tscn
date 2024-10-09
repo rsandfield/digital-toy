@@ -1,13 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://dsdr5swy788a6"]
+[gd_scene load_steps=15 format=3 uid="uid://dsdr5swy788a6"]
 
 [ext_resource type="Script" path="res://scripts/io/light.gd" id="1_5yoe2"]
 [ext_resource type="Script" path="res://scripts/io/toggle3d.gd" id="1_amocv"]
 [ext_resource type="Script" path="res://scripts/io/interactable.gd" id="2_6qa4a"]
 [ext_resource type="Material" uid="uid://cnh1xcfi4l8ev" path="res://materials/toon/flat/yellow/cream.tres" id="2_74im5"]
 [ext_resource type="Material" uid="uid://4rwflfqjmwbi" path="res://materials/toon/flat/yellow/cream_lit.tres" id="3_p7jfm"]
-[ext_resource type="Material" uid="uid://ytxy85mjblgl" path="res://materials/toon/flat/gray/black.tres" id="4_0nlra"]
+[ext_resource type="AudioStream" uid="uid://l8i1rryn6vdu" path="res://audio/effects/light-switch-81967.mp3" id="3_t7cdk"]
 [ext_resource type="Material" uid="uid://bdusp8d7xi2p2" path="res://materials/toon/flat/brown/mahogany.tres" id="5_i5tk8"]
 [ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="6_naf42"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_jjn3p"]
+height = 2.3
+radius = 0.6
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_adtn6"]
 height = 2.2
@@ -17,33 +21,38 @@ top_radius = 0.2
 bottom_radius = 0.4
 height = 0.5
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_5xcun"]
-height = 0.05
-
 [sub_resource type="CylinderMesh" id="CylinderMesh_j14lf"]
-height = 0.025
+height = 0.03
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6facv"]
+top_radius = 0.3
+bottom_radius = 0.3
+height = 0.03
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_64cu5"]
 top_radius = 0.025
 bottom_radius = 0.025
 
-[node name="FloorLamp" type="Node3D"]
+[node name="FloorLamp" type="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0122433, 4.76837e-07, -0.00435972)
+script = ExtResource("1_amocv")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0)
+shape = SubResource("CylinderShape3D_jjn3p")
+
+[node name="InteractableComponent" type="Node" parent="."]
+script = ExtResource("2_6qa4a")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+stream = ExtResource("3_t7cdk")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 shape = SubResource("CylinderShape3D_adtn6")
-
-[node name="Toggle3D" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
-script = ExtResource("1_amocv")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Toggle3D"]
-shape = SubResource("CylinderShape3D_adtn6")
-
-[node name="InteractableComponent" type="Node" parent="Toggle3D"]
-script = ExtResource("2_6qa4a")
 
 [node name="LightBulb3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -55,17 +64,41 @@ lit = ExtResource("3_p7jfm")
 material_override = ExtResource("2_74im5")
 mesh = SubResource("CylinderMesh_oavoa")
 
-[node name="Base" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
-material_override = ExtResource("4_0nlra")
-mesh = SubResource("CylinderMesh_5xcun")
+[node name="OmniLight3D" type="OmniLight3D" parent="LightBulb3D"]
 
-[node name="Table" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="Base" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, 0)
 material_override = ExtResource("5_i5tk8")
 mesh = SubResource("CylinderMesh_j14lf")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Base2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.085, 0)
+material_override = ExtResource("5_i5tk8")
+mesh = SubResource("CylinderMesh_j14lf")
+
+[node name="Base3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00109506, 0.158517, 0.00118053)
+material_override = ExtResource("5_i5tk8")
+mesh = SubResource("CylinderMesh_j14lf")
+
+[node name="Table" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.685, 0)
+material_override = ExtResource("5_i5tk8")
+mesh = SubResource("CylinderMesh_j14lf")
+
+[node name="Table2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.785, 0)
+material_override = ExtResource("5_i5tk8")
+mesh = SubResource("CylinderMesh_6facv")
+
+[node name="Table3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.885, 0)
+material_override = ExtResource("5_i5tk8")
+mesh = SubResource("CylinderMesh_6facv")
+
+[node name="Rod" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = ExtResource("6_naf42")
 mesh = SubResource("CylinderMesh_64cu5")
+
+[connection signal="toggled" from="." to="LightBulb3D" method="toggle"]

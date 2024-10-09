@@ -96,6 +96,8 @@ func _handle_camera_input(event):
 
 func get_interactiable_at_raycast() -> InteractableComponent:
     var object = _raycast.get_collider()
+    if !object:
+        return null
     return object.get_node_or_null("InteractableComponent")
 
 
