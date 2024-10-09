@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/props/science/electronics_lab/component/terminal/terminal_output.gd" id="1_fp1d0"]
 [ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="2_hf12t"]
 [ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="3_gmbgr"]
-[ext_resource type="Script" path="res://scripts/io/grabbable.gd" id="4_6q0e5"]
+[ext_resource type="Script" path="res://scripts/io/interactable/grabbable.gd" id="4_6q0e5"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_mf5a4"]
 top_radius = 0.007

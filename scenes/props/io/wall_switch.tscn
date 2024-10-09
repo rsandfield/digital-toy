@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://dbu0xvmrc2jqu"]
 
-[ext_resource type="Script" path="res://scripts/io/toggle3d.gd" id="1_aryb8"]
-[ext_resource type="Script" path="res://scripts/io/interactable.gd" id="2_lrjxh"]
+[ext_resource type="Script" path="res://scripts/io/interactable/toggle3d.gd" id="1_aryb8"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="2_lrjxh"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="3_46qvb"]
 [ext_resource type="AudioStream" uid="uid://l8i1rryn6vdu" path="res://audio/effects/light-switch-81967.mp3" id="3_jjesu"]
 

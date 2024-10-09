@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=3 uid="uid://bpjyfcwj2hhpv"]
 
-[ext_resource type="Script" path="res://scripts/io/button3d.gd" id="1_5ed3n"]
+[ext_resource type="Script" path="res://scripts/io/interactable/button3d.gd" id="1_5ed3n"]
 [ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="2_bcbxd"]
 [ext_resource type="Material" uid="uid://dw06ud1dbq53u" path="res://materials/toon/flat/red/red.tres" id="3_881r5"]
 [ext_resource type="Material" uid="uid://bghs0f41tgdv2" path="res://materials/toon/flat/red/red_lit.tres" id="3_nsk2j"]
-[ext_resource type="Script" path="res://scripts/io/interactable.gd" id="4_ppjs6"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="4_ppjs6"]
 
 [sub_resource type="Animation" id="Animation_gep48"]
 resource_name = "push"

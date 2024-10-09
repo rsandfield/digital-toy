@@ -4,7 +4,7 @@
 [ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="1_i4d3m"]
 [ext_resource type="Script" path="res://scenes/props/science/ant_farm/baby_ant.gd" id="1_kma2s"]
 [ext_resource type="AudioStream" uid="uid://b4w3vwnev1u8w" path="res://audio/effects/baby-cry-short-37093.mp3" id="2_bm8o4"]
-[ext_resource type="Script" path="res://scripts/io/button3d.gd" id="4_hmmcj"]
+[ext_resource type="Script" path="res://scripts/io/interactable/button3d.gd" id="4_hmmcj"]
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="6_2a0mu"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nk2x7"]
