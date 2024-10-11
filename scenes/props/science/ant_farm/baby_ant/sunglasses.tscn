@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://mbd8ppo5byro"]
+
+[ext_resource type="Script" path="res://scripts/io/interactable/snappable.gd" id="1_h78ah"]
+[ext_resource type="Script" path="res://scripts/io/interactable/grabbable.gd" id="2_j7313"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="3_318ys"]
+[ext_resource type="Material" uid="uid://ytxy85mjblgl" path="res://materials/toon/flat/gray/black.tres" id="4_fkrpd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3pbka"]
+size = Vector3(0.16, 0.08, 0.2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_12mj5"]
+material = ExtResource("4_fkrpd")
+top_radius = 0.04
+bottom_radius = 0.04
+height = 0.005
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_86lu1"]
+top_radius = 0.002
+bottom_radius = 0.002
+height = 0.2
+
+[node name="Sunglasses" type="RigidBody3D"]
+script = ExtResource("1_h78ah")
+snap_group = "baby_ant_face"
+
+[node name="Grabbable" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, 0)
+shape = SubResource("BoxShape3D_3pbka")
+script = ExtResource("2_j7313")
+
+[node name="InteractableComponent" type="Node" parent="Grabbable"]
+script = ExtResource("3_318ys")
+
+[node name="LensR" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.04, 0.015, 0.1)
+mesh = SubResource("CylinderMesh_12mj5")
+
+[node name="LensL" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.04, 0.015, 0.1)
+mesh = SubResource("CylinderMesh_12mj5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.075, 0.035, 0)
+material_override = ExtResource("4_fkrpd")
+mesh = SubResource("CylinderMesh_86lu1")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.075, 0.035, 0)
+material_override = ExtResource("4_fkrpd")
+mesh = SubResource("CylinderMesh_86lu1")

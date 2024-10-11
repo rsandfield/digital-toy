@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ba6t5e8qgtyya"]
+[gd_scene load_steps=18 format=3 uid="uid://ba6t5e8qgtyya"]
 
 [ext_resource type="Material" uid="uid://x0dqtue5rrjk" path="res://materials/toon/flat/brown/chocolate.tres" id="1_35oxa"]
 [ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="1_i4d3m"]
@@ -6,6 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://b4w3vwnev1u8w" path="res://audio/effects/baby-cry-short-37093.mp3" id="2_bm8o4"]
 [ext_resource type="Script" path="res://scripts/io/interactable/button3d.gd" id="4_hmmcj"]
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="6_2a0mu"]
+[ext_resource type="Script" path="res://scripts/io/interactable/snappable_lock.gd" id="7_v1vgc"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="7_w4nyx"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nk2x7"]
 size = Vector3(0.5, 0.5, 0.75)
@@ -16,16 +18,24 @@ size = Vector3(0.02, 0.2, 0.6)
 [sub_resource type="BoxMesh" id="BoxMesh_cv50c"]
 size = Vector3(0.4, 0.2, 0.02)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_fg6hg"]
-radius = 0.1
-height = 0.35
-
 [sub_resource type="SphereMesh" id="SphereMesh_cdxh3"]
 radius = 0.1
 height = 0.2
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_kj0ld"]
+top_radius = 0.005
+bottom_radius = 0.005
+height = 0.1
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_i4cyb"]
 size = Vector3(0.4, 0.3, 0.7)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tg4o7"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fg6hg"]
+radius = 0.1
+height = 0.35
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8fh1q"]
 size = Vector3(0.5, 0.7, 0.75)
@@ -67,26 +77,50 @@ skeleton = NodePath("../..")
 
 [node name="Baby" type="Node3D" parent="."]
 
-[node name="Body" type="MeshInstance3D" parent="Baby"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.6, -0.1)
-mesh = SubResource("CapsuleMesh_fg6hg")
-skeleton = NodePath("../..")
-
-[node name="Button3D" type="Area3D" parent="."]
+[node name="Head" type="Area3D" parent="Baby"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
 script = ExtResource("4_hmmcj")
 light_on_click = true
 unlit = ExtResource("1_i4d3m")
 lit = ExtResource("6_2a0mu")
 
-[node name="ButtonMesh" type="MeshInstance3D" parent="Button3D"]
+[node name="InteractableComponent" type="Node" parent="Baby/Head"]
+script = ExtResource("7_w4nyx")
+
+[node name="ButtonMesh" type="MeshInstance3D" parent="Baby/Head"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.029, 0.125)
 material_override = ExtResource("1_i4d3m")
 mesh = SubResource("SphereMesh_cdxh3")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Button3D"]
+[node name="AntennaeLeft" type="MeshInstance3D" parent="Baby/Head/ButtonMesh"]
+transform = Transform3D(0.707107, -0.5, -0.5, 0, 0.707107, -0.707107, 0.707107, 0.5, 0.5, -0.06, 0.1, 0.08)
+material_override = ExtResource("1_i4d3m")
+mesh = SubResource("CylinderMesh_kj0ld")
+
+[node name="AntennaeRight" type="MeshInstance3D" parent="Baby/Head/ButtonMesh"]
+transform = Transform3D(0.707107, 0.5, 0.5, 0, 0.707107, -0.707107, -0.707107, 0.5, 0.5, 0.06, 0.1, 0.08)
+material_override = ExtResource("1_i4d3m")
+mesh = SubResource("CylinderMesh_kj0ld")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Baby/Head"]
 shape = SubResource("BoxShape3D_i4cyb")
+
+[node name="SnappableLock" type="Area3D" parent="Baby"]
+transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 0.629, 0.125)
+script = ExtResource("7_v1vgc")
+snap_group = "baby_ant_face"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Baby/SnappableLock"]
+shape = SubResource("BoxShape3D_tg4o7")
+
+[node name="InteractableComponent" type="Node" parent="Baby/SnappableLock"]
+script = ExtResource("7_w4nyx")
+
+[node name="Body" type="MeshInstance3D" parent="Baby"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.6, -0.1)
+mesh = SubResource("CapsuleMesh_fg6hg")
+skeleton = NodePath("../..")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
@@ -94,4 +128,4 @@ shape = SubResource("BoxShape3D_i4cyb")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 shape = SubResource("BoxShape3D_8fh1q")
 
-[connection signal="pressed" from="Button3D" to="." method="play"]
+[connection signal="pressed" from="Baby/Head" to="." method="play"]

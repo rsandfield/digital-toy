@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://i3olwijans8q"]
+[gd_scene load_steps=25 format=3 uid="uid://i3olwijans8q"]
 
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="1_8r4t7"]
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_20ns8"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/io/music/music_box.gd" id="5_hxy15"]
 [ext_resource type="Script" path="res://scripts/io/music/tone.gd" id="6_gx87j"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="7_a12ie"]
+[ext_resource type="PackedScene" uid="uid://mbd8ppo5byro" path="res://scenes/props/science/ant_farm/baby_ant/sunglasses.tscn" id="11_uj23d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c5thh"]
 size = Vector3(10, 5, 10)
@@ -176,6 +177,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 portal_id = "ant_nursery_portal"
 other_portal_id = "ant_tunnel_nursery_portal"
 size = Vector2(2.5, 3)
+
+[node name="Sunglasses" parent="." instance=ExtResource("11_uj23d")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.1, 1)
 
 [connection signal="pressed" from="Bell" to="Cribs/MusicBox" method="play"]
 

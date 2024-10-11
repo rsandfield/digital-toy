@@ -9,12 +9,35 @@ extends Node3D
 @onready var _hold_position: Node3D = $HoldPosition as Node3D
 @onready var _raycast: RayCast3D = $RayCast as RayCast3D
 
+var pull_power := 8.0
 var _held_object: RigidBody3D
+var _held_object_positioning_override: bool
 
+signal dropped_held_object(character: PlayerController)
 
 enum ControlState {
     FreeMove,
+    OnRails,
+    Focused,
     Paused
+}
+
+class ControlStateConfig:
+    var can_free_look: bool
+    var can_move: bool
+    var can_interact: bool
+
+    func _init(free_look := true, move := true, interact := true):
+        can_free_look = free_look
+        can_move = move
+        can_interact = interact
+
+
+var control_state_configs := {
+    ControlState.FreeMove: ControlStateConfig.new(),
+    ControlState.OnRails: ControlStateConfig.new(true, false),
+    ControlState.Focused: ControlStateConfig.new(false, false),
+    ControlState.Paused: ControlStateConfig.new(false, false, false),
 }
 
 var previus_state := ControlState.FreeMove
@@ -45,22 +68,19 @@ func _unpause():
 
 
 func _can_free_look() -> bool:
-    return current_state == ControlState.FreeMove
+    return control_state_configs.get(current_state).can_free_look
+
+
+func _can_move() -> bool:
+    return control_state_configs.get(current_state).can_move
 
 
 func _can_interact() -> bool:
-    return current_state == ControlState.FreeMove
+    return control_state_configs.get(current_state).can_interact
 
 
 func _ready():
     _change_control_state(ControlState.FreeMove)
-
-
-func _process(delta):
-    if _held_object:
-        _move_held_object(delta)
-    else:
-        _set_reticle()
 
 
 func _physics_process(_delta):
@@ -94,19 +114,38 @@ func _handle_camera_input(event):
         rotation.x = clamp(rotation.x, -PI / 2, PI / 2)
 
 
+func _is_in_interaction_range(interactable: InteractableComponent) -> bool:
+    if !interactable:
+        return false
+    
+    var max_distance = interactable.interactable_distance
+    if max_distance == 0:
+        return false
+    if max_distance < 0:
+        max_distance = default_max_interaction_distance
+    return global_position.distance_to(interactable.get_parent().global_position) < max_distance
+
+
 func get_interactiable_at_raycast() -> InteractableComponent:
     var object = _raycast.get_collider()
     if !object:
         return null
-    return object.get_node_or_null("InteractableComponent")
+    var shape = object.shape_owner_get_owner(object.shape_find_owner(_raycast.get_collider_shape()))
+    var interactable = shape.get_node_or_null("InteractableComponent")
+    if !interactable:
+        interactable = object.get_node_or_null("InteractableComponent")
+    if !_is_in_interaction_range(interactable):
+        return null
+    return interactable
 
 
 func _on_grab_object(object: RigidBody3D):
-    if !object:
+    if !object || _held_object:
         return
-    assert(_held_object == null, "Player cannot pick up %s because they are already holding %s" % [object, _held_object])
+    # assert(_held_object == null, "Player cannot pick up %s because they are already holding %s" % [object, _held_object])
     _held_object = object
     _player.add_collision_exception_with(object)
+    _raycast.add_exception(object)
     _hud.visible = false
 
 
@@ -114,15 +153,18 @@ func _drop_held_object():
     if _held_object.has_method("_on_drop_by_character"):
         _held_object._on_drop_by_character()
     _player.remove_collision_exception_with(_held_object)
+    _raycast.remove_exception(_held_object)
     _held_object = null
     _hud.visible = true
+    _held_object_positioning_override = false
+    dropped_held_object.emit(self)
 
 
 func _handle_interaction():
     if !_can_interact():
         return
-    
-    if Input.is_action_just_pressed("left_click"):
+        
+    if Input.is_action_just_pressed("interact"):
         if _held_object:
             _drop_held_object()
         else:
@@ -130,7 +172,7 @@ func _handle_interaction():
             if interactable:
                 interactable.interact_with(self)
     
-    if Input.is_action_just_pressed("right_click"):
+    if Input.is_action_just_pressed("use"):
         if _held_object && _held_object.has_method("_on_use_by_character"):
             _held_object._on_use_by_character(self)
 
@@ -144,25 +186,24 @@ func _unhandled_input(event):
     _handle_interaction()
 
 
-func _move_held_object(delta):
-    _held_object.global_position = _held_object.global_position.move_toward(_hold_position.global_position, delta * 10)
-    _held_object.global_rotation = _held_object.global_rotation.move_toward(_hold_position.global_rotation, delta * 10)
+func _move_held_object():
+    if !_held_object || _held_object_positioning_override:
+        return
+    _held_object.linear_velocity = (_hold_position.global_position - _held_object.global_position) * pull_power
+    _held_object.angular_velocity = -_held_object.rotation.normalized()
 
 
-func _is_in_interaction_range(object: Node3D) -> bool:
-    if !("interactable_distance" in object):
-        return false
-    var max_distance = object.interactable_distance
-    if max_distance == 0:
-        return false
-    if object.interactable_distance < 0:
-        max_distance = default_max_interaction_distance
-    return global_position.distance_to(object.global_position) < max_distance
-
-
-func _set_reticle():    
-    var object = _raycast.get_collider()
-    if object && object.has_method("_reticle_shape_on_hover"):
-        _hud.set_state(object._reticle_shape_on_hover())
+func _set_reticle(interactable: InteractableComponent):
+    if interactable:
+        _hud.set_state(interactable.get_reticle_state())
     else:
         _hud.set_state(HUD.ReticleState.PINPOINT)
+
+
+func _process(_delta):
+    var interactable = get_interactiable_at_raycast()
+    _set_reticle(interactable)
+
+    if interactable:
+        interactable.hover_cursor(self)
+    _move_held_object()

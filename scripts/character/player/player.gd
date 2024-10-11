@@ -10,7 +10,7 @@ const PUSH_FORCE_MULTIPLIER := 5.0
 
 @export var walk_speed := 1.5
 @export var sprint_speed := 2.5
-@export var ground_accel := 7.0
+@export var ground_accel := 8.0
 @export var ground_decel := 3.0
 @export var ground_friction := 2.5
 
