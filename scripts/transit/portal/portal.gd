@@ -451,9 +451,10 @@ func _add_tracked_phys_body(body):
     _tracked_phys_bodies.push_back(newly_tracked_body)
     
     if body.has_method("_on_portal_tracking_enter"):
-        print("%s calling %s _on_portal_tracking_enter" % [portal_id, body])
         body._on_portal_tracking_enter(self)
-    print("Entered")
+    if body.get_viewport() != get_viewport():
+        body.reparent(get_viewport())
+    print("%s entered by %s" % [portal_id, body])
     return newly_tracked_body
     
 func _remove_tracked_phys_body(body):
@@ -503,7 +504,6 @@ func _on_body_entered(body):
     # CSGShape3Ds are also static if you enable their use_collision property so disable them.
     if (not body.is_class("StaticBody3D") or body.is_class("AnimatableBody3D")) and not body.is_class("CSGShape3D"):
         if other_portal and _check_shapecast_collision(body):
-            print("%s entered %s, other portal: %s" % [body, portal_id, other_portal])
             _add_tracked_phys_body(body)
 
 func _on_body_exited(body):

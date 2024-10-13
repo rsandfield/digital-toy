@@ -22,6 +22,8 @@ func get_child_by_name(node: Node, child_name):
     return null
 
 func iterate_through_pair_and_copy_over_props(node: Node, other_node: Node, props_to_set: Array):
+    if !other_node:
+        return
     for prop in props_to_set:
         other_node.set(prop, node.get(prop))
     for child in node.get_children():

@@ -3,7 +3,7 @@ extends CollisionShape3D
 
 
 func _ready():
-    assert(get_parent().has_method("_on_grab_by_character"))
+    assert(get_parent())
 
 
 func _reticle_shape_on_hover() -> HUD.ReticleState:
@@ -11,4 +11,8 @@ func _reticle_shape_on_hover() -> HUD.ReticleState:
 
 
 func _on_interact_by_character(player: PlayerController):
-    get_parent()._on_grab_by_character(player)
+    var parent = get_parent()
+    if parent.has_method("_on_grab_by_character"):
+        parent._on_grab_by_character(player)
+    else:
+        player._on_grab_object(parent)

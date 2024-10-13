@@ -142,7 +142,6 @@ func get_interactiable_at_raycast() -> InteractableComponent:
 func _on_grab_object(object: RigidBody3D):
     if !object || _held_object:
         return
-    # assert(_held_object == null, "Player cannot pick up %s because they are already holding %s" % [object, _held_object])
     _held_object = object
     _player.add_collision_exception_with(object)
     _raycast.add_exception(object)

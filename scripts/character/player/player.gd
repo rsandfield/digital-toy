@@ -125,9 +125,9 @@ func _physics_process(delta):
 
 func _on_portal_tracking_enter(portal: Portal) -> void:
     # collision_layer = 2
-    collision_mask = 2
+    # collision_mask = 2
     SceneManager.set_active_scene(portal.get_viewport().name, self)
 
-func _on_portal_tracking_leave(_portal: Portal) -> void:
+# func _on_portal_tracking_leave(_portal: Portal) -> void:
     # collision_layer = 1
-    collision_mask = 1
+    # collision_mask = 1
