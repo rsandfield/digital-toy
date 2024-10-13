@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://c76uc3kdbnc8f"]
+
+[ext_resource type="Script" path="res://scripts/io/interactable/grabbable.gd" id="1_ued6y"]
+[ext_resource type="Material" uid="uid://tkboalvmqfp3" path="res://materials/toon/textured/beach_ball.tres" id="2_q6gwa"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bmnss"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ww8se"]
+
+[node name="BeachBall" type="RigidBody3D"]
+mass = 0.1
+
+[node name="Grabbable" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_bmnss")
+script = ExtResource("1_ued6y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_q6gwa")
+mesh = SubResource("SphereMesh_ww8se")

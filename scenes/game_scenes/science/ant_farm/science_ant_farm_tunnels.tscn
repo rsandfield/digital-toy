@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="4_hkm22"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nyxad"]
-size = Vector3(10, 5, 10)
+size = Vector3(20, 5, 20)
 
 [node name="Tunnels" type="Node3D"]
 
@@ -18,6 +18,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("BoxShape3D_nyxad")
 
 [node name="tunnels" parent="." instance=ExtResource("1_umjn2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 
 [node name="Walls" parent="tunnels" index="0"]
 material_override = ExtResource("2_vd3s2")
@@ -26,31 +27,31 @@ material_override = ExtResource("2_vd3s2")
 collision_layer = 3
 
 [node name="LightBulb" parent="." instance=ExtResource("3_ejic1")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.33387, -11.9458)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.33387, -6.9458)
 
 [node name="LightBulb2" parent="." instance=ExtResource("3_ejic1")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.72385, 2.33387, -8.33936)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.72385, 2.33387, -3.33936)
 
 [node name="LightBulb3" parent="." instance=ExtResource("3_ejic1")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.88098, 2.33387, -1.91087)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.88098, 2.33387, 3.08913)
 
 [node name="LightBulb4" parent="." instance=ExtResource("3_ejic1")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -4.05647, 2.33387, -5.68501)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -4.05647, 2.33387, -0.68501)
 
 [node name="Portal" parent="." instance=ExtResource("4_hkm22")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.5)
 portal_id = "ant_tunnel_farm_portal"
 other_portal_id = "ant_farm_portal"
 size = Vector2(2.5, 3)
 
 [node name="Portal2" parent="." instance=ExtResource("4_hkm22")]
-transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -5.48132, 0, -4.64433)
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -5.48132, 0, 0.35567)
 portal_id = "ant_tunnel_nursery_portal"
 other_portal_id = "ant_nursery_portal"
 size = Vector2(2.5, 3)
 
 [node name="Portal3" parent="." instance=ExtResource("4_hkm22")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -10.5)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -5.5)
 portal_id = "ant_tunnel_minecart_portal"
 other_portal_id = "ant_minecart_portal"
 size = Vector2(2.5, 3)
