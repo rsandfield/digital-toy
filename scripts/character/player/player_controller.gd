@@ -1,26 +1,41 @@
 class_name PlayerController
 extends Node3D
 
+
+signal dropped_held_object(character: PlayerController)
+
+
+enum ControlState {
+    FREE_MOVE,
+    ON_RAILS,
+    FOCUSED,
+    PAUSED
+}
+
+
 @export var mouse_sensitivity: float = 0.1
 @export var default_max_interaction_distance: float = 2.5
+
+var pull_power := 8.0
+
+var control_state_configs := {
+    ControlState.FREE_MOVE: ControlStateConfig.new(),
+    ControlState.ON_RAILS: ControlStateConfig.new(true, false),
+    ControlState.FOCUSED: ControlStateConfig.new(false, false),
+    ControlState.PAUSED: ControlStateConfig.new(false, false, false),
+}
+
+var _held_object: RigidBody3D
+var _held_object_positioning_override: bool
+
+var _previous_state := ControlState.FREE_MOVE
+var _current_state := ControlState.FREE_MOVE
 
 @onready var _player: Player = get_parent() as Player
 @onready var _hud: HUD = $HUD as HUD
 @onready var _hold_position: Node3D = $HoldPosition as Node3D
 @onready var _raycast: RayCast3D = $RayCast as RayCast3D
 
-var pull_power := 8.0
-var _held_object: RigidBody3D
-var _held_object_positioning_override: bool
-
-signal dropped_held_object(character: PlayerController)
-
-enum ControlState {
-    FreeMove,
-    OnRails,
-    Focused,
-    Paused
-}
 
 class ControlStateConfig:
     var can_free_look: bool
@@ -33,54 +48,47 @@ class ControlStateConfig:
         can_interact = interact
 
 
-var control_state_configs := {
-    ControlState.FreeMove: ControlStateConfig.new(),
-    ControlState.OnRails: ControlStateConfig.new(true, false),
-    ControlState.Focused: ControlStateConfig.new(false, false),
-    ControlState.Paused: ControlStateConfig.new(false, false, false),
-}
-
-var previus_state := ControlState.FreeMove
-var current_state := ControlState.FreeMove
-
 
 func _change_control_state(new_state: ControlState):
     # Prevent overwriting previous state with multiple pauses
-    if current_state != ControlState.Paused:
-        previus_state = current_state
-    current_state = new_state
+    if _current_state != ControlState.PAUSED:
+        _previous_state = _current_state
+    _current_state = new_state
     match new_state:
-        ControlState.FreeMove:
+        ControlState.FREE_MOVE:
             Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
             _hud.visible = true
-        ControlState.Paused:
+        ControlState.PAUSED:
             Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
             _hud.visible = false
 
 
-func _is_paused() -> bool:
-    return current_state == ControlState.Paused
+func _revert_state():
+    _change_control_state(_previous_state)
+
+
+func _is_PAUSED() -> bool:
+    return _current_state == ControlState.PAUSED
 
 
 func _unpause():
-    if _is_paused():
-        _change_control_state(previus_state)
-
+    if _is_PAUSED():
+        _revert_state()
 
 func _can_free_look() -> bool:
-    return control_state_configs.get(current_state).can_free_look
+    return control_state_configs.get(_current_state).can_free_look
 
 
 func _can_move() -> bool:
-    return control_state_configs.get(current_state).can_move
+    return control_state_configs.get(_current_state).can_move
 
 
 func _can_interact() -> bool:
-    return control_state_configs.get(current_state).can_interact
+    return control_state_configs.get(_current_state).can_interact
 
 
 func _ready():
-    _change_control_state(ControlState.FreeMove)
+    _change_control_state(ControlState.FREE_MOVE)
 
 
 func _physics_process(_delta):
@@ -100,13 +108,13 @@ func _physics_process(_delta):
 
 
 func _handle_pause(event: InputEvent):
-    if _is_paused() &&  event is InputEventMouseButton:
+    if _is_PAUSED() &&  event is InputEventMouseButton:
         _unpause()
     elif event.is_action_pressed("ui_cancel"):
-        _change_control_state(ControlState.Paused)
+        _change_control_state(ControlState.PAUSED)
 
 
-func _handle_camera_input(event):    
+func _handle_camera_input(event):
     if event is InputEventMouseMotion and _can_free_look():
         rotation_degrees.y -= event.relative.x * mouse_sensitivity
         rotation_degrees.x += event.relative.y * mouse_sensitivity
@@ -114,10 +122,22 @@ func _handle_camera_input(event):
         rotation.x = clamp(rotation.x, -PI / 2, PI / 2)
 
 
+func focus(target: Node3D):
+    _change_control_state(ControlState.FOCUSED)
+    $Camera3D.transform.global_position = target.global_position
+    $Camera3D.transform.global_rotation = target.global_rotation
+
+
+func unfocus():
+    _revert_state()
+    $Camera3D.transform.global_position = Vector3(0, 0, 0.1)
+    $Camera3D.transform.global_rotation = Vector3(0, PI, 0)
+
+
 func _is_in_interaction_range(interactable: InteractableComponent) -> bool:
     if !interactable:
         return false
-    
+
     var max_distance = interactable.interactable_distance
     if max_distance == 0:
         return false
@@ -145,16 +165,16 @@ func _on_grab_object(object: RigidBody3D):
     _held_object = object
     _player.add_collision_exception_with(object)
     _raycast.add_exception(object)
-    _hud.visible = false
+    object.reparent(_hold_position)
 
 
 func _drop_held_object():
-    if _held_object.has_method("_on_drop_by_character"):
-        _held_object._on_drop_by_character()
+    if _held_object.has_method("on_drop_by_character"):
+        _held_object.on_drop_by_character()
     _player.remove_collision_exception_with(_held_object)
     _raycast.remove_exception(_held_object)
+    _held_object.reparent(get_viewport())
     _held_object = null
-    _hud.visible = true
     _held_object_positioning_override = false
     dropped_held_object.emit(self)
 
@@ -162,7 +182,7 @@ func _drop_held_object():
 func _handle_interaction():
     if !_can_interact():
         return
-        
+
     if Input.is_action_just_pressed("interact"):
         if _held_object:
             _drop_held_object()
@@ -170,17 +190,17 @@ func _handle_interaction():
             var interactable = get_interactiable_at_raycast()
             if interactable:
                 interactable.interact_with(self)
-    
-    if Input.is_action_just_pressed("use"):
-        if _held_object && _held_object.has_method("_on_use_by_character"):
-            _held_object._on_use_by_character(self)
+
+    if Input.is_action_pressed("use"):
+        if _held_object && _held_object.has_method("on_use_by_character"):
+            _held_object.on_use_by_character(self)
 
 
 func _unhandled_input(event):
     _handle_pause(event)
-    if _is_paused():
+    if _is_PAUSED():
         return
-    
+
     _handle_camera_input(event)
     _handle_interaction()
 
@@ -188,9 +208,10 @@ func _unhandled_input(event):
 func _move_held_object():
     if !_held_object || _held_object_positioning_override:
         return
-    _held_object.linear_velocity = (_hold_position.global_position - _held_object.global_position) * pull_power
+    _held_object.linear_velocity = (
+        _hold_position.global_position - _held_object.global_position
+    ) * pull_power
     _held_object.angular_velocity = -_held_object.rotation.normalized()
-
 
 func _set_reticle(interactable: InteractableComponent):
     if interactable:
