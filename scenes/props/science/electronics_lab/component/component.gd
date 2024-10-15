@@ -1,11 +1,14 @@
 class_name Component
 extends SignalCarrier3D
 
-@export var inputs: Array[InputTerminal]
-@export var outputs: Array[OutputTerminal]
+@export var inputs: Array[AuxTerminalInput]
+@export var outputs: Array[AuxTerminalOutput]
 
 func _ready():
-    assert(len(inputs) + len(outputs) > 0, "Component[%s] must have at least one input or output" % name)
+    assert(
+        len(inputs) + len(outputs) > 0,
+        "Component[%s] must have at least one input or output" % name
+    )
     _register_terminals(inputs)
     _register_terminals(outputs)
 
@@ -22,8 +25,8 @@ func get_value_at_time(t: float) -> float:
     return value
 
 
-func _on_grab_by_character(character: PlayerController):
-    character._on_grab_object(self)
+func on_grab_by_character(character: PlayerController):
+    character.on_grab_object(self)
 
 
 func _to_string():

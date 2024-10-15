@@ -159,7 +159,7 @@ func get_interactiable_at_raycast() -> InteractableComponent:
     return interactable
 
 
-func _on_grab_object(object: RigidBody3D):
+func on_grab_object(object: RigidBody3D):
     if !object || _held_object:
         return
     _held_object = object

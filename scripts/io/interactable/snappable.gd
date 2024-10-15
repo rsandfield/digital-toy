@@ -6,5 +6,5 @@ extends RigidBody3D
 func get_snap_group() -> String:
     return snap_group
 
-func _on_grab_by_character(character: PlayerController):
-    character._on_grab_object(self)
+func on_grab_by_character(character: PlayerController):
+    character.on_grab_object(self)

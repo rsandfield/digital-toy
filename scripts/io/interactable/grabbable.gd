@@ -15,7 +15,7 @@ func reticle_shape_on_hover() -> HUD.ReticleState:
 
 func _on_interact_by_character(player: PlayerController):
     var parent = get_parent()
-    if parent.has_method("_on_grab_by_character"):
-        parent._on_grab_by_character(player)
+    if parent.has_method("on_grab_by_character"):
+        parent.on_grab_by_character(player)
     else:
-        player._on_grab_object(parent)
+        player.on_grab_object(parent)
