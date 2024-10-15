@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5widoy2r050n"]
+
+[ext_resource type="Script" path="res://scripts/io/drawing_surface/drawing_tool_circle.gd" id="1_42k4l"]
+[ext_resource type="Script" path="res://scripts/io/interactable/grabbable.gd" id="2_xn3j1"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="3_lxplt"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="3_njq05"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0075s"]
+height = 0.2
+radius = 0.025
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_j5i38"]
+top_radius = 0.025
+bottom_radius = 0.025
+height = 0.2
+
+[node name="Chalk" type="RigidBody3D"]
+script = ExtResource("1_42k4l")
+draw_group = "chalk"
+
+[node name="Grabbable" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_0075s")
+script = ExtResource("2_xn3j1")
+
+[node name="InteractableComponent" type="Node" parent="Grabbable"]
+script = ExtResource("3_njq05")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = ExtResource("3_lxplt")
+mesh = SubResource("CylinderMesh_j5i38")

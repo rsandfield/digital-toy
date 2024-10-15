@@ -52,8 +52,8 @@ func get_character_hovered_by_cur_camera() -> PlayerController:
 
 func get_reticle_state() -> HUD.ReticleState:
     var parent = get_parent()
-    if parent.has_method("_reticle_shape_on_hover"):
-        return parent._reticle_shape_on_hover()
+    if parent.has_method("reticle_shape_on_hover"):
+        return parent.reticle_shape_on_hover()
     return HUD.ReticleState.PINPOINT
 
 

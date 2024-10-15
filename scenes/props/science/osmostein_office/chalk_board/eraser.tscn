@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvwbr44y6pj81"]
+
+[ext_resource type="Script" path="res://scripts/io/drawing_surface/drawing_tool_rectangle.gd" id="1_phegi"]
+[ext_resource type="Script" path="res://scripts/io/interactable/grabbable.gd" id="2_i2gex"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="3_vbw6e"]
+[ext_resource type="Material" uid="uid://ytxy85mjblgl" path="res://materials/toon/flat/gray/black.tres" id="4_didem"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1twfa"]
+size = Vector3(0.4, 0.15, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wyvg4"]
+size = Vector3(0.4, 0.15, 0.2)
+
+[node name="Eraser" type="RigidBody3D"]
+script = ExtResource("1_phegi")
+
+[node name="Grabbable" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_1twfa")
+script = ExtResource("2_i2gex")
+
+[node name="InteractableComponent" type="Node" parent="Grabbable"]
+script = ExtResource("3_vbw6e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+material_override = ExtResource("4_didem")
+mesh = SubResource("BoxMesh_wyvg4")

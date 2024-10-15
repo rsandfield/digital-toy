@@ -18,7 +18,7 @@ func _ready():
     audio = get_node_or_null("AudioStreamPlayer3D")
 
 
-func _reticle_shape_on_hover() -> HUD.ReticleState:
+func reticle_shape_on_hover() -> HUD.ReticleState:
     return HUD.ReticleState.CIRCLE
 
 

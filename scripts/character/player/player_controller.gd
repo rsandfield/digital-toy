@@ -124,14 +124,14 @@ func _handle_camera_input(event):
 
 func focus(target: Node3D):
     _change_control_state(ControlState.FOCUSED)
-    $Camera3D.transform.global_position = target.global_position
-    $Camera3D.transform.global_rotation = target.global_rotation
+    $Camera3D.global_position = target.global_position
+    $Camera3D.global_rotation = target.global_rotation
 
 
 func unfocus():
     _revert_state()
-    $Camera3D.transform.global_position = Vector3(0, 0, 0.1)
-    $Camera3D.transform.global_rotation = Vector3(0, PI, 0)
+    $Camera3D.global_position = Vector3(0, 0, 0.1)
+    $Camera3D.global_rotation = Vector3(0, PI, 0)
 
 
 func _is_in_interaction_range(interactable: InteractableComponent) -> bool:

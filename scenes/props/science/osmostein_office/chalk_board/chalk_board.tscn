@@ -1,49 +1,39 @@
 [gd_scene load_steps=7 format=3 uid="uid://dcrqiyoa3t83d"]
 
-[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="1_mecvg"]
-[ext_resource type="Script" path="res://scripts/io/viewport_panel.gd" id="2_d78mi"]
-[ext_resource type="Texture2D" uid="uid://dedfgga1onwbx" path="res://icon.svg" id="3_8vax8"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_jucry"]
-size = Vector3(2.5, 1.5, 0.05)
-
-[sub_resource type="QuadMesh" id="QuadMesh_m42ni"]
-size = Vector2(2.5, 1.5)
+[ext_resource type="Script" path="res://scripts/io/drawing_surface/drawing_surface.gd" id="1_60wnr"]
+[ext_resource type="PackedScene" uid="uid://d4e7cueith5pv" path="res://models/chalkboard.blend" id="2_j6mtg"]
+[ext_resource type="Material" uid="uid://c6e7pege12uqm" path="res://materials/toon/flat/brown/russet.tres" id="3_ecvol"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_co1rb"]
-size = Vector3(2.5, 1.5, 0.1)
+size = Vector3(2.2, 1.3, 0.05)
 
-[node name="ChalkBoard" type="Node3D"]
+[sub_resource type="QuadMesh" id="QuadMesh_6tj5q"]
+size = Vector2(2, 1.1)
 
-[node name="Blackboard" type="MeshInstance3D" parent="."]
+[sub_resource type="BoxShape3D" id="BoxShape3D_6o4va"]
+size = Vector3(1.95, 0.1, 0.2)
+
+[node name="ChalkBoard" type="StaticBody3D"]
+script = ExtResource("1_60wnr")
+draw_group = "chalk"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.025)
-material_override = ExtResource("1_mecvg")
-mesh = SubResource("BoxMesh_jucry")
-
-[node name="Chalk" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.052)
-mesh = SubResource("QuadMesh_m42ni")
-script = ExtResource("2_d78mi")
-
-[node name="SubViewport" type="SubViewport" parent="Chalk"]
-size = Vector2i(768, 512)
-
-[node name="Control" type="Control" parent="Chalk/SubViewport"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Sprite2D" type="Sprite2D" parent="Chalk/SubViewport/Control"]
-position = Vector2(100, 100)
-texture = ExtResource("3_8vax8")
-
-[node name="Camera2D" type="Camera2D" parent="Chalk/SubViewport"]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.05)
 shape = SubResource("BoxShape3D_co1rb")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.025448)
+mesh = SubResource("QuadMesh_6tj5q")
+
+[node name="chalkboard" parent="." instance=ExtResource("2_j6mtg")]
+
+[node name="Border" parent="chalkboard" index="0"]
+material_override = ExtResource("3_ecvol")
+
+[node name="ToolCatch" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ToolCatch"]
+transform = Transform3D(1, 0, 0, 0, 0.939693, 0.34202, 0, -0.34202, 0.939693, 0, -0.6, 0.125)
+shape = SubResource("BoxShape3D_6o4va")
+
+[editable path="chalkboard"]

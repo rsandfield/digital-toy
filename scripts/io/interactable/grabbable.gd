@@ -2,12 +2,15 @@ class_name Grabbable
 extends CollisionShape3D
 
 
+@export var hover_shape := HUD.ReticleState.RING
+
+
 func _ready():
     assert(get_parent())
 
 
-func _reticle_shape_on_hover() -> HUD.ReticleState:
-    return HUD.ReticleState.RING
+func reticle_shape_on_hover() -> HUD.ReticleState:
+    return hover_shape
 
 
 func _on_interact_by_character(player: PlayerController):

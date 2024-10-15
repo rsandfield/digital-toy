@@ -2,6 +2,7 @@ class_name HUD
 extends Node2D
 
 enum ReticleState {
+    NONE,
     PINPOINT,
     CIRCLE,
     RING,

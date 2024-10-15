@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cchecllelgvp8"]
+[gd_scene load_steps=21 format=3 uid="uid://cchecllelgvp8"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_jhy17"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_p1m04"]
@@ -7,9 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="3_iywhs"]
 [ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="4_3bn11"]
 [ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="4_hnq40"]
-[ext_resource type="PackedScene" uid="uid://51ikjgcwxvr0" path="res://scenes/props/science/osmostein_office/blitz_blaster/blitz_blaster.tscn" id="5_lrk82"]
+[ext_resource type="PackedScene" uid="uid://51ikjgcwxvr0" path="res://scenes/props/science/osmostein_office/blitz_lifter/blitz_lifter.tscn" id="5_lrk82"]
 [ext_resource type="PackedScene" uid="uid://dcrqiyoa3t83d" path="res://scenes/props/science/osmostein_office/chalk_board/chalk_board.tscn" id="6_bc4xc"]
 [ext_resource type="PackedScene" uid="uid://bfnyx3upy6pm3" path="res://scenes/characters/osmo/osmo_placeholder.tscn" id="6_dv7yf"]
+[ext_resource type="PackedScene" uid="uid://c5widoy2r050n" path="res://scenes/props/science/osmostein_office/chalk_board/chalk.tscn" id="8_7ev6j"]
+[ext_resource type="PackedScene" uid="uid://bvwbr44y6pj81" path="res://scenes/props/science/osmostein_office/chalk_board/eraser.tscn" id="9_82kce"]
 
 [sub_resource type="Environment" id="Environment_buxm4"]
 
@@ -79,10 +81,16 @@ elevator = "science_elevator"
 floor_index = 1
 
 [node name="ElevatorCallButton" parent="." instance=ExtResource("3_iywhs")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 2.5)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 2)
 
 [node name="ChalkBoard" parent="." instance=ExtResource("6_bc4xc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, -2)
+
+[node name="Chalk" parent="." instance=ExtResource("8_7ev6j")]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0.234398, 1.11802, -1.91455)
+
+[node name="Eraser" parent="." instance=ExtResource("9_82kce")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.205079, 1.17686, -1.88817)
 
 [node name="Desk" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -0.6)
@@ -97,7 +105,7 @@ material_override = ExtResource("4_3bn11")
 mesh = SubResource("BoxMesh_fpuyx")
 skeleton = NodePath("../CollisionShape3D")
 
-[node name="BlitzBlaster" parent="Desk" instance=ExtResource("5_lrk82")]
+[node name="BlitzLifter" parent="Desk" instance=ExtResource("5_lrk82")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, 0)
 
 [node name="OsmoPlaceholder" parent="." instance=ExtResource("6_dv7yf")]

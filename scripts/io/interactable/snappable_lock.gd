@@ -23,7 +23,7 @@ func _ready():
     pass
 
 
-func _reticle_shape_on_hover() -> HUD.ReticleState:
+func reticle_shape_on_hover() -> HUD.ReticleState:
     if _held_object:
         return HUD.ReticleState.RING
     else:
