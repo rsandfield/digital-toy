@@ -15,8 +15,8 @@ func _init(fp: String, n: Array[Dictionary]):
     name = SceneManager.file_path_to_name(filepath)
 
 
-func Load(container: SubViewportContainer):
-    if IsLoaded():
+func load(container: SubViewportContainer):
+    if is_loaded():
         # print("%s already loaded" % name)
         return
     mutex.lock()
@@ -41,8 +41,8 @@ func Load(container: SubViewportContainer):
             GameManager.link_portals(portal, other_portal_id)
 
 
-func Unload():
-    if !IsLoaded():
+func unload():
+    if !is_loaded():
         # print("%s already unloaded" % self)
         return
     print("Unloading %s" % self)
@@ -51,8 +51,8 @@ func Unload():
     mutex.unlock()
 
 
-func SetActive(container: SubViewportContainer, player: Player):
-    if IsLoaded():
+func set_active(container: SubViewportContainer, player: Player):
+    if is_loaded():
         if player.get_viewport() != viewport_node:
             player.reparent(viewport_node)
         container.move_child(viewport_node, -1)
@@ -61,7 +61,7 @@ func SetActive(container: SubViewportContainer, player: Player):
             scene.on_enter()
 
 
-func IsLoaded() -> bool:
+func is_loaded() -> bool:
     return viewport_node != null
 
 

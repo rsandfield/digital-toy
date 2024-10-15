@@ -16,7 +16,8 @@ class SceneLoadingHelper:
     var to_unload: Array[SceneData] = []
 
     func populate(scene_name: String, depth: int = 2):
-        var scene = SceneManager._get_scene_data(scene_name)
+        var scene = SceneManager.get_scene_data(scene_name)
+        assert(scene, "Invalid scene name: %s" % scene_name)
         if depth < 0:
             if !to_unload.has(scene):
                 to_unload.append(scene)
@@ -24,26 +25,26 @@ class SceneLoadingHelper:
         if !to_load.has(scene):
             to_load.append(scene)
             for connection in scene.connections:
-                populate(SceneManager._get_portal_scene_name(connection), depth - 1)
+                populate(SceneManager.get_portal_scene_name(connection), depth - 1)
 
     func engage(container: SubViewportContainer):
         # populate() does a depth-first search and will definitely misqueue nodes for unloading
         to_unload.assign(to_unload.filter(func(scene: SceneData): return !to_load.has(scene)))
         for scene in to_unload:
-            scene.Unload()
+            scene.unload()
         for scene in to_load:
-            scene.Load(container)
+            scene.load(container)
 
 
 func _ready():
-    var _game_root = get_tree().root.get_child(-1) as GameRoot
-    _container = _game_root.get_child(-1)
+    var game_root = get_tree().root.get_child(-1) as GameRoot
+    _container = game_root.get_child(-1)
     var files = _get_scene_files(SCENE_ROOT_DIR)
     _game_scenes = parse_scene_files(files)
     _find_portals(_game_scenes)
     for scene in _game_scenes.keys():
         _game_scenes[scene].nodes.clear()
-    set_active_scene(_game_root.starting_scene, GameManager._player)
+    set_active_scene(game_root.starting_scene, GameManager._player)
 
 
 func set_active_scene(scene_name: String, player: Player):
@@ -52,16 +53,16 @@ func set_active_scene(scene_name: String, player: Player):
     var helper = SceneLoadingHelper.new()
     helper.populate(scene_name, 2)
     helper.engage(_container)
-    _get_scene_data(scene_name).SetActive(_container, player)
+    get_scene_data(scene_name).set_active(_container, player)
     print("Active scene is now %s" % [scene_name])
     _current_scene = scene_name
 
-    
-func _get_scene_data(scene_name: String) -> SceneData:
+
+func get_scene_data(scene_name: String) -> SceneData:
     return _game_scenes.get(scene_name)
 
 
-func _get_portal_scene_name(portal_id: String) -> String:
+func get_portal_scene_name(portal_id: String) -> String:
     assert(portal_id, "Cannot get scene for empty portal ID")
     var scene_name = _portals.get(portal_id)
     assert(scene_name, "Invalid portal ID [%s]" % portal_id)
@@ -69,15 +70,18 @@ func _get_portal_scene_name(portal_id: String) -> String:
 
 
 func is_scene_loaded(scene_name: String) -> bool:
-    return _get_scene_data(scene_name).IsLoaded()
+    return get_scene_data(scene_name).is_loaded()
 
 
 func is_portal_loaded(portal_id: String) -> bool:
-    return _get_scene_data(_get_portal_scene_name(portal_id)).IsLoaded()
+    return get_scene_data(get_portal_scene_name(portal_id)).is_loaded()
 
 
 func _get_scene_files(directory: String) -> PackedStringArray:
-    assert(DirAccess.dir_exists_absolute(directory), "Root scene directiory '%s' is missing" % directory)
+    assert(
+        DirAccess.dir_exists_absolute(directory),
+         "Root scene directiory '%s' is missing" % directory
+    )
     var root_dir = DirAccess.open(directory)
     var files: PackedStringArray = []
     for file in root_dir.get_files():
@@ -98,7 +102,9 @@ func _find_portals(scenes: Dictionary):
         var start: int = 1
         if dynamic_connections_string.begins_with("PackedStringArray"): # Only sometimes?
             start = 15
-        var dynamic_connections = dynamic_connections_string.substr(start, dynamic_connections_string.length() - (start + 2)).replace('"', '').split(', ')
+        var dynamic_connections = dynamic_connections_string.substr(
+            start, dynamic_connections_string.length() - (start + 2)
+        ).replace('"', '').split(', ')
         for connection in dynamic_connections:#.filter(func (val): return len(val) > 0):
             if len(connection) == 0:
                 continue
@@ -109,7 +115,11 @@ func _find_portals(scenes: Dictionary):
             var portal_id = node.get("portal_id")
             if !portal_id:
                 continue
-            assert(!_portals.has(portal_id), "Duplicate portal ID: %s [%s, %s]" % [portal_id, _portals.get(portal_id), scene_name])
+            assert(
+                !_portals.has(portal_id),
+                ("Duplicate portal ID: %s [%s, %s]" %
+                [portal_id, _portals.get(portal_id), scene_name])
+            )
             _portals[portal_id] = scene_name
             _game_scenes.get(scene_name).portal_ids.append(portal_id)
             var other_portal_id = node.get("other_portal_id")
@@ -118,7 +128,10 @@ func _find_portals(scenes: Dictionary):
     for connection in portal_connections:
         var portal_id = portal_connections.get(connection)
         var scene_name = _portals.get(portal_id, "scene")
-        assert(_portals.has(connection), "'%s' [%s] has dead connection to '%s'" % [portal_id, scene_name, connection])
+        assert(
+            _portals.has(connection),
+            "'%s' [%s] has dead connection to '%s'" % [portal_id, scene_name, connection]
+        )
         var scene = _game_scenes.get(scene_name)
         if scene:
             scene.connections.append(connection)
@@ -133,7 +146,7 @@ func parse_scene_files(filepaths: PackedStringArray) -> Dictionary:
     return scenes
 
 
-func get_text_file_contents(filepath) -> String: 
+func get_text_file_contents(filepath) -> String:
     if !FileAccess.file_exists(filepath):
         push_error("File '%s' does not exist" % filepath)
         return ""
@@ -151,25 +164,31 @@ func parse_tscn_nodes_nested(filepath) -> Dictionary:
     return get_nested_nodes(flat_nodes)
 
 
+func _prune_quotations(data: String) -> String:
+    if (
+        data.begins_with("\"") &&
+        data.ends_with("\"")
+    ):
+        return data.replace('"', '')
+    return data
+
+
+func  _get_header_data(header_kvp: PackedStringArray) -> Dictionary:
+        if len(header_kvp) != 2 || header_kvp[0] == "":
+            return {}
+        return { header_kvp[0]:  _prune_quotations(header_kvp[1]) }
+
+
+func  _get_override_data(override_kvp: String) -> Dictionary:
+    var kvp = override_kvp.split(" = ")
+    if len(kvp) != 2:
+        return {}
+    return { kvp[0]:  _prune_quotations(kvp[1]) }
+
+
 func get_flat_nodes(content: String) -> Array[Dictionary]:
     var regex = RegEx.new()
     regex.compile(r'(\w+)\s*=\s*"([^"]*)"|(\w+)')
-
-    var _prune_quotations = func (data: String) -> String:
-        if data.begins_with('"') && data.ends_with('"'):
-            return data.replace('"', '')
-        return data
-
-    var  _get_header_data = func (header_kvp: PackedStringArray) -> Dictionary:
-        if len(header_kvp) != 2 || header_kvp[0] == "":
-            return {}
-        return { header_kvp[0]: _prune_quotations.call(header_kvp[1]) }
-    
-    var  _get_override_data = func (override_kvp: String) -> Dictionary:
-        var kvp = override_kvp.split(" = ")
-        if len(kvp) != 2:
-            return {}
-        return { kvp[0]: _prune_quotations.call(kvp[1]) }
 
     var flat_nodes: Array[Dictionary] = []
     var current_node = null
@@ -182,21 +201,21 @@ func get_flat_nodes(content: String) -> Array[Dictionary]:
             current_node = {}
             var node_string = line.lstrip("[").rstrip("]")
             for match in regex.search_all(node_string):
-                current_node.merge(_get_header_data.call(match.strings.slice(1, 3)))
+                current_node.merge(_get_header_data(match.strings.slice(1, 3)))
         elif current_node != null:
             if len(line) > 0:
-                current_node.merge(_get_override_data.call(line))
+                current_node.merge(_get_override_data(line))
             else:
                 flat_nodes.append(current_node)
                 current_node = null
-    
+
     return flat_nodes
 
 
 func get_nested_nodes(flat_nodes: Array[Dictionary]) -> Dictionary:
     var root = flat_nodes[0]
     flat_nodes.reverse()
-    var current_parent = "." 
+    var current_parent = "."
     var children = []
     for node in flat_nodes:
         var node_parent = node.get("parent")
