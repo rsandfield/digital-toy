@@ -1,0 +1,39 @@
+[gd_scene load_steps=8 format=3 uid="uid://cwnerfcwgpjux"]
+
+[ext_resource type="Script" path="res://scenes/props/science/electronics_lab/component/aux_terminal/terminal_input.gd" id="1_bjj7l"]
+[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="2_ehdkq"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="2_ehmri"]
+[ext_resource type="Material" uid="uid://dpv1x2pu7m6c2" path="res://materials/translucent/solid/cyan_translucent.tres" id="4_uvkvn"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_livxg"]
+radius = 0.05
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_f7362"]
+top_radius = 0.005
+bottom_radius = 0.005
+height = 0.01
+
+[sub_resource type="SphereMesh" id="SphereMesh_y8rfm"]
+radius = 0.05
+height = 0.1
+
+[node name="TerminalInput" type="Area3D"]
+script = ExtResource("1_bjj7l")
+snap_group = "aux_in"
+
+[node name="InteractableComponent" type="Node" parent="."]
+script = ExtResource("2_ehmri")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+shape = SubResource("SphereShape3D_livxg")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.005, 0)
+material_override = ExtResource("2_ehdkq")
+mesh = SubResource("CylinderMesh_f7362")
+
+[node name="Indicator" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+material_override = ExtResource("4_uvkvn")
+mesh = SubResource("SphereMesh_y8rfm")

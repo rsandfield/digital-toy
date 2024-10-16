@@ -12,11 +12,13 @@ func _ready():
     _register_terminals(inputs)
     _register_terminals(outputs)
 
+
 func _register_terminals(terminals: Array):
     if !terminals:
         return
     for i in len(terminals):
         terminals[i].register_component(self, i)
+
 
 func get_value_at_time(t: float) -> float:
     var value = 0.0

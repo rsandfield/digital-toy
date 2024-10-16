@@ -1,8 +1,8 @@
 [gd_scene load_steps=15 format=3 uid="uid://c51g5pwiyurqe"]
 
 [ext_resource type="Script" path="res://scenes/props/science/electronics_lab/component/frequency_generator/frequency_generator.gd" id="1_4vnsp"]
-[ext_resource type="PackedScene" uid="uid://bqh3x67i0so4s" path="res://scenes/props/science/electronics_lab/component/terminal/terminal_output.tscn" id="2_b7sot"]
-[ext_resource type="Script" path="res://scenes/props/science/electronics_lab/signal/sine_wave.gd" id="2_gd3eg"]
+[ext_resource type="PackedScene" uid="uid://bqh3x67i0so4s" path="res://scenes/props/science/electronics_lab/component/aux_terminal/terminal_output.tscn" id="2_b7sot"]
+[ext_resource type="Script" path="res://scenes/props/science/electronics_lab/audio_signal/sine_wave.gd" id="2_gd3eg"]
 [ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="3_5vmjf"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="4_q1fjy"]
 [ext_resource type="PackedScene" uid="uid://c30oo4fukyltu" path="res://scenes/props/io/button/button_square.tscn" id="6_w7v7t"]
@@ -36,6 +36,7 @@ material = SubResource("StandardMaterial3D_2mxsh")
 size = Vector2(0.11, 0.04)
 
 [node name="FrequencyGenerator" type="RigidBody3D" node_paths=PackedStringArray("active_property_buttons", "outputs")]
+mass = 10.0
 script = ExtResource("1_4vnsp")
 waveform = SubResource("Resource_1qt27")
 active_property_buttons = [NodePath("Frequency/Button"), NodePath("Voltage/Button")]
@@ -122,49 +123,46 @@ outline_size = 0
 [node name="Button" parent="Voltage" instance=ExtResource("4_q1fjy")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, 0, 0)
 
-[node name="TerminalOutput" parent="." instance=ExtResource("2_b7sot")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0799656, 0.0201981, 0.0998753)
+[node name="Buttons" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.05, 0.06, 0.1)
 
-[node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.015, 0.06, 0.1)
-
-[node name="HundredUp" parent="Node3D" instance=ExtResource("6_w7v7t")]
+[node name="HundredUp" parent="Buttons" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0, -0.015)
 light_on_click = true
 
-[node name="HundredDown" parent="Node3D" instance=ExtResource("6_w7v7t")]
+[node name="HundredDown" parent="Buttons" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0, 0.015)
 light_on_click = true
 
-[node name="TenUp" parent="Node3D" instance=ExtResource("6_w7v7t")]
+[node name="TenUp" parent="Buttons" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.015)
 light_on_click = true
 
-[node name="TenDown" parent="Node3D" instance=ExtResource("6_w7v7t")]
+[node name="TenDown" parent="Buttons" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.015)
 light_on_click = true
 
-[node name="OneUp" parent="Node3D" instance=ExtResource("6_w7v7t")]
+[node name="OneUp" parent="Buttons" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, 0, -0.015)
 light_on_click = true
 
-[node name="OneDown" parent="Node3D" instance=ExtResource("6_w7v7t")]
+[node name="OneDown" parent="Buttons" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, 0, 0.015)
 light_on_click = true
 
-[node name="TenthUp" parent="Node3D" instance=ExtResource("6_w7v7t")]
+[node name="TenthUp" parent="Buttons" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, -0.015)
 light_on_click = true
 
-[node name="TenthDown2" parent="Node3D" instance=ExtResource("6_w7v7t")]
+[node name="TenthDown2" parent="Buttons" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.06, 0, 0.015)
 light_on_click = true
 
-[node name="HundrethUp" parent="Node3D" instance=ExtResource("6_w7v7t")]
+[node name="HundrethUp" parent="Buttons" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09, 0, 0.015)
 light_on_click = true
 
-[node name="HundrethDown" parent="Node3D" instance=ExtResource("6_w7v7t")]
+[node name="HundrethDown" parent="Buttons" instance=ExtResource("6_w7v7t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.09, 0, -0.015)
 light_on_click = true
 
@@ -174,15 +172,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0.1, 0.13)
 [node name="HandleR" parent="." instance=ExtResource("7_wm6i1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.1, 0.13)
 
+[node name="TerminalOutput" parent="." instance=ExtResource("2_b7sot")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, 0.02, 0.1)
+
 [connection signal="pressed" from="Frequency/Button" to="." method="set_active_property" binds= [0]]
 [connection signal="pressed" from="Voltage/Button" to="." method="set_active_property" binds= [1]]
-[connection signal="pressed" from="Node3D/HundredUp" to="." method="add_value_to_active_property" binds= [100]]
-[connection signal="pressed" from="Node3D/HundredDown" to="." method="add_value_to_active_property" binds= [-100]]
-[connection signal="pressed" from="Node3D/TenUp" to="." method="add_value_to_active_property" binds= [10]]
-[connection signal="pressed" from="Node3D/TenDown" to="." method="add_value_to_active_property" binds= [-10]]
-[connection signal="pressed" from="Node3D/OneUp" to="." method="add_value_to_active_property" binds= [1]]
-[connection signal="pressed" from="Node3D/OneDown" to="." method="add_value_to_active_property" binds= [-1]]
-[connection signal="pressed" from="Node3D/TenthUp" to="." method="add_value_to_active_property" binds= [0.1]]
-[connection signal="pressed" from="Node3D/TenthDown2" to="." method="add_value_to_active_property" binds= [-0.1]]
-[connection signal="pressed" from="Node3D/HundrethUp" to="." method="add_value_to_active_property" binds= [-0.01]]
-[connection signal="pressed" from="Node3D/HundrethDown" to="." method="add_value_to_active_property" binds= [-0.01]]
+[connection signal="pressed" from="Buttons/HundredUp" to="." method="add_value_to_active_property" binds= [100]]
+[connection signal="pressed" from="Buttons/HundredDown" to="." method="add_value_to_active_property" binds= [-100]]
+[connection signal="pressed" from="Buttons/TenUp" to="." method="add_value_to_active_property" binds= [10]]
+[connection signal="pressed" from="Buttons/TenDown" to="." method="add_value_to_active_property" binds= [-10]]
+[connection signal="pressed" from="Buttons/OneUp" to="." method="add_value_to_active_property" binds= [1]]
+[connection signal="pressed" from="Buttons/OneDown" to="." method="add_value_to_active_property" binds= [-1]]
+[connection signal="pressed" from="Buttons/TenthUp" to="." method="add_value_to_active_property" binds= [0.1]]
+[connection signal="pressed" from="Buttons/TenthDown2" to="." method="add_value_to_active_property" binds= [-0.1]]
+[connection signal="pressed" from="Buttons/HundrethUp" to="." method="add_value_to_active_property" binds= [-0.01]]
+[connection signal="pressed" from="Buttons/HundrethDown" to="." method="add_value_to_active_property" binds= [-0.01]]

@@ -67,12 +67,12 @@ func _revert_state():
     _change_control_state(_previous_state)
 
 
-func _is_PAUSED() -> bool:
+func _is_paused() -> bool:
     return _current_state == ControlState.PAUSED
 
 
 func _unpause():
-    if _is_PAUSED():
+    if _is_paused():
         _revert_state()
 
 func _can_free_look() -> bool:
@@ -108,7 +108,7 @@ func _physics_process(_delta):
 
 
 func _handle_pause(event: InputEvent):
-    if _is_PAUSED() &&  event is InputEventMouseButton:
+    if _is_paused() &&  event is InputEventMouseButton:
         _unpause()
     elif event.is_action_pressed("ui_cancel"):
         _change_control_state(ControlState.PAUSED)
@@ -198,7 +198,7 @@ func _handle_interaction():
 
 func _unhandled_input(event):
     _handle_pause(event)
-    if _is_PAUSED():
+    if _is_paused():
         return
 
     _handle_camera_input(event)

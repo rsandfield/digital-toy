@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/io/door.gd" id="1_a6muw"]
 [ext_resource type="AudioStream" uid="uid://dnpxubv722k1l" path="res://audio/effects/door/spaceship-door-opening-43604.mp3" id="2_2wsjo"]
-[ext_resource type="Material" uid="uid://dhah1rj3f2g6" path="res://materials/toon/flat/green/dark_green.tres" id="3_n0hmw"]
+[ext_resource type="Material" uid="uid://dptysb1k5j0p3" path="res://materials/toon/flat/green/dark_green_a.tres" id="3_wc22w"]
 
 [sub_resource type="Animation" id="Animation_3nisc"]
 length = 0.001
@@ -84,6 +84,6 @@ shape = SubResource("BoxShape3D_hp6fy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-material_override = ExtResource("3_n0hmw")
+material_override = ExtResource("3_wc22w")
 mesh = SubResource("BoxMesh_rsfkq")
 skeleton = NodePath("../..")

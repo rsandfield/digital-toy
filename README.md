@@ -1,4 +1,4 @@
-# Cosmic Osmo: 
+# Cosmic Osmo: When Nostalgia Hits the Fan
 
 ## Credits
 ### Fonts

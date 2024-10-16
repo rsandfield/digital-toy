@@ -16,6 +16,8 @@ enum SnapState {
 var _hovering_character: PlayerController
 var _snap_state: SnapState
 var _held_object: RigidBody3D
+var _held_collision_layer: int
+var _held_collision_mask: int
 
 
 func _ready():
@@ -30,23 +32,30 @@ func reticle_shape_on_hover() -> HUD.ReticleState:
 
 
 func _snap_held_object():
+    print("Snapping %s" % _held_object)
     _snap_state = SnapState.SNAPPED
     _held_object.reparent(self)
     _held_object.freeze = true
     _held_object.position = Vector3.ZERO
     _held_object.rotation = Vector3.ZERO
+    _held_collision_layer = _held_object.collision_layer
+    _held_collision_mask = _held_object.collision_mask
+    _held_object.collision_layer = 0
+    _held_object.collision_mask = 0
 
 
 func _release_held_object():
+    print("Releaseing %s" % _held_object)
     _snap_state = SnapState.EMPTY
     _held_object.reparent(get_viewport())
     _held_object.freeze = false
+    _held_object.collision_layer = _held_collision_layer
+    _held_object.collision_mask = _held_collision_mask
     _held_object = null
 
 
 func _on_hover_start_by_character(character: PlayerController):
     if _snap_state != SnapState.EMPTY:
-        print(_snap_state)
         return
 
     var object = character._held_object
@@ -89,8 +98,10 @@ func _on_interact_by_character(character: PlayerController):
     _snap_state = SnapState.HOVERING
     character.on_grab_object(_held_object)
     unsnapped.emit()
+    _held_object.on_release()
 
 
 func _on_character_dropped_held_object(_character: PlayerController):
     _snap_held_object()
     snapped.emit(_held_object)
+    _held_object.on_snap(self)

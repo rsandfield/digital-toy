@@ -1,0 +1,43 @@
+[gd_scene load_steps=9 format=3 uid="uid://bedbqprh05t0t"]
+
+[ext_resource type="Script" path="res://scenes/props/science/electronics_lab/component/aux_cable/aux_plug.gd" id="1_8q7x4"]
+[ext_resource type="Script" path="res://scripts/io/interactable/grabbable.gd" id="2_73m22"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="3_gwlvs"]
+[ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/flat/yellow/flax.tres" id="4_uxhn4"]
+[ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="5_f0jux"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_juh4o"]
+height = 0.06
+radius = 0.01
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_b7twn"]
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.04
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ioqg0"]
+top_radius = 0.002
+bottom_radius = 0.002
+height = 0.02
+
+[node name="PlugOutput" type="RigidBody3D"]
+mass = 0.01
+script = ExtResource("1_8q7x4")
+snap_group = "aux_out"
+
+[node name="Grabbable" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_juh4o")
+script = ExtResource("2_73m22")
+
+[node name="InteractableComponent" type="Node" parent="Grabbable"]
+script = ExtResource("3_gwlvs")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
+material_override = ExtResource("4_uxhn4")
+mesh = SubResource("CylinderMesh_b7twn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+material_override = ExtResource("5_f0jux")
+mesh = SubResource("CylinderMesh_ioqg0")

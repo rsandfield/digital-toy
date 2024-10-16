@@ -1,15 +1,16 @@
-[gd_scene load_steps=25 format=3 uid="uid://c8ib1shc7ssuj"]
+[gd_scene load_steps=29 format=3 uid="uid://c8ib1shc7ssuj"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_yqj8k"]
+[ext_resource type="Material" uid="uid://cjsrewmy7joht" path="res://materials/toon/textured/concrete.tres" id="2_qyo8b"]
 [ext_resource type="Material" uid="uid://xf2b11l8y7k5" path="res://materials/toon/flat/gray/light_gray.tres" id="2_ruqsi"]
 [ext_resource type="PackedScene" uid="uid://bsx1btabok7yy" path="res://models/rooms/science/elab.blend" id="4_3ac2w"]
 [ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="4_bpb17"]
-[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="6_yk55s"]
+[ext_resource type="Material" uid="uid://dptysb1k5j0p3" path="res://materials/toon/flat/green/dark_green_a.tres" id="5_oukks"]
 [ext_resource type="PackedScene" uid="uid://cs8vpu53ia612" path="res://scenes/props/science/electronics_lab/hidden_door.tscn" id="7_0a1e3"]
 [ext_resource type="PackedScene" uid="uid://c5x28j5gof5n2" path="res://scenes/props/science/electronics_lab/table.tscn" id="8_qq5hm"]
+[ext_resource type="PackedScene" uid="uid://bpddq80asbpak" path="res://scenes/props/science/electronics_lab/component/aux_cable/wire.tscn" id="10_7hfk6"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="11_l6td4"]
 [ext_resource type="Material" uid="uid://td7ic7gdoxlm" path="res://materials/translucent/glass/glass.tres" id="13_05ho2"]
-[ext_resource type="Material" uid="uid://dhah1rj3f2g6" path="res://materials/toon/flat/green/dark_green.tres" id="13_cwvcd"]
 [ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="13_dt4vr"]
 [ext_resource type="PackedScene" uid="uid://duq07sa5f3vkx" path="res://scenes/props/science/electronics_lab/jacobs_ladder/jacobs_ladder.tscn" id="14_8f2n3"]
 [ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="14_pqnrl"]
@@ -17,6 +18,9 @@
 [ext_resource type="PackedScene" uid="uid://cbqouvxyg355x" path="res://scenes/props/science/electronics_lab/enode.tscn" id="15_jlpwi"]
 [ext_resource type="PackedScene" uid="uid://ewbnte4ap62t" path="res://models/aquarium_face.blend" id="16_vlbqw"]
 [ext_resource type="Material" uid="uid://t85cgc1iu6x8" path="res://materials/toon/flat/metal/gold.tres" id="17_ow2ot"]
+[ext_resource type="PackedScene" uid="uid://clc1eog2g3t5s" path="res://models/elab_door_run.blend" id="18_genue"]
+[ext_resource type="PackedScene" uid="uid://bdiim43et1tln" path="res://scenes/props/science/electronics_lab/component/speaker/speaker.tscn" id="19_a8gs0"]
+[ext_resource type="PackedScene" uid="uid://c51g5pwiyurqe" path="res://scenes/props/science/electronics_lab/component/frequency_generator/frequency_generator.tscn" id="20_5usj1"]
 
 [sub_resource type="Environment" id="Environment_8ybyx"]
 
@@ -51,12 +55,12 @@ environment = SubResource("Environment_8ybyx")
 gravity_space_override = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Shell/Gravity"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2.5, 0)
 shape = SubResource("BoxShape3D_0kywn")
 
 [node name="Floor" type="MeshInstance3D" parent="Shell"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, 0)
-material_override = ExtResource("6_yk55s")
+material_override = ExtResource("2_qyo8b")
 mesh = SubResource("PlaneMesh_mssuq")
 skeleton = NodePath("../..")
 
@@ -82,7 +86,7 @@ shape = SubResource("BoxShape3D_hky4l")
 [node name="elab" parent="Shell" instance=ExtResource("4_3ac2w")]
 
 [node name="Walls" parent="Shell/elab" index="0"]
-material_override = ExtResource("13_cwvcd")
+material_override = ExtResource("5_oukks")
 
 [node name="CeilingLight" parent="Shell" instance=ExtResource("4_bpb17")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
@@ -105,6 +109,12 @@ floor_index = 4
 [node name="HiddenDoor" parent="Shell" instance=ExtResource("7_0a1e3")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.1, 0, 0)
 
+[node name="ElevatorCallButton2" parent="Shell" instance=ExtResource("13_dt4vr")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 1.2, -1)
+
+[node name="Wire" parent="Shell" instance=ExtResource("10_7hfk6")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, -2.98911, 0.85, -1.4733)
+
 [node name="Basic Room" type="Node3D" parent="."]
 
 [node name="Table" parent="Basic Room" instance=ExtResource("8_qq5hm")]
@@ -126,27 +136,49 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1.25, 2.22)
 material_override = ExtResource("14_pqnrl")
 mesh = SubResource("BoxMesh_4qiof")
 
-[node name="Enode" parent="Basic Room" instance=ExtResource("15_jlpwi")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1, 2, 2)
+[node name="WireRun" type="Node3D" parent="Basic Room"]
 
-[node name="Enode2" parent="Basic Room" instance=ExtResource("15_jlpwi")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1, 1.7, 2)
-
-[node name="Enode3" parent="Basic Room" instance=ExtResource("15_jlpwi")]
-transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -2, 1.2, 0.8)
-
-[node name="aquarium_face" parent="Basic Room" instance=ExtResource("16_vlbqw")]
+[node name="aquarium_face" parent="Basic Room/WireRun" instance=ExtResource("16_vlbqw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, 1.25, 2)
 
-[node name="Plane" parent="Basic Room/aquarium_face" index="0"]
+[node name="Plane" parent="Basic Room/WireRun/aquarium_face" index="0"]
 material_override = ExtResource("17_ow2ot")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Basic Room"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Basic Room/WireRun"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.575, 2)
 material_override = ExtResource("17_ow2ot")
 mesh = SubResource("BoxMesh_achmh")
+skeleton = NodePath("../..")
+
+[node name="Enode" parent="Basic Room/WireRun" instance=ExtResource("15_jlpwi")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1, 2, 2)
+
+[node name="Enode2" parent="Basic Room/WireRun" instance=ExtResource("15_jlpwi")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 1, 1.7, 2)
+
+[node name="Enode3" parent="Basic Room/WireRun" instance=ExtResource("15_jlpwi")]
+transform = Transform3D(-4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, -2, 1.2, 0.8)
+
+[node name="elab_door_run" parent="Basic Room/WireRun" instance=ExtResource("18_genue")]
+
+[node name="run" parent="Basic Room/WireRun/elab_door_run" index="0"]
+material_override = ExtResource("17_ow2ot")
+
+[node name="Advanced Room" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0, 0)
+
+[node name="Table" parent="Advanced Room" instance=ExtResource("8_qq5hm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1.6)
+
+[node name="Speaker" parent="." instance=ExtResource("19_a8gs0")]
+transform = Transform3D(0.857041, 0, -0.515248, 0, 1, 0, 0.515248, 0, 0.857041, -2.435, 0.85046, -1.53894)
+
+[node name="FrequencyGenerator" parent="." instance=ExtResource("20_5usj1")]
+transform = Transform3D(0.917067, 0, 0.398733, 0, 1, 0, -0.398733, 0, 0.917067, -3.6986, 0.85, -1.45957)
 
 [connection signal="pressed" from="Shell/ElevatorCallButton" to="Shell/ElevatorDoor" method="call_elevator"]
+[connection signal="pressed" from="Shell/ElevatorCallButton2" to="Shell/HiddenDoor" method="open"]
 
 [editable path="Shell/elab"]
-[editable path="Basic Room/aquarium_face"]
+[editable path="Basic Room/WireRun/aquarium_face"]
+[editable path="Basic Room/WireRun/elab_door_run"]
