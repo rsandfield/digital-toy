@@ -18,7 +18,7 @@ height = 0.04
 [sub_resource type="CylinderMesh" id="CylinderMesh_ioqg0"]
 top_radius = 0.002
 bottom_radius = 0.002
-height = 0.02
+height = 0.03
 
 [node name="PlugOutput" type="RigidBody3D"]
 mass = 0.01
@@ -33,11 +33,11 @@ script = ExtResource("2_73m22")
 script = ExtResource("3_gwlvs")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
 material_override = ExtResource("4_uxhn4")
 mesh = SubResource("CylinderMesh_b7twn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015, 0)
 material_override = ExtResource("5_f0jux")
 mesh = SubResource("CylinderMesh_ioqg0")

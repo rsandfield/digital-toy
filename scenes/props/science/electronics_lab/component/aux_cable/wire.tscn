@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bpddq80asbpak"]
+[gd_scene load_steps=5 format=3 uid="uid://bpddq80asbpak"]
 
 [ext_resource type="Script" path="res://scenes/props/science/electronics_lab/component/aux_cable/aux_cable.gd" id="1_wfp7h"]
 [ext_resource type="PackedScene" uid="uid://c15ijkmijer6i" path="res://scenes/props/science/electronics_lab/component/aux_cable/plug_input.tscn" id="2_uuekr"]
 [ext_resource type="PackedScene" uid="uid://bedbqprh05t0t" path="res://scenes/props/science/electronics_lab/component/aux_cable/plug_output.tscn" id="3_gktut"]
+[ext_resource type="PackedScene" uid="uid://cxcrxm8x8terr" path="res://addons/rope3d/Rope3D.tscn" id="4_sljcd"]
 
 [node name="Wire" type="Node3D"]
 script = ExtResource("1_wfp7h")
@@ -12,6 +13,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
 
 [node name="PlugOutput" parent="." instance=ExtResource("3_gktut")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
+
+[node name="Rope3D" parent="." node_paths=PackedStringArray("start_point", "end_point") instance=ExtResource("4_sljcd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000327393, 0.000543654, 2.77907e-05)
+resolution = 10
+rope_length = 1.0
+segment_length = 0.01
+start_point = NodePath("../PlugInput")
+end_point = NodePath("../PlugOutput")
+radius = 0.002
 
 [connection signal="released" from="PlugInput" to="." method="_on_plug_input_released"]
 [connection signal="snapped_to" from="PlugInput" to="." method="_on_plug_input_snapped_to"]

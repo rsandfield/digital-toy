@@ -112,9 +112,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.1, 
 [node name="ElevatorCallButton2" parent="Shell" instance=ExtResource("13_dt4vr")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2, 1.2, -1)
 
-[node name="Wire" parent="Shell" instance=ExtResource("10_7hfk6")]
-transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, -2.98911, 0.85, -1.4733)
-
 [node name="Basic Room" type="Node3D" parent="."]
 
 [node name="Table" parent="Basic Room" instance=ExtResource("8_qq5hm")]
@@ -170,11 +167,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.2, 0, 0)
 [node name="Table" parent="Advanced Room" instance=ExtResource("8_qq5hm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1.6)
 
-[node name="Speaker" parent="." instance=ExtResource("19_a8gs0")]
-transform = Transform3D(0.857041, 0, -0.515248, 0, 1, 0, 0.515248, 0, 0.857041, -2.435, 0.85046, -1.53894)
+[node name="Speaker" parent="Advanced Room" instance=ExtResource("19_a8gs0")]
+transform = Transform3D(0.857041, 0, -0.515248, 0, 1, 0, 0.515248, 0, 0.857041, 1.765, 0.85046, -1.53894)
 
-[node name="FrequencyGenerator" parent="." instance=ExtResource("20_5usj1")]
-transform = Transform3D(0.917067, 0, 0.398733, 0, 1, 0, -0.398733, 0, 0.917067, -3.6986, 0.85, -1.45957)
+[node name="FrequencyGenerator" parent="Advanced Room" instance=ExtResource("20_5usj1")]
+transform = Transform3D(0.917067, 0, 0.398733, 0, 1, 0, -0.398733, 0, 0.917067, 0.501396, 0.85, -1.45957)
+
+[node name="Wire" parent="Advanced Room" instance=ExtResource("10_7hfk6")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, 1.21089, 0.930084, -1.4733)
 
 [connection signal="pressed" from="Shell/ElevatorCallButton" to="Shell/ElevatorDoor" method="call_elevator"]
 [connection signal="pressed" from="Shell/ElevatorCallButton2" to="Shell/HiddenDoor" method="open"]

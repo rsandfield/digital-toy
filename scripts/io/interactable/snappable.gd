@@ -14,6 +14,12 @@ func get_snap_group() -> String:
 
 func on_grab_by_character(character: PlayerController):
     character.on_grab_object(self)
+    GameManager.activate_snappable_lock_indicators(snap_group)
+
+
+func on_drop():
+    GameManager.deactivate_snappable_lock_indicators(snap_group)
+
 
 
 func on_snap(lock: SnappableLock):

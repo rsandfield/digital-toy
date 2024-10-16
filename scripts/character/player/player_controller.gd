@@ -169,8 +169,8 @@ func on_grab_object(object: RigidBody3D):
 
 
 func _drop_held_object():
-    if _held_object.has_method("on_drop_by_character"):
-        _held_object.on_drop_by_character()
+    if _held_object.has_method("on_drop"):
+        _held_object.on_drop()
     _player.remove_collision_exception_with(_held_object)
     _raycast.remove_exception(_held_object)
     _held_object.reparent(get_viewport())

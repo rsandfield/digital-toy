@@ -18,11 +18,20 @@ var _snap_state: SnapState
 var _held_object: RigidBody3D
 var _held_collision_layer: int
 var _held_collision_mask: int
+var _indicator: Node3D
+
+
+func _enter_tree():
+    GameManager.register_snappable_lock(self)
+
+
+func _exit_tree():
+    GameManager.deregister_snappable_lock(self)
 
 
 func _ready():
-    # TODO: Register draggable groups with game manager to enable indicator glow
-    pass
+    _indicator = get_node_or_null("Indicator")
+    deactivate_indicator()
 
 
 func reticle_shape_on_hover() -> HUD.ReticleState:
@@ -52,6 +61,16 @@ func _release_held_object():
     _held_object.collision_layer = _held_collision_layer
     _held_object.collision_mask = _held_collision_mask
     _held_object = null
+
+
+func activate_indicator():
+    if _indicator:
+        _indicator.visible = true
+
+
+func deactivate_indicator():
+    if _indicator:
+        _indicator.visible = false
 
 
 func _on_hover_start_by_character(character: PlayerController):
@@ -96,7 +115,7 @@ func _on_interact_by_character(character: PlayerController):
         return
     _hovering_character = character
     _snap_state = SnapState.HOVERING
-    character.on_grab_object(_held_object)
+    _held_object.on_grab_by_character(character)
     unsnapped.emit()
     _held_object.on_release()
 

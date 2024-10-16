@@ -2,6 +2,7 @@ extends Node
 
 @export var player_path: NodePath
 
+var _snaplocks = {}
 var _portals = {}
 var _elevators = {}
 var _player: Player
@@ -56,13 +57,18 @@ func get_portal(id: String):
 func link_portals(portal: Portal, link_id: String):
     assert(portal, "Cannot link portals, first portal is undefined")
     var other_portal = _portals.get(link_id)
-    assert(other_portal, "Cannot link portals %s and %s, [%s] not registered" % [portal.portal_id,  link_id,  link_id])
+    assert(
+        other_portal,
+        "Cannot link portals %s and %s, [%s] not registered" %
+        [portal.portal_id,  link_id,  link_id]
+    )
     portal.set_other_portal(other_portal)
     other_portal.set_other_portal(portal)
     print("Linked %s to %s" % [portal.portal_id, portal.other_portal_id])
 
 
 func register_signal_listener(node: Node, signal_bus: String):
+    # TODO: Cross-signal signaling by refrerence
     print("Connecting %s to %s" % [node, signal_bus])
 
 
@@ -83,3 +89,37 @@ func call_elevator(elevator_id: String, index: int):
     print("Calling %s to %d" % [elevator_id, index])
     var elevator = _elevators.get(elevator_id) as Elevator
     elevator.call_to_floor(index)
+
+
+func register_snappable_lock(snaplock: SnappableLock):
+    assert(len(snaplock.snap_group) > 0, "SnappableLock %s has no snap group" % snaplock)
+    var group =_snaplocks.get_or_add(snaplock.snap_group, {})
+    assert(!group.get(snaplock.get_instance_id()), "SnappableLock %s already registered" % snaplock)
+    group[snaplock.get_instance_id()] = snaplock
+
+
+func deregister_snappable_lock(snaplock: SnappableLock):
+    assert(len(snaplock.snap_group) > 0, "SnappableLock %s has no snap group" % snaplock)
+    var group =_snaplocks.get_or_add(snaplock.snap_group)
+    assert(group.get(snaplock.get_instance_id()), "SnappableLock %s not registered" % snaplock)
+    group.erase(snaplock.get_instance_id())
+    if group.is_empty:
+        _snaplocks.erase(snaplock.snap_group)
+
+
+func activate_snappable_lock_indicators(snap_group: String):
+    var group =_snaplocks.get(snap_group)
+    if !group:
+        push_error("Snap group %s not found" % snap_group)
+        return
+    for snap_id in group:
+        group[snap_id].activate_indicator()
+
+
+func deactivate_snappable_lock_indicators(snap_group: String):
+    var group =_snaplocks.get(snap_group)
+    if !group:
+        push_error("Snap group %s not found" % snap_group)
+        return
+    for snap_id in group:
+        group[snap_id].deactivate_indicator()
