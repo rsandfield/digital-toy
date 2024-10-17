@@ -1,13 +1,12 @@
 class_name Player
 extends CharacterBody3D
 
-@onready var _head: Node3D = $Head
 
-var gravity: Vector3
-@export var mass = 80
 const MINIMUM_PUSHABLE_MASS_RATIO := 0.25
 const PUSH_FORCE_MULTIPLIER := 5.0
+const CROUCH_TRANSLATE := 0.7
 
+@export var mass = 80
 @export var walk_speed := 1.5
 @export var sprint_speed := 2.5
 @export var ground_accel := 8.0
@@ -17,16 +16,19 @@ const PUSH_FORCE_MULTIPLIER := 5.0
 @export var jump_velocity := 6.0
 @export var climb_speed := 7.0
 
-const CROUCH_TRANSLATE := 0.7
 var is_crouching = false
 
 var wish_dir := Vector3.ZERO
 
+var _gravity: Vector3
 var _last_frame_was_on_floor = -INF
+
+@onready var _head: Node3D = $Head
 
 
 func _init():
     GameManager.register_player(self)
+
 
 func get_move_speed() -> float:
     if is_crouching:
@@ -42,7 +44,7 @@ func move(dir: Vector2):
 
 func jump():
     if is_on_floor():
-        velocity += jump_velocity * -gravity.normalized()
+        velocity += jump_velocity * -_gravity.normalized()
 
 
 func crouch(down: bool = true):
@@ -63,8 +65,11 @@ func _push_away_rigid_bodies():
         var collided = c.get_collider()
         if collided is RigidBody3D:
             var push_dir = -c.get_normal()
-            # How much velocity the object needs to increase to match player velocity in the push direction
-            var velocity_diff_in_push_dir = velocity.dot(push_dir) - collided.linear_velocity.dot(push_dir)
+            # How much velocity the object needs to increase to match player velocity in the
+            # push direction
+            var velocity_diff_in_push_dir = (
+                velocity.dot(push_dir) - collided.linear_velocity.dot(push_dir)
+            )
             # No diff needed if moving away
             velocity_diff_in_push_dir = max(0.0, velocity_diff_in_push_dir)
             var mass_ratio = min(1.0, mass / collided.mass)
@@ -72,7 +77,10 @@ func _push_away_rigid_bodies():
                 continue
             push_dir.y = 0
             var push_force = mass_ratio * PUSH_FORCE_MULTIPLIER
-            collided.apply_impulse(push_dir * velocity_diff_in_push_dir * push_force, c.get_position() - collided.global_position)
+            collided.apply_impulse(
+                push_dir * velocity_diff_in_push_dir * push_force,
+                c.get_position() - collided.global_position
+            )
 
 
 func _handle_ground_physics(delta: float):
@@ -83,7 +91,7 @@ func _handle_ground_physics(delta: float):
         var accel_speed = ground_accel * delta * move_speed
         accel_speed = min(accel_speed, speed_cap_delta)
         velocity += accel_speed * wish_dir
-    
+
     var control = max(velocity.length(), ground_decel)
     var drop = control * ground_friction * delta
     var new_speed = max(0.0, velocity.length() - drop)
@@ -92,8 +100,11 @@ func _handle_ground_physics(delta: float):
     velocity *= new_speed
 
 
-func _get_gravity_orientation() -> Vector3:    
-    var orientation_direction = Quaternion(global_basis.y, -gravity) * global_basis.get_rotation_quaternion()
+func _get_gravity_orientation() -> Vector3:
+    var orientation_direction = (
+        Quaternion(global_basis.y, -_gravity) *
+        global_basis.get_rotation_quaternion()
+    )
     # orientation_direction *= Quaternion(global_basis.y, $Head.rotation.y)
     # $Head.rotation.y = 0
     var eulered = orientation_direction.normalized().get_euler()
@@ -101,21 +112,21 @@ func _get_gravity_orientation() -> Vector3:
 
 
 func _apply_gravity(delta: float):
-    gravity = PhysicsServer3D.body_get_direct_state(get_rid()).total_gravity
+    _gravity = PhysicsServer3D.body_get_direct_state(get_rid()).total_gravity
     var orientation = _get_gravity_orientation()
     rotation = rotation.move_toward(orientation, delta)
-    
-    if gravity != Vector3.ZERO:
-        up_direction = -gravity.normalized()
+
+    if _gravity != Vector3.ZERO:
+        up_direction = -_gravity.normalized()
 
     if !is_on_floor():
-        velocity += gravity * delta
+        velocity += _gravity * delta
 
 
 func _physics_process(delta):
     if is_on_floor():
         _last_frame_was_on_floor = Engine.get_physics_frames()
-    
+
     _apply_gravity(delta)
     _handle_ground_physics(delta)
     _push_away_rigid_bodies()
