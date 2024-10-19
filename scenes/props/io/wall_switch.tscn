@@ -8,17 +8,6 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_8u2n1"]
 size = Vector3(0.3, 0.4, 0.2)
 
-[sub_resource type="Animation" id="Animation_6wkt8"]
-resource_name = "up"
-length = 0.4
-tracks/0/type = "rotation_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Pivot")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0.34202, 0, 0, 0.939693, 0.4, 1, -0.34202, 0, 0, 0.939693)
-
 [sub_resource type="Animation" id="Animation_rfakg"]
 length = 0.001
 tracks/0/type = "rotation_3d"
@@ -38,7 +27,18 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("Pivot")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, -0.342, 0, 0, 0.94, 0.4, 1, 0.34202, 0, 0, 0.939693)
+tracks/0/keys = PackedFloat32Array(0, 1, -0.342, 0, 0, 0.94, 0.2, 1, 0.34202, 0, 0, 0.939693)
+
+[sub_resource type="Animation" id="Animation_6wkt8"]
+resource_name = "up"
+length = 0.4
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.34202, 0, 0, 0.939693, 0.2, 1, -0.34202, 0, 0, 0.939693)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_vj0cp"]
 _data = {
@@ -76,7 +76,7 @@ material_override = ExtResource("3_46qvb")
 mesh = SubResource("BoxMesh_eiyu4")
 
 [node name="Pivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.766044, 0.642788, 0, -0.642788, 0.766044, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.766045, 0.642787, 0, -0.642787, 0.766045, 0, 0, 0)
 
 [node name="Toggle" type="MeshInstance3D" parent="Pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0330063)

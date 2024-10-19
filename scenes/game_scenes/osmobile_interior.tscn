@@ -1,28 +1,19 @@
-[gd_scene load_steps=15 format=3 uid="uid://byc4yvagb6m8b"]
+[gd_scene load_steps=14 format=3 uid="uid://byc4yvagb6m8b"]
 
-[ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="1_7dm4n"]
 [ext_resource type="Script" path="res://scripts/transit/elevator/elevator.gd" id="1_hneul"]
+[ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://space_environment.tres" id="2_g12sf"]
+[ext_resource type="PackedScene" uid="uid://vgg7x674v0wk" path="res://models/rooms/osmobile_interior.blend" id="3_y8xkb"]
 [ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="4_fmaf0"]
+[ext_resource type="Material" uid="uid://78euwjng43dr" path="res://materials/toon/flat/red/wine.tres" id="4_hpr6x"]
 [ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="4_rl2ly"]
 [ext_resource type="PackedScene" uid="uid://dsdr5swy788a6" path="res://scenes/props/osmobile/floor_lamp.tscn" id="5_ig8ep"]
 [ext_resource type="PackedScene" uid="uid://dbu0xvmrc2jqu" path="res://scenes/props/io/wall_switch.tscn" id="5_jdli4"]
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="5_mtfsq"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="5_uswy5"]
+[ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="6_v4q1u"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t514v"]
 size = Vector3(10, 5, 10)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_oed7q"]
-size = Vector2(4, 12)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_we1lv"]
-size = Vector3(4, 0.5, 12)
-
-[sub_resource type="BoxMesh" id="BoxMesh_d6hx8"]
-size = Vector3(1.25, 2.5, 0.2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_erjwj"]
-size = Vector3(1.25, 2.5, 0.2)
 
 [sub_resource type="BoxMesh" id="BoxMesh_q4do3"]
 size = Vector3(0.08, 0.01, 0.16)
@@ -31,7 +22,10 @@ size = Vector3(0.08, 0.01, 0.16)
 script = ExtResource("1_hneul")
 id = "osmobile"
 door_close_delay = -1
-dynamic_connections = ["osmobile_veg_moon_surface", "osmobile_science_surface"]
+dynamic_connections = ["osmobile_veg_moon_surface", "osmobile_eh_whatevah", "osmobile_science_surface"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("2_g12sf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
@@ -43,54 +37,43 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("BoxShape3D_t514v")
 
 [node name="ElevatorDoor" parent="." instance=ExtResource("5_mtfsq")]
-transform = Transform3D(-4.2222e-08, 0.258819, 0.965926, 1.13133e-08, 0.965926, -0.258819, -1, 0, -4.37114e-08, 2, 0, 0)
+transform = Transform3D(-4.2222e-08, 0.258819, 0.965926, 1.13133e-08, 0.965926, -0.258819, -1, 0, -4.37114e-08, 2, -1, 0.5)
 portal_id = "osmobile_exit_door"
 elevator = "osmobile"
 
-[node name="Floor" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5)
-material_override = ExtResource("1_7dm4n")
-mesh = SubResource("PlaneMesh_oed7q")
+[node name="osmobile_interior" parent="." instance=ExtResource("3_y8xkb")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+[node name="Floor" parent="osmobile_interior" index="0"]
+material_override = ExtResource("4_hpr6x")
+
+[node name="StaticBody3D" parent="osmobile_interior/Floor" index="0"]
 collision_layer = 3
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-shape = SubResource("BoxShape3D_we1lv")
-
-[node name="WallLeft" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.375, 1.25, -2.5)
+[node name="Walls" parent="osmobile_interior" index="1"]
 material_override = ExtResource("4_fmaf0")
-mesh = SubResource("BoxMesh_d6hx8")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor/WallLeft"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/WallLeft/StaticBody3D"]
-shape = SubResource("BoxShape3D_erjwj")
-disabled = true
-
-[node name="WallRight" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.375, 1.25, -2.5)
+[node name="Soffit" parent="osmobile_interior" index="2"]
 material_override = ExtResource("4_fmaf0")
-mesh = SubResource("BoxMesh_d6hx8")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor/WallRight"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/WallRight/StaticBody3D"]
-shape = SubResource("BoxShape3D_erjwj")
-disabled = true
+[node name="Console" parent="osmobile_interior" index="3"]
+material_override = ExtResource("6_v4q1u")
 
 [node name="Cabin" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
 [node name="CeilingLight" parent="Cabin" instance=ExtResource("4_rl2ly")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="GoButton" parent="." instance=ExtResource("5_uswy5")]
+transform = Transform3D(8, 0, 0, 0, 4.58861, -6.55322, 0, 6.55322, 4.58861, -0.7, 0.95, -5.667)
+
+[node name="SwabButton" parent="." instance=ExtResource("5_uswy5")]
+transform = Transform3D(8, 0, 0, 0, 4.58861, -6.55322, 0, 6.55322, 4.58861, 0.7, 0.95, -5.667)
 
 [node name="LivingRoom" type="Node3D" parent="."]
 
 [node name="FloorLamp" parent="LivingRoom" instance=ExtResource("5_ig8ep")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 2)
 
 [node name="WorldSelectPanel" type="Node3D" parent="LivingRoom"]
 transform = Transform3D(-8.74228e-08, -1.73205, -1, 0, 1, -1.73205, 2, -7.57103e-08, -4.37114e-08, 2, 1.175, -1)
@@ -129,10 +112,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.375, 1.25, -1.9)
 
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button0" to="." method="call_to_floor" binds= [0]]
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button1" to="." method="call_to_floor" binds= [1]]
-[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button2" to="." method="call_to_floor" binds= [0]]
+[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button2" to="." method="call_to_floor" binds= [2]]
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button3" to="." method="call_to_floor" binds= [0]]
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button4" to="." method="call_to_floor" binds= [0]]
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button5" to="." method="call_to_floor" binds= [0]]
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button6" to="." method="call_to_floor" binds= [0]]
 [connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button7" to="." method="call_to_floor" binds= [0]]
 [connection signal="toggled" from="LivingRoom/WallSwitch" to="LivingRoom/FloorLamp" method="_on_toggled"]
+
+[editable path="osmobile_interior"]
