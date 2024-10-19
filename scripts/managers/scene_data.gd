@@ -47,6 +47,9 @@ func unload():
         return
     print("Unloading %s" % self)
     mutex.lock()
+    # Return portal assets to owners before freeing nodes
+    for portal_id in portal_ids:
+        GameManager.deregister_portal_id(portal_id)
     viewport_node.free()
     mutex.unlock()
 

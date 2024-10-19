@@ -41,13 +41,12 @@ func deregister_portal_id(portal_id: String):
     var portal = _portals[portal_id]
     assert(portal, "%s already deregistered" % [portal_id])
     var other = portal.other_portal
-    if other && is_instance_valid(other):
+    if is_instance_valid(other):
         other.set_other_portal(null)
-    portal.set_other_portal(null)
     (_player._head as PlayerController)._raycast.remove_exception(portal)
     _portals.erase(portal_id)
 
-func get_portal(id: String):
+func get_portal(id: String) -> Portal:
     assert(id != "", "Portal ID cannot be empty")
     var other_portal = _portals.get(id)
     assert(other_portal, "Portal [%s] not registered" % [id])
@@ -103,7 +102,7 @@ func deregister_snappable_lock(snaplock: SnappableLock):
     var group =_snaplocks.get_or_add(snaplock.snap_group)
     assert(group.get(snaplock.get_instance_id()), "SnappableLock %s not registered" % snaplock)
     group.erase(snaplock.get_instance_id())
-    if group.is_empty:
+    if group.is_empty():
         _snaplocks.erase(snaplock.snap_group)
 
 

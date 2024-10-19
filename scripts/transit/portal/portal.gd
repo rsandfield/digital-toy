@@ -86,12 +86,6 @@ func _enter_tree():
     GameManager.register_portal(self)
 
 
-func _exit_tree():
-    if Engine.is_editor_hint():
-        return
-    GameManager.deregister_portal(self)
-
-
 func _notification(what):
     if Engine.is_editor_hint():
         return
