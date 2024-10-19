@@ -17,11 +17,9 @@ func _ready():
     _plug_output.cable = self
     _plug_output.reparent.call_deferred(get_viewport())
 
-    $Rope3D.make()
 
-
-func _physics_process(_delta):
-    global_position = (_plug_input.global_position + _plug_output.global_position) * 0.5
+# func _physics_process(_delta):
+#     global_position = (_plug_input.global_position + _plug_output.global_position) * 0.5
 
 
 func get_value_at_time(t: float) -> float:
