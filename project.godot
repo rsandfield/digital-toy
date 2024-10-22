@@ -29,6 +29,10 @@ project/assembly_name="Derp"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/so_fluffy/plugin.cfg")
+
 [input]
 
 ui_left={
