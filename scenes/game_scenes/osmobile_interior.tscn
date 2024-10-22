@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://byc4yvagb6m8b"]
+[gd_scene load_steps=28 format=3 uid="uid://byc4yvagb6m8b"]
 
 [ext_resource type="Script" path="res://scripts/transit/elevator/elevator.gd" id="1_hneul"]
 [ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://space_environment.tres" id="2_g12sf"]
@@ -11,12 +11,36 @@
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="5_mtfsq"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="5_uswy5"]
 [ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="6_v4q1u"]
+[ext_resource type="Script" path="res://addons/so_fluffy/so_fluffy.gd" id="7_rt31v"]
+[ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="8_vmi0a"]
+[ext_resource type="Material" uid="uid://c6e7pege12uqm" path="res://materials/toon/flat/brown/russet.tres" id="9_003ip"]
+[ext_resource type="PackedScene" uid="uid://ca0l4xl4iwjkd" path="res://scenes/props/osmobile/fuzzy_dice.tscn" id="10_2ty6a"]
+[ext_resource type="PackedScene" uid="uid://dwpe1pld2wc53" path="res://scenes/props/osmobile/blooper.tscn" id="10_fao3l"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="12_1fqcy"]
+[ext_resource type="PackedScene" uid="uid://n1prsjq1us1w" path="res://scenes/props/osmobile/speedometer.tscn" id="15_4c830"]
+[ext_resource type="PackedScene" uid="uid://clunfv0ob3x4" path="res://scenes/props/osmobile/woosher.tscn" id="16_5pmt0"]
+[ext_resource type="PackedScene" uid="uid://b1h6fk06c5cmn" path="res://scenes/props/osmobile/world_select.tscn" id="18_d7ek5"]
+[ext_resource type="PackedScene" uid="uid://blwxni2nrtepn" path="res://scenes/props/osmobile/cd_player.tscn" id="19_ymscw"]
+[ext_resource type="PackedScene" uid="uid://dv6dmnkft2rpb" path="res://scenes/props/osmobile/cd_case.tscn" id="23_10bm1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_t514v"]
-size = Vector3(10, 5, 10)
+size = Vector3(10, 5, 15)
 
-[sub_resource type="BoxMesh" id="BoxMesh_q4do3"]
-size = Vector3(0.08, 0.01, 0.16)
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_30hqb"]
+frequency = 0.072
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1dvi2"]
+width = 1024
+height = 1024
+as_normal_map = true
+noise = SubResource("FastNoiseLite_30hqb")
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sh3yx"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_30hqb")
+
+[sub_resource type="BoxMesh" id="BoxMesh_k7ky7"]
+size = Vector3(0.49, 0.12, 0.05)
 
 [node name="OsmobileInterior" type="Node3D"]
 script = ExtResource("1_hneul")
@@ -37,7 +61,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("BoxShape3D_t514v")
 
 [node name="ElevatorDoor" parent="." instance=ExtResource("5_mtfsq")]
-transform = Transform3D(-4.2222e-08, 0.258819, 0.965926, 1.13133e-08, 0.965926, -0.258819, -1, 0, -4.37114e-08, 2, -1, 0.5)
+transform = Transform3D(-4.2222e-08, 0.258819, 0.965926, 1.13133e-08, 0.965926, -0.258819, -1, 0, -4.37114e-08, 2.15, -0.8, 0.5)
 portal_id = "osmobile_exit_door"
 elevator = "osmobile"
 
@@ -49,75 +73,108 @@ material_override = ExtResource("4_hpr6x")
 [node name="StaticBody3D" parent="osmobile_interior/Floor" index="0"]
 collision_layer = 3
 
+[node name="Fur" type="Node" parent="osmobile_interior/Floor" index="1"]
+script = ExtResource("7_rt31v")
+length = 0.05
+density = 5.0
+seed = 41285
+scruffiness = 0.0
+thickness_scale = 0.5
+turbulence_texture = SubResource("NoiseTexture2D_1dvi2")
+jitter_texture = SubResource("NoiseTexture2D_sh3yx")
+albedo_color = Color(0.447059, 0.0980392, 0.172549, 1)
+physics_enabled = false
+
 [node name="Walls" parent="osmobile_interior" index="1"]
 material_override = ExtResource("4_fmaf0")
 
 [node name="Soffit" parent="osmobile_interior" index="2"]
 material_override = ExtResource("4_fmaf0")
 
-[node name="Console" parent="osmobile_interior" index="3"]
+[node name="Arch" parent="osmobile_interior" index="3"]
+material_override = ExtResource("8_vmi0a")
+
+[node name="Tread_000" parent="osmobile_interior" index="4"]
+material_override = ExtResource("4_hpr6x")
+
+[node name="Tread_001" parent="osmobile_interior" index="5"]
+material_override = ExtResource("4_hpr6x")
+
+[node name="Tread_002" parent="osmobile_interior" index="6"]
+material_override = ExtResource("4_hpr6x")
+
+[node name="Tread_003" parent="osmobile_interior" index="7"]
+material_override = ExtResource("4_hpr6x")
+
+[node name="Console" parent="osmobile_interior" index="8"]
 material_override = ExtResource("6_v4q1u")
+
+[node name="ControlSides" parent="osmobile_interior" index="9"]
+material_override = ExtResource("8_vmi0a")
+
+[node name="Face" parent="osmobile_interior" index="10"]
+material_override = ExtResource("9_003ip")
+
+[node name="FaceTrim" parent="osmobile_interior" index="11"]
+material_override = ExtResource("8_vmi0a")
 
 [node name="Cabin" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
+[node name="FuzzyDice" parent="Cabin" instance=ExtResource("10_2ty6a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.07237, -1.66715)
+
 [node name="CeilingLight" parent="Cabin" instance=ExtResource("4_rl2ly")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 
-[node name="GoButton" parent="." instance=ExtResource("5_uswy5")]
-transform = Transform3D(8, 0, 0, 0, 4.58861, -6.55322, 0, 6.55322, 4.58861, -0.7, 0.95, -5.667)
+[node name="BlooperPanel" type="Node3D" parent="Cabin"]
+transform = Transform3D(0.422618, 0.640856, 0.640856, 0, 0.707107, -0.707107, -0.906308, 0.298836, 0.298836, -1.02763, 0.379439, -0.314921)
 
-[node name="SwabButton" parent="." instance=ExtResource("5_uswy5")]
-transform = Transform3D(8, 0, 0, 0, 4.58861, -6.55322, 0, 6.55322, 4.58861, 0.7, 0.95, -5.667)
+[node name="Blooper" parent="Cabin/BlooperPanel" instance=ExtResource("10_fao3l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2, 0, 0)
+
+[node name="Blooper2" parent="Cabin/BlooperPanel" instance=ExtResource("10_fao3l")]
+
+[node name="Blooper3" parent="Cabin/BlooperPanel" instance=ExtResource("10_fao3l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0, 0)
+
+[node name="FrontPanel" type="MeshInstance3D" parent="Cabin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34, -0.68)
+material_override = ExtResource("12_1fqcy")
+mesh = SubResource("BoxMesh_k7ky7")
+
+[node name="Speedometer" parent="Cabin" instance=ExtResource("15_4c830")]
+transform = Transform3D(1, 0, 0, 0, 0.173648, -0.984808, 0, 0.984808, 0.173648, 0, 0.9, -1)
+
+[node name="WoosherL" parent="Cabin" instance=ExtResource("16_5pmt0")]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965926, 0, 0.965926, 0.258819, -0.3, 0.6, -0.8)
+
+[node name="WoosherR" parent="Cabin" instance=ExtResource("16_5pmt0")]
+transform = Transform3D(1, 0, 0, 0, 0.258819, -0.965926, 0, 0.965926, 0.258819, 0.3, 0.6, -0.8)
+
+[node name="SwabButton" parent="Cabin" instance=ExtResource("5_uswy5")]
+transform = Transform3D(8, 0, 0, 0, 4.58861, -6.55322, 0, 6.55322, 4.58861, 0.7, 0.95, -1.667)
+
+[node name="WorldSelect" parent="Cabin" instance=ExtResource("18_d7ek5")]
+transform = Transform3D(1, 0, 0, 0, 0.554844, -0.831954, 0, 0.831954, 0.554844, -0.75, 0.897159, -1.65427)
+
+[node name="CdPlayer" parent="Cabin" instance=ExtResource("19_ymscw")]
+transform = Transform3D(0.43721, 0.410477, -0.800222, 0.0308144, 0.88241, 0.469472, 0.898831, -0.229916, 0.37315, 1.36446, 0.925433, -1.10737)
 
 [node name="LivingRoom" type="Node3D" parent="."]
 
 [node name="FloorLamp" parent="LivingRoom" instance=ExtResource("5_ig8ep")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4, 0, 2)
 
-[node name="WorldSelectPanel" type="Node3D" parent="LivingRoom"]
-transform = Transform3D(-8.74228e-08, -1.73205, -1, 0, 1, -1.73205, 2, -7.57103e-08, -4.37114e-08, 2, 1.175, -1)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="LivingRoom/WorldSelectPanel"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, 0)
-mesh = SubResource("BoxMesh_q4do3")
-skeleton = NodePath("../../..")
-
-[node name="Button0" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, -0.06)
-
-[node name="Button1" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, -0.02)
-
-[node name="Button2" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, 0.02)
-
-[node name="Button3" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.02, 0, 0.06)
-
-[node name="Button4" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, -0.06)
-
-[node name="Button5" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, -0.02)
-
-[node name="Button6" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.02)
-
-[node name="Button7" parent="LivingRoom/WorldSelectPanel" instance=ExtResource("5_uswy5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, 0, 0.06)
-
 [node name="WallSwitch" parent="LivingRoom" instance=ExtResource("5_jdli4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.375, 1.25, -1.9)
 
-[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button0" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button1" to="." method="call_to_floor" binds= [1]]
-[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button2" to="." method="call_to_floor" binds= [2]]
-[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button3" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button4" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button5" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button6" to="." method="call_to_floor" binds= [0]]
-[connection signal="pressed" from="LivingRoom/WorldSelectPanel/Button7" to="." method="call_to_floor" binds= [0]]
+[node name="CdCase" parent="." instance=ExtResource("23_10bm1")]
+transform = Transform3D(1, 0, 0, 0, 0.166958, -0.985964, 0, 0.985964, 0.166958, 0.830692, 0.288444, -4.7967)
+
+[connection signal="doinking_ended" from="Cabin/WorldSelect" to="Cabin/CeilingLight" method="turn_on"]
+[connection signal="doinking_started" from="Cabin/WorldSelect" to="Cabin/CeilingLight" method="turn_off"]
+[connection signal="world_selected" from="Cabin/WorldSelect" to="." method="call_to_floor"]
 [connection signal="toggled" from="LivingRoom/WallSwitch" to="LivingRoom/FloorLamp" method="_on_toggled"]
 
 [editable path="osmobile_interior"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://dwpe1pld2wc53"]
+
+[ext_resource type="Script" path="res://scripts/io/interactable/button3d.gd" id="1_iwgpc"]
+[ext_resource type="PackedScene" uid="uid://8jokor8obdio" path="res://models/osmobile/blooper.blend" id="2_2w8k7"]
+[ext_resource type="Material" uid="uid://dw06ud1dbq53u" path="res://materials/toon/flat/red/red.tres" id="2_keemo"]
+[ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="3_n01ui"]
+[ext_resource type="Material" uid="uid://bghs0f41tgdv2" path="res://materials/toon/flat/red/red_lit.tres" id="3_tqfqd"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="6_k7sy1"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_icg4l"]
+height = 0.2
+radius = 0.15
+
+[sub_resource type="SphereMesh" id="SphereMesh_rrpf5"]
+radius = 0.075
+height = 0.15
+
+[node name="Blooper" type="Area3D"]
+script = ExtResource("1_iwgpc")
+light_on_click = true
+unlit = ExtResource("2_keemo")
+lit = ExtResource("3_tqfqd")
+
+[node name="InteractableComponent" type="Node" parent="."]
+script = ExtResource("6_k7sy1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+shape = SubResource("CylinderShape3D_icg4l")
+
+[node name="blooper" parent="." instance=ExtResource("2_2w8k7")]
+
+[node name="Base" parent="blooper" index="0"]
+material_override = ExtResource("3_n01ui")
+
+[node name="ButtonMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.075, 0)
+material_override = ExtResource("2_keemo")
+mesh = SubResource("SphereMesh_rrpf5")
+
+[editable path="blooper"]

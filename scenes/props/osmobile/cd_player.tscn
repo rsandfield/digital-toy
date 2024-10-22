@@ -1,0 +1,35 @@
+[gd_scene load_steps=8 format=3 uid="uid://blwxni2nrtepn"]
+
+[ext_resource type="Script" path="res://scripts/io/interactable/snappable_lock.gd" id="1_7utq3"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="2_xoyml"]
+[ext_resource type="Material" uid="uid://xf2b11l8y7k5" path="res://materials/toon/flat/gray/light_gray.tres" id="3_5vnlh"]
+[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="3_koimg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a6r1y"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oq7e6"]
+size = Vector3(0.4, 0.2, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_0yjfn"]
+size = Vector3(0.2, 0.05, 0.01)
+
+[node name="CdPlayer" type="Area3D"]
+script = ExtResource("1_7utq3")
+snap_group = "cd"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_a6r1y")
+
+[node name="InteractableComponent" type="Node" parent="."]
+script = ExtResource("2_xoyml")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.005)
+material_override = ExtResource("3_5vnlh")
+mesh = SubResource("BoxMesh_oq7e6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.05, 0, 0.01)
+material_override = ExtResource("3_koimg")
+mesh = SubResource("BoxMesh_0yjfn")

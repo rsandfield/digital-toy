@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://n1prsjq1us1w"]
+
+[ext_resource type="PackedScene" uid="uid://q0gyfa6cph0a" path="res://models/osmobile/speedometer.blend" id="1_o2801"]
+[ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="2_bogva"]
+[ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="3_acdim"]
+[ext_resource type="Material" uid="uid://td7ic7gdoxlm" path="res://materials/translucent/glass/glass.tres" id="4_b7ecp"]
+
+[node name="Speedometer" type="Node3D"]
+
+[node name="speedometer" parent="." instance=ExtResource("1_o2801")]
+
+[node name="Case" parent="speedometer" index="0"]
+material_override = ExtResource("2_bogva")
+
+[node name="Cylinder" parent="speedometer" index="1"]
+material_override = ExtResource("3_acdim")
+
+[node name="Window" parent="speedometer" index="2"]
+material_override = ExtResource("4_b7ecp")
+
+[editable path="speedometer"]

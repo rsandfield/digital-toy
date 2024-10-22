@@ -1,0 +1,234 @@
+[gd_scene load_steps=29 format=3 uid="uid://b1h6fk06c5cmn"]
+
+[ext_resource type="PackedScene" uid="uid://cgupf627iblaa" path="res://models/osmobile/doinker_panel.blend" id="1_deanf"]
+[ext_resource type="Script" path="res://scripts/vehicle/osmobile/world_select_panel.gd" id="1_lgo54"]
+[ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="1_oycoy"]
+[ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="2_mem6e"]
+[ext_resource type="PackedScene" uid="uid://oky2pr7vv7fy" path="res://scenes/props/osmobile/doinker.tscn" id="3_335f7"]
+[ext_resource type="Material" uid="uid://c6va14cbgsaav" path="res://materials/toon/flat/red/tomato.tres" id="5_0dwpr"]
+[ext_resource type="Material" uid="uid://dg71nts2qy11r" path="res://materials/toon/flat/green/green.tres" id="6_od8yx"]
+[ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="6_ut2t1"]
+[ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/flat/yellow/flax.tres" id="7_jd8f6"]
+[ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="9_bcpfm"]
+[ext_resource type="Material" uid="uid://bm0kuvlv2mh7c" path="res://materials/toon/flat/metal/silver.tres" id="9_e2ft3"]
+[ext_resource type="Material" uid="uid://cadv1ufpygxj1" path="res://materials/toon/flat/gray/dark_gray.tres" id="12_llqs8"]
+[ext_resource type="Material" uid="uid://x0dqtue5rrjk" path="res://materials/toon/flat/brown/chocolate.tres" id="13_gre77"]
+
+[sub_resource type="Animation" id="Animation_mdtry"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_m64pm"]
+resource_name = "flip_back"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 1, 0, 0, 7.54979e-08, 0.1, 1, 0.996195, 0, 0, 0.0871558, 0.2, 1, 0.996195, 0, 0, -0.0871558, 0.3, 1, 0.0871557, 0, 0, 0.996195, 0.4, 1, -0.0871557, 0, 0, 0.996195, 0.5, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_dvguy"]
+resource_name = "flip_select"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody3D")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.1, 1, -0.0436194, 0, 0, 0.999048, 0.2, 1, 0.0871557, 0, 0, 0.996195, 0.3, 1, 0.996195, 0, 0, 0.0871558, 0.4, 1, -0.996, 0, 0, 0.087, 0.5, 1, 1, 0, 0, 4.37114e-08)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fp6hr"]
+_data = {
+"RESET": SubResource("Animation_mdtry"),
+"flip_back": SubResource("Animation_m64pm"),
+"flip_select": SubResource("Animation_dvguy")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_07bop"]
+size = Vector3(0.4, 0.02, 0.5)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ss83x"]
+radius = 0.02
+height = 0.04
+
+[sub_resource type="BoxMesh" id="BoxMesh_6qlqp"]
+size = Vector3(0.01, 0.001, 0.01)
+
+[sub_resource type="SphereMesh" id="SphereMesh_nkdts"]
+radius = 0.018
+height = 0.042
+
+[sub_resource type="BoxMesh" id="BoxMesh_fsav0"]
+size = Vector3(0.005, 0.005, 0.005)
+
+[sub_resource type="TorusMesh" id="TorusMesh_56uhp"]
+inner_radius = 0.01
+outer_radius = 0.02
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3jmxa"]
+top_radius = 0.002
+bottom_radius = 0.002
+height = 0.02
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pxbgy"]
+radius = 0.007
+height = 0.04
+
+[sub_resource type="BoxMesh" id="BoxMesh_8mwck"]
+size = Vector3(0.02, 0.02, 0.02)
+
+[sub_resource type="BoxMesh" id="BoxMesh_mrhce"]
+size = Vector3(0.02, 0.005, 0.03)
+
+[sub_resource type="BoxMesh" id="BoxMesh_715vf"]
+size = Vector3(0.02, 0.015, 0.02)
+
+[node name="WorldSelect" type="Node3D"]
+script = ExtResource("1_lgo54")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fp6hr")
+}
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, 0)
+
+[node name="doinker_panel" parent="StaticBody3D" instance=ExtResource("1_deanf")]
+
+[node name="Panel" parent="StaticBody3D/doinker_panel" index="0"]
+material_override = ExtResource("1_oycoy")
+
+[node name="Button" parent="StaticBody3D" instance=ExtResource("2_mem6e")]
+transform = Transform3D(8, 0, 0, 0, 8, 0, 0, 0, 8, 0, 0.04, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_07bop")
+
+[node name="VegMoon" parent="StaticBody3D" instance=ExtResource("3_335f7")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.075, -0.02, 0.18)
+
+[node name="Node3D" type="Node3D" parent="StaticBody3D/VegMoon"]
+transform = Transform3D(0.881441, -0.321271, -0.346189, 0.469846, 0.67101, 0.573576, 0.0480225, -0.668229, 0.742404, 0, 0.025, 0)
+
+[node name="Tomato" type="MeshInstance3D" parent="StaticBody3D/VegMoon/Node3D"]
+material_override = ExtResource("5_0dwpr")
+mesh = SubResource("SphereMesh_ss83x")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/VegMoon/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0199061, 0)
+material_override = ExtResource("6_od8yx")
+mesh = SubResource("BoxMesh_6qlqp")
+
+[node name="EhhWhatevah" parent="StaticBody3D" instance=ExtResource("3_335f7")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.075, -0.02, 0.06)
+
+[node name="Node3D" type="Node3D" parent="StaticBody3D/EhhWhatevah"]
+transform = Transform3D(1, 0, 0, 0, 0.614395, 0.788998, 0, -0.788998, 0.614395, 0, 0.025, 0.002)
+
+[node name="Water" type="MeshInstance3D" parent="StaticBody3D/EhhWhatevah/Node3D"]
+material_override = ExtResource("6_ut2t1")
+mesh = SubResource("SphereMesh_ss83x")
+skeleton = NodePath("../..")
+
+[node name="Grass" type="MeshInstance3D" parent="StaticBody3D/EhhWhatevah/Node3D"]
+material_override = ExtResource("6_od8yx")
+mesh = SubResource("SphereMesh_nkdts")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/EhhWhatevah/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.022, 0)
+material_override = ExtResource("9_bcpfm")
+mesh = SubResource("BoxMesh_fsav0")
+
+[node name="Mall" parent="StaticBody3D" instance=ExtResource("3_335f7")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.075, -0.02, -0.06)
+
+[node name="Node3D" type="Node3D" parent="StaticBody3D/Mall"]
+transform = Transform3D(1, 0, 0, 0, 0.809017, 0.587785, 0, -0.587785, 0.809017, 0, 0.025, 0)
+
+[node name="Ring" type="MeshInstance3D" parent="StaticBody3D/Mall/Node3D"]
+material_override = ExtResource("9_e2ft3")
+mesh = SubResource("TorusMesh_56uhp")
+
+[node name="Spoke" type="MeshInstance3D" parent="StaticBody3D/Mall/Node3D"]
+material_override = ExtResource("9_e2ft3")
+mesh = SubResource("CylinderMesh_3jmxa")
+
+[node name="Mackerel" parent="StaticBody3D" instance=ExtResource("3_335f7")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.075, -0.02, -0.18)
+
+[node name="Node3D" type="Node3D" parent="StaticBody3D/Mackerel"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+
+[node name="Body" type="MeshInstance3D" parent="StaticBody3D/Mackerel/Node3D"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("9_e2ft3")
+mesh = SubResource("CapsuleMesh_pxbgy")
+
+[node name="ScienceWorld" parent="StaticBody3D" instance=ExtResource("3_335f7")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.075, -0.02, 0.18)
+
+[node name="Node3D" type="Node3D" parent="StaticBody3D/ScienceWorld"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+
+[node name="Blue" type="MeshInstance3D" parent="StaticBody3D/ScienceWorld/Node3D"]
+transform = Transform3D(0.707107, -0.707107, -1.27898e-13, 0.408607, 0.408607, -0.816137, 0.577096, 0.577097, 0.577858, 0, 0, 0)
+material_override = ExtResource("6_ut2t1")
+mesh = SubResource("BoxMesh_8mwck")
+skeleton = NodePath("../..")
+
+[node name="Yellow" type="MeshInstance3D" parent="StaticBody3D/ScienceWorld/Node3D"]
+transform = Transform3D(0.696962, 0.0207912, -0.716807, -0.425681, 0.816411, -0.390216, 0.577096, 0.577096, 0.577858, 0, 0, 0)
+material_override = ExtResource("7_jd8f6")
+mesh = SubResource("BoxMesh_8mwck")
+skeleton = NodePath("../..")
+
+[node name="UrbanPlanet" parent="StaticBody3D" instance=ExtResource("3_335f7")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.075, -0.02, 0.06)
+
+[node name="Node3D" type="Node3D" parent="StaticBody3D/UrbanPlanet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0)
+
+[node name="Ground" type="MeshInstance3D" parent="StaticBody3D/UrbanPlanet/Node3D"]
+material_override = ExtResource("6_od8yx")
+mesh = SubResource("SphereMesh_ss83x")
+skeleton = NodePath("../..")
+
+[node name="Garage" parent="StaticBody3D" instance=ExtResource("3_335f7")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.075, -0.02, -0.06)
+
+[node name="Node3D" type="Node3D" parent="StaticBody3D/Garage"]
+transform = Transform3D(0.878649, 0.0849708, 0.469846, -0.469846, 0.32899, 0.819152, -0.0849707, -0.940503, 0.32899, 0, 0.025, 0)
+
+[node name="Pad" type="MeshInstance3D" parent="StaticBody3D/Garage/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.015, 0)
+material_override = ExtResource("12_llqs8")
+mesh = SubResource("BoxMesh_mrhce")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D/Garage/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.005, -0.005)
+material_override = ExtResource("13_gre77")
+mesh = SubResource("BoxMesh_715vf")
+
+[connection signal="pressed" from="StaticBody3D/Button" to="." method="begin_doinking"]
+[connection signal="pressed" from="StaticBody3D/VegMoon" to="." method="on_doinker_pressed" binds= [0]]
+[connection signal="pressed" from="StaticBody3D/EhhWhatevah" to="." method="on_doinker_pressed" binds= [1]]
+[connection signal="pressed" from="StaticBody3D/Mall" to="." method="on_doinker_pressed" binds= [2]]
+[connection signal="pressed" from="StaticBody3D/Mackerel" to="." method="on_doinker_pressed" binds= [3]]
+[connection signal="pressed" from="StaticBody3D/ScienceWorld" to="." method="on_doinker_pressed" binds= [4]]
+[connection signal="pressed" from="StaticBody3D/UrbanPlanet" to="." method="on_doinker_pressed" binds= [5]]
+[connection signal="pressed" from="StaticBody3D/Garage" to="." method="on_doinker_pressed" binds= [6]]
+
+[editable path="StaticBody3D/doinker_panel"]
