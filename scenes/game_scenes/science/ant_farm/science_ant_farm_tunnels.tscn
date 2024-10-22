@@ -33,10 +33,13 @@ transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.3
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.72385, 2.33387, -3.33936)
 
 [node name="LightBulb3" parent="." instance=ExtResource("3_ejic1")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -0.88098, 2.33387, 3.08913)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.4, 3.5)
 
 [node name="LightBulb4" parent="." instance=ExtResource("3_ejic1")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, -4.05647, 2.33387, -0.68501)
+
+[node name="LightBulb5" parent="." instance=ExtResource("3_ejic1")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.4, 6.5)
 
 [node name="Portal" parent="." instance=ExtResource("4_hkm22")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.5)

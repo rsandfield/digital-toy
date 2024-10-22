@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://carko7khdtrcy"]
+[gd_scene load_steps=18 format=3 uid="uid://carko7khdtrcy"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_b3mc0"]
 [ext_resource type="PackedScene" uid="uid://csivoeik6cap1" path="res://models/rooms/science/ant_farm.blend" id="2_fgmsl"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dcga1ygfqc2ts" path="res://scenes/props/io/lights/light_bulb.tscn" id="6_f4br4"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="8_eq5vn"]
 [ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="8_sv1c6"]
+[ext_resource type="Script" path="res://scripts/io/ladder.gd" id="10_isofx"]
 
 [sub_resource type="Environment" id="Environment_buxm4"]
 
@@ -20,6 +21,15 @@ size = Vector2(5, 5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6ehxr"]
 size = Vector3(6, 0.5, 6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sn2sc"]
+size = Vector3(0.5, 5, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kdag4"]
+size = Vector3(0.5, 5, 0.01)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kqes2"]
+size = Vector3(0.5, 5, 0.1)
 
 [node name="AntFarm" type="Node3D"]
 script = ExtResource("1_b3mc0")
@@ -78,16 +88,39 @@ elevator = "science_elevator"
 floor_index = 3
 
 [node name="LightBulb" parent="." instance=ExtResource("6_f4br4")]
-transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, -2.28348, 1.02228)
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 1, -1.6, 1.45)
+
+[node name="LightBulb2" parent="." instance=ExtResource("6_f4br4")]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 4, -1.6, 1.45)
 
 [node name="Portal" parent="." instance=ExtResource("8_eq5vn")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.9, -4, 0.25)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.4, -4, 1.45)
 portal_id = "ant_farm_portal"
 other_portal_id = "ant_tunnel_farm_portal"
 size = Vector2(2.5, 3)
 
 [node name="ElevatorCallButton" parent="." instance=ExtResource("8_sv1c6")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 2)
+
+[node name="Ladder" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, -2.076, 0.25)
+script = ExtResource("10_isofx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ladder"]
+shape = SubResource("BoxShape3D_sn2sc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+mesh = SubResource("BoxMesh_kdag4")
+
+[node name="TopOfLadder" type="Node3D" parent="Ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Ladder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.15)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ladder/StaticBody3D"]
+shape = SubResource("BoxShape3D_kqes2")
 
 [connection signal="pressed" from="ElevatorCallButton" to="ElevatorDoor" method="call_elevator"]
 
