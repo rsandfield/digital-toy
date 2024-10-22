@@ -4,17 +4,16 @@ extends Node3D
 signal opened
 signal closed
 
-@onready var _animation: AnimationPlayer = $AnimationPlayer
-@onready var _audio: AudioStreamPlayer3D = $AudioStreamPlayer3D
-var _door_state: DoorState = DoorState.CLOSED
-
-
 enum DoorState {
     OPEN,
     CLOSED,
     OPENING,
     CLOSING,
 }
+
+var _door_state: DoorState = DoorState.CLOSED
+@onready var _animation: AnimationPlayer = $AnimationPlayer
+@onready var _audio: AudioStreamPlayer3D = $AudioStreamPlayer3D
 
 
 func is_open():
@@ -26,10 +25,6 @@ func is_closed():
 
 
 func open():
-    _open()
-
-
-func _open():
     match  _door_state:
         DoorState.CLOSED:
             _door_state = DoorState.OPENING
@@ -37,6 +32,7 @@ func _open():
             _audio.play()
             await _animation.animation_finished
             _door_state = DoorState.OPEN
+            opened.emit()
         DoorState.CLOSING:
             _door_state = DoorState.OPENING
             var pos = _animation.current_animation_position
@@ -54,10 +50,6 @@ func _open():
 
 
 func close():
-    _close()
-
-
-func _close():
     match _door_state:
         DoorState.OPEN:
             _door_state = DoorState.CLOSING

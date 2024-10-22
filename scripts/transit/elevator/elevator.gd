@@ -23,7 +23,8 @@ func _exit_tree():
 func _process(delta):
     if opened:
         close_timer += delta
-        if close_timer > door_close_delay:
+        if close_timer >= door_close_delay:
+            print("Closing")
             _close_doors()
 
 
@@ -32,11 +33,14 @@ func reset_elevator():
 
 
 func call_to_floor(value: int):
-    if current_floor != value:
-        print("Elevator %s currently on %d, moving to %d" % [id, current_floor, value])
+    if !_door.is_closed():
+        print("Waiting for doors to close")
         _close_doors()
         await _door.closed
-        # await animate_move(current_floor, value)
+
+    if current_floor != value:
+        print("Elevator %s currently on %d, moving to %d" % [id, current_floor, value])
+        await animate_move(current_floor, value)
     else:
         print("%s already on %d" % [name, value])
 
@@ -46,14 +50,14 @@ func call_to_floor(value: int):
 
 
 func _open_doors():
-    opened = door_close_delay >= 0
-    _door.open()
+    opened = door_close_delay >= 0 # Negative disables close timer
+    _door.open_both_sides()
 
 
 func _close_doors():
     opened = false
     close_timer = 0
-    _door.close()
+    _door.close_both_sides()
 
 
 func animate_move(from: int, to: int):
@@ -95,7 +99,5 @@ func animate_move(from: int, to: int):
 func select_floor(value: int):
     current_floor = value
     var other_door = GameManager.get_portal(dynamic_connections[value]).get_parent()
-    if _door._other_door == other_door:
-        return
     _door.set_other_door(other_door)
     _door._other_door.set_other_door(_door)

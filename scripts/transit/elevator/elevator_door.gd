@@ -6,8 +6,8 @@ extends Door3D
 @export var elevator: String
 @export var floor_index: int
 
-var _portal: Portal
 var _other_door: ElevatorDoor
+@onready var _portal: Portal = $Portal
 
 
 func _enter_tree():
@@ -20,9 +20,16 @@ func call_elevator():
     GameManager.call_elevator(elevator, floor_index)
 
 
+func clear_other_door():
+    _other_door = null
+    _portal.set_other_portal(null)
+
+
 func set_other_door(other: ElevatorDoor):
-    if !_portal:
-        _portal = $Portal
+    if other == _other_door:
+        return
+    if has_other_door():
+        _other_door.clear_other_door()
     _other_door = other
     var other_portal = null
     if has_other_door():
@@ -34,13 +41,13 @@ func has_other_door() -> bool:
     return _other_door != null
 
 
-func open():
-    _open()
+func open_both_sides():
+    open()
     if _other_door:
-        _other_door._open()
+        _other_door.open()
 
 
-func close():
-    _close()
+func close_both_sides():
+    close()
     if _other_door:
-        _other_door._close()
+        _other_door.close()
