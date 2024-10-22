@@ -4,12 +4,13 @@ extends GameScene
 @export var id: String
 @export var door_close_delay: int = 6
 
-@onready var _door: ElevatorDoor = $ElevatorDoor
-@onready var _anim: AnimationPlayer = $AnimationPlayer
-
 var current_floor: int = 0
 var close_timer: float = 0
 var opened: bool = false
+
+@onready var _door: ElevatorDoor = $ElevatorDoor
+@onready var _anim: AnimationPlayer = $AnimationPlayer
+
 
 func _enter_tree():
     GameManager.register_elevator(self)
@@ -58,7 +59,7 @@ func _close_doors():
 func animate_move(from: int, to: int):
     if !_anim || from == to:
         return
-    
+
     var low = from
     var high = to
     var reverse = false
@@ -80,7 +81,10 @@ func animate_move(from: int, to: int):
         animations.reverse()
 
     for animation in animations:
-        assert(_anim.has_animation(animation), "Elevator %s is missing animation '%s'" % [name, animation])
+        assert(
+            _anim.has_animation(animation),
+            "Elevator %s is missing animation '%s'" % [name, animation]
+        )
         if reverse:
             _anim.play_backwards(animation)
         else:
