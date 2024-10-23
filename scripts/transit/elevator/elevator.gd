@@ -3,6 +3,7 @@ extends GameScene
 
 @export var id: String
 @export var door_close_delay: int = 6
+@export var animate_floor_change := true
 
 var current_floor: int = 0
 var close_timer: float = 0
@@ -61,7 +62,7 @@ func _close_doors():
 
 
 func animate_move(from: int, to: int):
-    if !_anim || from == to:
+    if !animate_floor_change || !_anim || from == to:
         return
 
     var low = from

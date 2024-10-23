@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://scripts/transit/elevator/elevator.gd" id="1_hneul"]
 [ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://space_environment.tres" id="2_g12sf"]
+[ext_resource type="PackedScene" uid="uid://do5puu7uhxox0" path="res://scenes/props/osmobile/osmobile_exterior_door.tscn" id="3_5l22w"]
 [ext_resource type="PackedScene" uid="uid://vgg7x674v0wk" path="res://models/rooms/osmobile_interior.blend" id="3_y8xkb"]
 [ext_resource type="Material" uid="uid://2x4s2ffmisjh" path="res://materials/toon/flat/gray/gray.tres" id="4_fmaf0"]
 [ext_resource type="Material" uid="uid://78euwjng43dr" path="res://materials/toon/flat/red/wine.tres" id="4_hpr6x"]
 [ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="4_rl2ly"]
 [ext_resource type="PackedScene" uid="uid://dsdr5swy788a6" path="res://scenes/props/osmobile/floor_lamp.tscn" id="5_ig8ep"]
 [ext_resource type="PackedScene" uid="uid://dbu0xvmrc2jqu" path="res://scenes/props/io/wall_switch.tscn" id="5_jdli4"]
-[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="5_mtfsq"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="5_uswy5"]
 [ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="6_v4q1u"]
 [ext_resource type="Script" path="res://addons/so_fluffy/so_fluffy.gd" id="7_rt31v"]
@@ -45,7 +45,7 @@ size = Vector3(0.49, 0.12, 0.05)
 [node name="OsmobileInterior" type="Node3D"]
 script = ExtResource("1_hneul")
 id = "osmobile"
-door_close_delay = -1
+animate_floor_change = false
 dynamic_connections = ["osmobile_veg_moon_surface", "osmobile_eh_whatevah", "osmobile_science_surface"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -53,17 +53,16 @@ environment = ExtResource("2_g12sf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 
+[node name="ElevatorDoor" parent="." instance=ExtResource("3_5l22w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.45, -1.75)
+portal_id = "osmobile_exit_door"
+
 [node name="Gravity" type="Area3D" parent="."]
 gravity_space_override = 3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("BoxShape3D_t514v")
-
-[node name="ElevatorDoor" parent="." instance=ExtResource("5_mtfsq")]
-transform = Transform3D(-4.2222e-08, 0.258819, 0.965926, 1.13133e-08, 0.965926, -0.258819, -1, 0, -4.37114e-08, 2.15, -0.8, 0.5)
-portal_id = "osmobile_exit_door"
-elevator = "osmobile"
 
 [node name="osmobile_interior" parent="." instance=ExtResource("3_y8xkb")]
 

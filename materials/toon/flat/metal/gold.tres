@@ -7,3 +7,4 @@ next_pass = ExtResource("1_3gwet")
 diffuse_mode = 3
 albedo_color = Color(0.882353, 0.843137, 0, 1)
 metallic = 1.0
+metallic_specular = 1.0
