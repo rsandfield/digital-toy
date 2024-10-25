@@ -21,6 +21,8 @@ func register_player(player: Player):
 
 
 func register_portal(portal: Portal):
+    if Engine.is_editor_hint():
+        return
     var id = portal.portal_id
     assert(id != "", "Portal ID cannot be empty")
     print("Registering portal %s" % [id])
@@ -37,6 +39,8 @@ func deregister_portal(portal: Portal):
 
 
 func deregister_portal_id(portal_id: String):
+    if Engine.is_editor_hint():
+        return
     print("Deregistering %s" % portal_id)
     var portal = _portals[portal_id]
     assert(portal, "%s already deregistered" % [portal_id])
