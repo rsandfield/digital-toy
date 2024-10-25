@@ -1,29 +1,25 @@
-[gd_scene load_steps=13 format=3 uid="uid://u7bv4v700ays"]
+[gd_scene load_steps=12 format=3 uid="uid://u7bv4v700ays"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_pgn0e"]
-[ext_resource type="PackedScene" uid="uid://novjlejxb1rb" path="res://world/box.tscn" id="2_67tu2"]
+[ext_resource type="Material" uid="uid://bghs0f41tgdv2" path="res://materials/toon/flat/red/red_lit.tres" id="2_xh5ij"]
 [ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="3_pcerc"]
 [ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="4_7qv81"]
 [ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/flat/yellow/flax.tres" id="4_ay4gf"]
 [ext_resource type="Script" path="res://world/planet/gravity_area_3d.gd" id="5_fr327"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="5_lfptb"]
+[ext_resource type="PackedScene" uid="uid://c4orvxiy3qkg5" path="res://models/science_world.blend" id="8_0afmf"]
 
 [sub_resource type="Environment" id="Environment_grv2v"]
 background_mode = 1
 ambient_light_source = 1
 reflected_light_source = 1
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_2tid6"]
-size = Vector3(3, 3, 4)
-
-[sub_resource type="BoxMesh" id="BoxMesh_hsfff"]
-size = Vector3(1, 2, 2)
-
-[sub_resource type="BoxMesh" id="BoxMesh_fp65x"]
-size = Vector3(3, 1, 2)
+[sub_resource type="SphereMesh" id="SphereMesh_5l8t4"]
+radius = 50.0
+height = 100.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4pgrk"]
-size = Vector3(110, 5, 110)
+size = Vector3(150, 50, 150)
 
 [node name="ScienceWorld" type="Node3D"]
 script = ExtResource("1_pgn0e")
@@ -33,95 +29,45 @@ dynamic_connections = ["osmobile_exit_door"]
 environment = SubResource("Environment_grv2v")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.707107, 0.707107, 0, -0.707107, -0.707107, 0, 0, 0)
+transform = Transform3D(0.921647, -0.351164, -0.16508, 0.274379, 0.288959, 0.91718, -0.274379, -0.89061, 0.36267, 0, 0, 0)
+
+[node name="Nose" type="MeshInstance3D" parent="DirectionalLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 500)
+material_override = ExtResource("2_xh5ij")
+mesh = SubResource("SphereMesh_5l8t4")
 
 [node name="Planet" type="Node3D" parent="."]
 
-[node name="Box" parent="Planet" instance=ExtResource("2_67tu2")]
-transform = Transform3D(0.707107, -0.707107, 0, 0.408607, 0.408607, -0.816137, 0.577096, 0.577096, 0.577858, 0, 0, 0)
-collision_layer = 3
-size = Vector3(100, 100, 100)
-material = ExtResource("3_pcerc")
-
-[node name="Osmobile" parent="Planet/Box" instance=ExtResource("4_7qv81")]
-transform = Transform3D(-0.707107, -7.462e-08, -0.707107, 0.707107, 3.09086e-08, -0.707107, 7.462e-08, -1, 3.09086e-08, 40, 40, -50)
+[node name="Osmobile" parent="Planet" instance=ExtResource("4_7qv81")]
+transform = Transform3D(-0.504499, 0.197332, -0.84056, -0.04981, 0.965259, 0.256502, 0.861975, 0.171274, -0.477143, 53.0686, 52.1589, 15.5197)
 portal_id = "osmobile_science_surface"
 world_index = 2
 
-[node name="Entrance" type="Node3D" parent="Planet/Box"]
-transform = Transform3D(0.707107, -2.98023e-08, 0.707107, -0.707107, -2.98023e-08, 0.707107, 0, -1, -1.19209e-07, 25.5, 25.5, -50)
+[node name="Gravity" type="Area3D" parent="Planet"]
+transform = Transform3D(-0.229919, 0.197332, -0.952994, -0.124268, 0.965259, 0.229852, 0.965244, 0.171274, -0.197409, 19.666, 59.841, -8.083)
+gravity_space_override = 1
+gravity_point_unit_distance = 100.0
+gravity_point_center = Vector3(-0.197332, -0.965259, -0.171274)
+gravity_direction = Vector3(-0.197332, -0.965259, -0.171274)
+script = ExtResource("5_fr327")
 
-[node name="Portal" parent="Planet/Box/Entrance" instance=ExtResource("5_lfptb")]
-transform = Transform3D(-1, -1.51808e-08, -8.60946e-08, 0, 0.984808, -0.173648, 8.74228e-08, -0.173648, -0.984808, 0, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/Gravity"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25, 0)
+shape = SubResource("BoxShape3D_4pgrk")
+
+[node name="Portal" parent="Planet" instance=ExtResource("5_lfptb")]
+transform = Transform3D(-0.229919, 0.197332, -0.952994, -0.124268, 0.965259, 0.229852, 0.965244, 0.171274, -0.197409, 33.2943, 59.1224, -3.25721)
 portal_id = "science_surface_portal"
 other_portal_id = "science_foyer_portal"
 cull_layer = 2
+size = Vector2(1.5, 2)
 
-[node name="Gravity" type="Area3D" parent="Planet/Box/Entrance"]
-gravity_space_override = 3
-gravity_point_center = Vector3(0, -0.816137, 0.577858)
-gravity_direction = Vector3(0, -0.816137, 0.577858)
-script = ExtResource("5_fr327")
+[node name="science_world" parent="Planet" instance=ExtResource("8_0afmf")]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/Box/Entrance/Gravity"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 2.98023e-08, 1, 0, 1.5, 1)
-shape = SubResource("BoxShape3D_2tid6")
+[node name="Decagon" parent="Planet/science_world" index="0"]
+material_override = ExtResource("3_pcerc")
 
-[node name="Left" type="MeshInstance3D" parent="Planet/Box/Entrance"]
-transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, -1, 1, -0.5)
+[node name="Decagon_001" parent="Planet/science_world" index="1"]
 material_override = ExtResource("4_ay4gf")
-mesh = SubResource("BoxMesh_hsfff")
 
-[node name="Right" type="MeshInstance3D" parent="Planet/Box/Entrance"]
-transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 1, 1, -0.5)
-material_override = ExtResource("4_ay4gf")
-mesh = SubResource("BoxMesh_hsfff")
-
-[node name="Top" type="MeshInstance3D" parent="Planet/Box/Entrance"]
-transform = Transform3D(1, 0, 0, 0, 1, -2.98023e-08, 0, 2.98023e-08, 1, 0, 2.5, -0.5)
-material_override = ExtResource("4_ay4gf")
-mesh = SubResource("BoxMesh_fp65x")
-
-[node name="Gravity" type="Area3D" parent="Planet/Box"]
-transform = Transform3D(1, -2.98023e-08, 2.98023e-08, 2.98023e-08, -8.9407e-08, 1, -8.9407e-08, -1, -2.98023e-08, -1.90735e-06, -1.90735e-06, -50)
-gravity_space_override = 1
-gravity_point_unit_distance = 100.0
-gravity_point_center = Vector3(-4.21469e-08, -0.816137, 0.577858)
-gravity_direction = Vector3(-4.21469e-08, -0.816137, 0.577858)
-script = ExtResource("5_fr327")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/Box/Gravity"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-shape = SubResource("BoxShape3D_4pgrk")
-
-[node name="Box2" parent="Planet" instance=ExtResource("2_67tu2")]
-transform = Transform3D(0.696962, 0.0207909, -0.716807, -0.425681, 0.816411, -0.390216, 0.577096, 0.577096, 0.577858, 0, 0, 0)
-collision_layer = 3
-size = Vector3(100, 100, 100)
-material = ExtResource("4_ay4gf")
-
-[node name="Gravity" type="Area3D" parent="Planet/Box2"]
-process_mode = 4
-transform = Transform3D(1, 8.9407e-08, -5.96046e-08, -5.96046e-08, 2.98023e-08, 1, 0, -1, 0, 3.8147e-06, 3.8147e-06, -50)
-gravity_space_override = 1
-gravity_point_unit_distance = 100.0
-gravity_point_center = Vector3(-0.716807, -0.390216, 0.577858)
-gravity_direction = Vector3(-0.716807, -0.390216, 0.577858)
-script = ExtResource("5_fr327")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/Box2/Gravity"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-shape = SubResource("BoxShape3D_4pgrk")
-
-[node name="Gravity2" type="Area3D" parent="Planet/Box2"]
-process_mode = 4
-transform = Transform3D(1, -1.19209e-07, -5.96046e-08, -5.96046e-08, 1, -5.96046e-08, 0, 0, 1, -1.90735e-06, 50, 1.90735e-06)
-gravity_space_override = 1
-gravity_point_unit_distance = 100.0
-gravity_point_center = Vector3(-0.0207908, -0.816411, -0.577096)
-gravity_direction = Vector3(-0.0207908, -0.816411, -0.577096)
-script = ExtResource("5_fr327")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/Box2/Gravity2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
-shape = SubResource("BoxShape3D_4pgrk")
+[editable path="Planet/science_world"]
