@@ -12,4 +12,3 @@ roughness = 0.1
 normal_enabled = true
 normal_texture = ExtResource("3_fnt3m")
 uv1_triplanar = true
-uv2_triplanar = true

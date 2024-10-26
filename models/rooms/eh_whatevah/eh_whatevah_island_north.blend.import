@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bqrslte4ifj7x"
-path="res://.godot/imported/science_foyer.blend-9a576b85f9106dc4386c9f62c7a44b94.scn"
+uid="uid://d06b02v8vypt3"
+path="res://.godot/imported/eh_whatevah_island_north.blend-fd520a7f83e6fa3b2581d3a477e13633.scn"
 
 [deps]
 
-source_file="res://models/rooms/science/science_foyer.blend"
-dest_files=["res://.godot/imported/science_foyer.blend-9a576b85f9106dc4386c9f62c7a44b94.scn"]
+source_file="res://models/rooms/eh_whatevah/eh_whatevah_island_north.blend"
+dest_files=["res://.godot/imported/eh_whatevah_island_north.blend-fd520a7f83e6fa3b2581d3a477e13633.scn"]
 
 [params]
 

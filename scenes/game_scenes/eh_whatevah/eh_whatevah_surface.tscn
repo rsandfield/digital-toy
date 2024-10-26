@@ -1,10 +1,16 @@
-[gd_scene load_steps=15 format=3 uid="uid://d3parciy5wq6t"]
+[gd_scene load_steps=14 format=3 uid="uid://d3parciy5wq6t"]
 
 [ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="1_lms14"]
-[ext_resource type="Material" uid="uid://dptysb1k5j0p3" path="res://materials/toon/flat/green/dark_green_a.tres" id="2_r6iee"]
+[ext_resource type="Material" uid="uid://bghs0f41tgdv2" path="res://materials/toon/flat/red/red_lit.tres" id="1_ylejp"]
+[ext_resource type="PackedScene" uid="uid://d06b02v8vypt3" path="res://models/rooms/eh_whatevah/eh_whatevah_island_north.blend" id="2_e8xqk"]
+[ext_resource type="Material" uid="uid://dg71nts2qy11r" path="res://materials/toon/flat/green/green.tres" id="3_7btld"]
 [ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="3_7u6n6"]
 [ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="4_qfdqe"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="5_pncfx"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_861nr"]
+radius = 50.0
+height = 100.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_u8iml"]
 radius = 1500.0
@@ -16,26 +22,21 @@ height = 3030.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_uxu3u"]
 radius = 2000.0
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_kvjlq"]
-radius = 30.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_3ykq6"]
-radius = 30.0
-height = 9.0
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_kw3re"]
 size = Vector3(1.5, 0.5, 5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ebx5h"]
 size = Vector3(1.5, 0.5, 5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_6v423"]
-size = Vector3(6, 4, 6)
-
-[sub_resource type="BoxMesh" id="BoxMesh_cqyh5"]
-size = Vector3(6, 4, 6)
-
 [node name="EhWhatevah" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.921647, -0.351164, -0.16508, 0.274379, 0.288959, 0.91718, -0.274379, -0.89061, 0.36267, 0, 0, 0)
+
+[node name="Nose" type="MeshInstance3D" parent="DirectionalLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3000)
+material_override = ExtResource("1_ylejp")
+mesh = SubResource("SphereMesh_861nr")
 
 [node name="Surface" type="StaticBody3D" parent="."]
 
@@ -59,19 +60,14 @@ gravity = 9.81
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
 shape = SubResource("SphereShape3D_uxu3u")
 
-[node name="NorthIsland" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1496.35, 0)
+[node name="NorthIsland" parent="." instance=ExtResource("2_e8xqk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1500, 0)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NorthIsland"]
-transform = Transform3D(1, 0, 0, 0, 0.03, 0, 0, 0, 1, 0, 0, 0)
-shape = SubResource("SphereShape3D_kvjlq")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NorthIsland"]
-material_override = ExtResource("2_r6iee")
-mesh = SubResource("SphereMesh_3ykq6")
+[node name="Island" parent="NorthIsland" index="0"]
+material_override = ExtResource("3_7btld")
 
 [node name="Dock" type="StaticBody3D" parent="NorthIsland"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 28)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.02173, 22.7003)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NorthIsland/Dock"]
 shape = SubResource("BoxShape3D_kw3re")
@@ -80,21 +76,13 @@ shape = SubResource("BoxShape3D_kw3re")
 material_override = ExtResource("4_qfdqe")
 mesh = SubResource("BoxMesh_ebx5h")
 
-[node name="House" type="StaticBody3D" parent="NorthIsland"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NorthIsland/House"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-shape = SubResource("BoxShape3D_6v423")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NorthIsland/House"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-mesh = SubResource("BoxMesh_cqyh5")
-
-[node name="Portal" parent="NorthIsland/House" instance=ExtResource("5_pncfx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.01)
-portal_id = "eh_whatevah_front_door"
-
-[node name="Osmobile" parent="." instance=ExtResource("3_7u6n6")]
-transform = Transform3D(-0.126182, 0, -0.992007, 0, 1, 0, 0.992007, 0, -0.126182, 17.9711, 1499.85, 11.2834)
+[node name="Osmobile" parent="NorthIsland" instance=ExtResource("3_7u6n6")]
+transform = Transform3D(-0.126182, 0, -0.992007, 0, 1, 0, 0.992007, 0, -0.126182, 14.1126, 0.666748, 9.45255)
 portal_id = "osmobile_eh_whatevah"
+
+[node name="Portal" parent="NorthIsland" instance=ExtResource("5_pncfx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.985962, 0.9)
+portal_id = "eh_whatevah_front_door"
+other_portal_id = "eh_whatevah_foyer_door"
+
+[editable path="NorthIsland"]

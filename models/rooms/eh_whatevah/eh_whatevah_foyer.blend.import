@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bqrslte4ifj7x"
-path="res://.godot/imported/science_foyer.blend-9a576b85f9106dc4386c9f62c7a44b94.scn"
+uid="uid://btbgjdfgrmve3"
+path="res://.godot/imported/eh_whatevah_foyer.blend-1c72d7307845a19cfc760b095d02c6f2.scn"
 
 [deps]
 
-source_file="res://models/rooms/science/science_foyer.blend"
-dest_files=["res://.godot/imported/science_foyer.blend-9a576b85f9106dc4386c9f62c7a44b94.scn"]
+source_file="res://models/rooms/eh_whatevah/eh_whatevah_foyer.blend"
+dest_files=["res://.godot/imported/eh_whatevah_foyer.blend-1c72d7307845a19cfc760b095d02c6f2.scn"]
 
 [params]
 
@@ -31,7 +31,14 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path="res://scripts/tools/blender_import.gd"
-_subresources={}
+_subresources={
+"materials": {
+"kitchen_tile": {
+"use_external/enabled": true,
+"use_external/path": ""
+}
+}
+}
 blender/nodes/visible=0
 blender/nodes/active_collection_only=false
 blender/nodes/punctual_lights=true

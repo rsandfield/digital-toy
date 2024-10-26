@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://68rnwta41wnw"]
+
+[ext_resource type="PackedScene" uid="uid://btbgjdfgrmve3" path="res://models/rooms/eh_whatevah/eh_whatevah_foyer.blend" id="1_bmkwc"]
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="2_baivk"]
+[ext_resource type="PackedScene" uid="uid://dsdr5swy788a6" path="res://scenes/props/osmobile/floor_lamp.tscn" id="4_vpdy8"]
+
+[node name="EhWhatevahFoyer" type="Node3D"]
+
+[node name="eh_whatevah_foyer" parent="." instance=ExtResource("1_bmkwc")]
+
+[node name="Walls" parent="eh_whatevah_foyer" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00602937, -2.38419e-07, -0.000168324)
+
+[node name="Up" parent="eh_whatevah_foyer" index="2"]
+gravity_point_center = Vector3(0, 1, 3.25841e-07)
+gravity_direction = Vector3(0, 1, 3.25841e-07)
+
+[node name="Side" parent="eh_whatevah_foyer" index="3"]
+gravity_point_center = Vector3(1, 0, 0)
+gravity_direction = Vector3(1, 0, 0)
+
+[node name="PortalOutside" parent="." instance=ExtResource("2_baivk")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4, -4, 0)
+portal_id = "eh_whatevah_foyer_door"
+other_portal_id = "eh_whatevah_front_door"
+
+[node name="PortalStairs" parent="." instance=ExtResource("2_baivk")]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 2.5, 4, -4)
+portal_id = "eh_whatevah_stairs_door"
+
+[node name="FloorLamp" parent="." instance=ExtResource("4_vpdy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3383, -4, -1.53508)
+
+[editable path="eh_whatevah_foyer"]

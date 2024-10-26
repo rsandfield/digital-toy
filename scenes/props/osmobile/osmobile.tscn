@@ -1,18 +1,34 @@
-[gd_scene load_steps=8 format=3 uid="uid://bwe15kxlqj7bv"]
+[gd_scene load_steps=11 format=3 uid="uid://bwe15kxlqj7bv"]
 
 [ext_resource type="Script" path="res://scripts/vehicle/osmobile/osmobile_exterior.gd" id="1_nuukb"]
 [ext_resource type="PackedScene" uid="uid://do5puu7uhxox0" path="res://scenes/props/osmobile/osmobile_exterior_door.tscn" id="2_eie4w"]
 [ext_resource type="PackedScene" uid="uid://beq8m67qxova5" path="res://models/osmobile/osmobile_exterior.blend" id="2_fubil"]
+[ext_resource type="Script" path="res://scripts/io/interactable/button3d.gd" id="3_3dqqi"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="4_ffp5q"]
 [ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="5_spg67"]
 [ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="6_pcssw"]
 [ext_resource type="Material" uid="uid://bm0kuvlv2mh7c" path="res://materials/toon/flat/metal/silver.tres" id="7_7r22g"]
 [ext_resource type="Material" uid="uid://dw06ud1dbq53u" path="res://materials/toon/flat/red/red.tres" id="8_fc445"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_a5u77"]
+size = Vector3(2, 2.5, 2.2)
 
 [node name="Osmobile" type="Node3D"]
 script = ExtResource("1_nuukb")
 
 [node name="ElevatorDoor" parent="." instance=ExtResource("2_eie4w")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 5.4, 0)
+
+[node name="Button3D" type="Area3D" parent="ElevatorDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.61462, -1.09639, 2)
+script = ExtResource("3_3dqqi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ElevatorDoor/Button3D"]
+shape = SubResource("BoxShape3D_a5u77")
+
+[node name="InteractableComponent" type="Node" parent="ElevatorDoor/Button3D"]
+script = ExtResource("4_ffp5q")
+interactable_distance = 3.0
 
 [node name="osmobile_exterior" parent="." instance=ExtResource("2_fubil")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 5.5, 0)
@@ -88,5 +104,7 @@ material_override = ExtResource("8_fc445")
 
 [node name="Body" parent="osmobile_exterior" index="25"]
 material_override = ExtResource("5_spg67")
+
+[connection signal="pressed" from="ElevatorDoor/Button3D" to="ElevatorDoor" method="call_elevator"]
 
 [editable path="osmobile_exterior"]
