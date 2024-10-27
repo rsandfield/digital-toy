@@ -65,8 +65,16 @@ func link_portals(portal: Portal, link_id: String):
         "Cannot link portals %s and %s, [%s] not registered" %
         [portal.portal_id,  link_id,  link_id]
     )
-    portal.set_other_portal(other_portal)
-    other_portal.set_other_portal(portal)
+    var portal_parent = portal.get_parent() as PairedDoor
+    var other_parent = other_portal.get_parent() as PairedDoor
+    if portal_parent && other_parent:
+        # Setting other door also links portals
+        print("Connecting paired doors %s and %s" % [portal_parent, other_parent])
+        portal_parent.set_other_door(other_parent)
+        other_parent.set_other_door(portal_parent)
+    else:
+        portal.set_other_portal(other_portal)
+        other_portal.set_other_portal(portal)
     print("Linked %s to %s" % [portal.portal_id, portal.other_portal_id])
 
 

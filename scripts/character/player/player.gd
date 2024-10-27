@@ -94,7 +94,7 @@ func _snap_down_to_staris_check():
         (was_on_floor_last_frame || _snapped_to_stairs_last_frame)
     ):
         var body_test_result = KinematicCollision3D.new()
-        if test_move(global_transform, Vector3(0, -MAX_STEP_HEIGHT, 0), body_test_result):
+        if test_move(transform, Vector3(0, -MAX_STEP_HEIGHT, 0), body_test_result):
             position.y += body_test_result.get_travel().y
             apply_floor_snap()
             _snapped_to_stairs_last_frame = true
@@ -103,12 +103,13 @@ func _snap_down_to_staris_check():
 
 
 func _snap_up_stairs_check(delta) -> bool:
-    if is_on_floor() || _snapped_to_stairs_last_frame:
+    if !(is_on_floor() || _snapped_to_stairs_last_frame):
         return false
-    var expected_move_motion = velocity * Vector3(1, 0, 1) * delta
-    if velocity.y > 0 or expected_move_motion.length() == 0:
+    var expected_move_motion = velocity * (basis.x + basis.z)
+    if expected_move_motion.length() == 0:
         return false
-    var step_vector = Vector3(0, MAX_STEP_HEIGHT * 2, 0)
+    expected_move_motion *= delta
+    var step_vector = basis.y * MAX_STEP_HEIGHT * 2
     var step_pos_with_clearance = global_transform.translated(
         expected_move_motion + step_vector
     )
@@ -118,15 +119,19 @@ func _snap_up_stairs_check(delta) -> bool:
         down_check_result.get_collider().is_class("StaticBody3D")
     ):
         var maybe_position = step_pos_with_clearance.origin + down_check_result.get_travel()
-        var step_height = (maybe_position - global_position).y
+        var step_height = ((maybe_position - global_position) * basis.y).length()
+        var check_pos = ((down_check_result.get_position() - global_position) * basis.y).length()
         if (
             step_height > MAX_STEP_HEIGHT ||
             step_height < 0.01 ||
-            (down_check_result.get_position() - global_position).y > MAX_STEP_HEIGHT
+            check_pos > MAX_STEP_HEIGHT
         ):
+            print("%s %s %s\n%s %s" %
+            [down_check_result.get_collider().get_parent(), step_height, check_pos,
+            expected_move_motion, _head.rotation])
             return false
-        $StairsAheadRayCast3D.global_position = (
-            down_check_result.get_position() +
+        $StairsAheadRayCast3D.position = (
+            to_local(down_check_result.get_position()) +
             Vector3(0, MAX_STEP_HEIGHT, 0) +
             expected_move_motion.normalized() * 0.1
         )
@@ -230,22 +235,16 @@ func is_surface_too_steep(normal: Vector3) -> bool:
     return normal.angle_to(Vector3.UP) > floor_max_angle
 
 
-func _get_gravity_orientation() -> Vector3:
-    var orientation_direction = (
-        Quaternion(global_basis.y, -_gravity) *
-        global_basis.get_rotation_quaternion()
-    )
-    var eulered = orientation_direction.normalized().get_euler()
-    return eulered
-
-
 func _apply_gravity(delta: float):
     _gravity = PhysicsServer3D.body_get_direct_state(get_rid()).total_gravity
-    var orientation = _get_gravity_orientation()
-    rotation = rotation.move_toward(orientation, delta)
 
-    if _gravity != Vector3.ZERO:
-        up_direction = -_gravity.normalized()
+    if _gravity == Vector3.ZERO:
+        return
+
+    up_direction = -_gravity.normalized()
+
+    var target_rotation = transform.looking_at(position - basis.z, up_direction).basis
+    transform.basis = transform.basis.slerp(target_rotation, delta).orthonormalized()
 
     if !is_on_floor():
         velocity += _gravity * delta
@@ -259,10 +258,10 @@ func _physics_process(delta):
         _apply_gravity(delta)
         # if is_on_floor() || _snapped_to_stairs_last_frame: # TODO: _handle_air_physics
         _handle_ground_physics(delta)
-        if !_snap_up_stairs_check(delta):
-            _push_away_rigid_bodies()
-            move_and_slide()
-            _snap_down_to_staris_check()
+        # if !_snap_up_stairs_check(delta):
+        _push_away_rigid_bodies()
+        move_and_slide()
+            # _snap_down_to_staris_check()
 
 
 func _on_portal_tracking_enter(portal: Portal) -> void:
