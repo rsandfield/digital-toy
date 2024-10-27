@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://c58siakmyl4i7"]
+
+[ext_resource type="PackedScene" uid="uid://buk1qwrg5jtcm" path="res://models/rooms/eh_whatevah/eh_whatevah_stairs.blend" id="1_c1dhm"]
+[ext_resource type="PackedScene" uid="uid://djd2wf6guxoui" path="res://models/brass_bollard.blend" id="2_a7vad"]
+[ext_resource type="PackedScene" uid="uid://c34kyqdwj6d40" path="res://scenes/props/eh_whatevah/door.tscn" id="2_ex4mc"]
+
+[node name="EhWhatevahStairs" type="Node3D"]
+
+[node name="eh_whatevah_stairs" parent="." instance=ExtResource("1_c1dhm")]
+
+[node name="brass_bollard" parent="." instance=ExtResource("2_a7vad")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 3.9, -7.8)
+
+[node name="brass_bollard2" parent="." instance=ExtResource("2_a7vad")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 3.9, -7.8)
+
+[node name="brass_bollard3" parent="." instance=ExtResource("2_a7vad")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35, 3.9, -6.1)
+
+[node name="brass_bollard4" parent="." instance=ExtResource("2_a7vad")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.35, 3.9, -6.1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.5, 0.866025, 0, -0.866025, -0.5, 0, 10, -10)
+
+[node name="Kitchen" parent="." instance=ExtResource("2_ex4mc")]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, -2.17729, 4, -7.24847)
+portal_id = "eh_whatevah_stairs_kitchen"
+
+[node name="DearLeader" parent="." instance=ExtResource("2_ex4mc")]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 2.17729, 4, -7.24847)
+portal_id = "eh_whatevah_stairs_leader"
+other_portal_id = "eh_whatevah_office_stairs"
+
+[node name="Door" parent="." instance=ExtResource("2_ex4mc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+portal_id = "eh_whatevah_stairs_bottom"
+other_portal_id = "eh_whatevah_stairs_foyer"
+
+[editable path="eh_whatevah_stairs"]

@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://df2p45cfc8pjb"]
+
+[ext_resource type="Material" uid="uid://15b2wm5b53vq" path="res://materials/toon/outline.tres" id="1_wra24"]
+
+[resource]
+next_pass = ExtResource("1_wra24")
+diffuse_mode = 3
+albedo_color = Color(0.647059, 0.164706, 0.164706, 1)

@@ -24,6 +24,13 @@ func is_closed():
     return _door_state == DoorState.CLOSED || _door_state == DoorState.CLOSING
 
 
+func toggle():
+    if is_open():
+        close()
+    if is_closed():
+        open()
+
+
 func open():
     match  _door_state:
         DoorState.CLOSED:
