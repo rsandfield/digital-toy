@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddo5jfbowx2by"]
+
+[ext_resource type="PackedScene" uid="uid://sycoqaitadto" path="res://models/rooms/urban/studio_hall.blend" id="1_8x13u"]
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="2_a72o7"]
+[ext_resource type="PackedScene" uid="uid://c34kyqdwj6d40" path="res://scenes/props/eh_whatevah/door.tscn" id="3_jl320"]
+
+[node name="UrbanStudioHall" type="Node3D"]
+
+[node name="studio_hall" parent="." instance=ExtResource("1_8x13u")]
+
+[node name="Portal" parent="." instance=ExtResource("2_a72o7")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, -1)
+portal_id = "urban_studio_hall_lobby"
+other_portal_id = "urban_studio_lobby_hall"
+
+[node name="Portal2" parent="." instance=ExtResource("2_a72o7")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 1, 0, -1)
+portal_id = "urban_studio_hall_news"
+other_portal_id = "urban_studio_news_hall"
+
+[node name="Door3D" parent="." instance=ExtResource("3_jl320")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+portal_id = "urban_studio_hall_entry"
+other_portal_id = "urban_studio_entry"

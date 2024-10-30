@@ -17,7 +17,6 @@ func _init(fp: String, n: Array[Dictionary]):
 
 func load(container: SubViewportContainer):
     if is_loaded():
-        # print("%s already loaded" % name)
         return
     mutex.lock()
     print("Loading %s" % name)
@@ -43,7 +42,6 @@ func load(container: SubViewportContainer):
 
 func unload():
     if !is_loaded():
-        # print("%s already unloaded" % self)
         return
     print("Unloading %s" % self)
     mutex.lock()

@@ -37,7 +37,7 @@ mesh = SubResource("SphereMesh_5l8t4")
 [node name="Osmobile" parent="Planet" instance=ExtResource("4_7qv81")]
 transform = Transform3D(-0.504499, 0.197332, -0.84056, -0.04981, 0.965259, 0.256502, 0.861975, 0.171274, -0.477143, 53.0686, 52.1589, 15.5197)
 portal_id = "osmobile_science_surface"
-world_index = 2
+world_index = 4
 
 [node name="Portal" parent="Planet" instance=ExtResource("5_lfptb")]
 transform = Transform3D(-0.229919, 0.197332, -0.952994, -0.124268, 0.965259, 0.229852, 0.965244, 0.171274, -0.197409, 33.2943, 59.1224, -3.25721)

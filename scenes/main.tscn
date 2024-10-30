@@ -1,18 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://hufdxtyh0jh6"]
 
 [ext_resource type="Script" path="res://scripts/game_root.gd" id="1_hkln8"]
+[ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://space_environment.tres" id="2_48xeo"]
 [ext_resource type="PackedScene" uid="uid://bpyf6dv67t0bu" path="res://scenes/characters/player/player.tscn" id="9_qyjxw"]
-
-[sub_resource type="Environment" id="Environment_yl7ny"]
-background_mode = 1
-ambient_light_source = 1
-reflected_light_source = 1
 
 [node name="Root" type="Node3D"]
 script = ExtResource("1_hkln8")
+starting_scene = "title"
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_yl7ny")
+environment = ExtResource("2_48xeo")
 
 [node name="Player" parent="." instance=ExtResource("9_qyjxw")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

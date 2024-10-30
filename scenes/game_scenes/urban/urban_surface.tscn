@@ -1,0 +1,72 @@
+[gd_scene load_steps=12 format=3 uid="uid://dndw8x50n2u2y"]
+
+[ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://space_environment.tres" id="1_bcuee"]
+[ext_resource type="Material" uid="uid://bghs0f41tgdv2" path="res://materials/toon/flat/red/red_lit.tres" id="2_xdnca"]
+[ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="3_kr5nx"]
+[ext_resource type="PackedScene" uid="uid://cok6vn54n2iso" path="res://scenes/props/urban/buildings/studio.tscn" id="4_a1qf5"]
+[ext_resource type="Script" path="res://scripts/io/paired_door.gd" id="5_njsyr"]
+[ext_resource type="PackedScene" uid="uid://32c8cx4gf0h4" path="res://models/rooms/urban/studio_door.blend" id="6_rqsfo"]
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="7_bh2ro"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_ix8dn"]
+radius = 50.0
+height = 100.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3twql"]
+radius = 1000.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_i0jjk"]
+radius = 500.0
+height = 1000.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_fhdet"]
+radius = 500.0
+
+[node name="UrbanSurface" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_bcuee")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.921647, -0.351164, -0.16508, 0.274379, 0.288959, 0.91718, -0.274379, -0.89061, 0.36267, 0, 0, 0)
+
+[node name="Nose" type="MeshInstance3D" parent="DirectionalLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1000)
+material_override = ExtResource("2_xdnca")
+mesh = SubResource("SphereMesh_ix8dn")
+
+[node name="Gravity" type="Area3D" parent="."]
+gravity_space_override = 1
+gravity_point = true
+gravity_point_unit_distance = 500.0
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gravity"]
+shape = SubResource("SphereShape3D_3twql")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_i0jjk")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("SphereShape3D_fhdet")
+
+[node name="Osmobile" parent="." instance=ExtResource("3_kr5nx")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 500)
+portal_id = "osmobile_urban"
+world_index = 5
+
+[node name="Studio" parent="." instance=ExtResource("4_a1qf5")]
+transform = Transform3D(0.997811, 0.0271034, 0.0603126, 0.0634803, -0.137379, -0.988482, -0.0185056, 0.990148, -0.138799, 2.52694, -26.253, 498.88)
+
+[node name="Door" type="Node3D" parent="Studio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.97183)
+script = ExtResource("5_njsyr")
+portal_id = "urban_studio_entry"
+other_portal_id = "urban_studio_hall_entry"
+
+[node name="studio_door" parent="Studio/Door" instance=ExtResource("6_rqsfo")]
+
+[node name="Portal" parent="Studio/Door" instance=ExtResource("7_bh2ro")]

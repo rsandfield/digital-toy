@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cjiigksf27f3k"]
+
+[ext_resource type="PackedScene" uid="uid://cfs2bdcygyg65" path="res://models/rooms/urban/studio_elevator_lobby.blend" id="1_36s2v"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="2_vfm6f"]
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="3_jst4v"]
+
+[node name="UrbanStudioElevatorLobby" type="Node3D"]
+
+[node name="studio_elevator_lobby" parent="." instance=ExtResource("1_36s2v")]
+
+[node name="ElevatorDoor" parent="." instance=ExtResource("2_vfm6f")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.75)
+elevator = "urban_studio_elevator"
+portal_id = "studio_elevator_door"
+
+[node name="Portal" parent="." instance=ExtResource("3_jst4v")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 0, -0.5)
+portal_id = "urban_studio_lobby_hall"
+other_portal_id = "urban_studio_hall_lobby"

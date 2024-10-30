@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvnvnv85n3wno"]
+
+[ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://space_environment.tres" id="1_xo3yb"]
+[ext_resource type="PackedScene" uid="uid://d4ddqbvl4ummo" path="res://models/rooms/garage.blend" id="2_bvcys"]
+[ext_resource type="Material" uid="uid://bghs0f41tgdv2" path="res://materials/toon/flat/red/red_lit.tres" id="2_hnagi"]
+[ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="4_1jxr0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_hw5ns"]
+radius = 50.0
+height = 100.0
+
+[node name="Garage" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_xo3yb")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.921647, -0.351164, -0.16508, 0.274379, 0.288959, 0.91718, -0.274379, -0.89061, 0.36267, 0, 0, 0)
+
+[node name="Nose" type="MeshInstance3D" parent="DirectionalLight3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 500)
+material_override = ExtResource("2_hnagi")
+mesh = SubResource("SphereMesh_hw5ns")
+
+[node name="garage" parent="." instance=ExtResource("2_bvcys")]
+
+[node name="Osmobile" parent="." instance=ExtResource("4_1jxr0")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, -8.5, 0.3, 7)
+portal_id = "osmobile_garage"
+world_index = 6

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://cok6vn54n2iso"]
+
+[ext_resource type="PackedScene" uid="uid://2qfdmym2pb4s" path="res://models/rooms/urban/studio.blend" id="1_w6u3f"]
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="2_xv3pt"]
+
+[node name="Studio" type="Node3D"]
+
+[node name="studio" parent="." instance=ExtResource("1_w6u3f")]
+
+[node name="Window" parent="." instance=ExtResource("2_xv3pt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 1, -3.9)
+size = Vector2(2, 0.6)

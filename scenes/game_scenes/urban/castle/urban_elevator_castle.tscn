@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://b05gmgh7cfmpw"]
+
+[ext_resource type="Script" path="res://scripts/transit/elevator/elevator.gd" id="1_fc567"]
+[ext_resource type="PackedScene" uid="uid://cegxtyuumgk3i" path="res://models/rooms/urban/urban_elevator.blend" id="2_cfdmm"]
+[ext_resource type="PackedScene" uid="uid://ir3ia8kqtksa" path="res://scenes/props/io/lights/ceiling_light.tscn" id="3_vsc6d"]
+[ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="4_58d15"]
+
+[node name="UrbanElevatorStudio" type="Node3D"]
+script = ExtResource("1_fc567")
+id = "urban_castle_elevator"
+dynamic_connections = ["mine_castle_elevator_door", "castle_elevator_door"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="urban_elevator" parent="." instance=ExtResource("2_cfdmm")]
+
+[node name="CeilingLight" parent="." instance=ExtResource("3_vsc6d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.35, 0)
+
+[node name="ElevatorDoor" parent="." instance=ExtResource("4_58d15")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1.1)
+portal_id = "urban_castle_elevator_door"
+
+[editable path="urban_elevator"]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://wuhn5xcet8uu"]
+
+[ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="1_b5s6i"]
+
+[node name="UrbanStudioNews" type="Node3D"]
+
+[node name="Portal2" parent="." instance=ExtResource("1_b5s6i")]
+transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 1, 0, -1)
+portal_id = "urban_studio_news_hall"
+other_portal_id = "urban_studio_hall_news"

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://hkfcbdatkp03"]
+[gd_scene load_steps=4 format=3 uid="uid://hkfcbdatkp03"]
 
 [ext_resource type="PackedScene" uid="uid://c6db18wbiiyot" path="res://models/rooms/eh_whatevah/office.blend" id="1_t344u"]
 [ext_resource type="PackedScene" uid="uid://c34kyqdwj6d40" path="res://scenes/props/eh_whatevah/door.tscn" id="2_txn83"]
+[ext_resource type="PackedScene" uid="uid://dsdr5swy788a6" path="res://scenes/props/osmobile/floor_lamp.tscn" id="3_4psql"]
 
 [node name="EhWhatevahOffice" type="Node3D"]
 
@@ -10,8 +11,12 @@
 [node name="DoorLeader" parent="." instance=ExtResource("2_txn83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 3)
 portal_id = "eh_whatevah_office_leader"
+other_portal_id = "eh_whatevah_leader"
 
 [node name="DoorStairs" parent="." instance=ExtResource("2_txn83")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.5, 0, -3)
 portal_id = "eh_whatevah_office_stairs"
 other_portal_id = "eh_whatevah_stairs_leader"
+
+[node name="FloorLamp" parent="." instance=ExtResource("3_4psql")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)

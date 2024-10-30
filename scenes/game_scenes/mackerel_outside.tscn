@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ndws40f6pvha"]
+
+[ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://space_environment.tres" id="1_hmurc"]
+[ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="2_ripl6"]
+
+[node name="MackerelOutside" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("1_hmurc")
+
+[node name="Osmobile" parent="." instance=ExtResource("2_ripl6")]
+portal_id = "osmobile_mackerel"
+world_index = 3

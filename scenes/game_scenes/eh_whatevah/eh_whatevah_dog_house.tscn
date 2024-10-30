@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxfutfldhvwyh"]
+
+[ext_resource type="PackedScene" uid="uid://dnxovhctk24ni" path="res://models/rooms/eh_whatevah/leader.blend" id="1_1v8l7"]
+[ext_resource type="PackedScene" uid="uid://c34kyqdwj6d40" path="res://scenes/props/eh_whatevah/door.tscn" id="2_njk75"]
+
+[node name="EhWhatevahDogHouse" type="Node3D"]
+
+[node name="dog_house" parent="." instance=ExtResource("1_1v8l7")]
+
+[node name="Door3D" parent="." instance=ExtResource("2_njk75")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 2)
+portal_id = "eh_whatevah_leader"
+other_portal_id = "eh_whatevah_office_leader"

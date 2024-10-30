@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=3 uid="uid://djlthig2ewp6c"]
+
+[ext_resource type="Material" uid="uid://ytxy85mjblgl" path="res://materials/toon/flat/gray/black.tres" id="1_61u7j"]
+[ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="2_lbp8d"]
+
+[sub_resource type="Environment" id="Environment_m6ua4"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_ogal5"]
+resource_name = "entry"
+length = 5.0
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Osmobile")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 20, 30, 1, 1, 90, 24, -90, 2, 1, -90, 24, -90, 2.23333, 1, -90, 24, -90, 2.5, 1, -500, 24, -90, 5, 1, 5.22365, -7.70271, -28.2859)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Osmobile")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 1, 1, 0, 1, 0, -4.37114e-08, 2.5, 1, -2.18679e-09, 1, 7.35278e-10, -7.54979e-08, 5, 1, 0.12736, -0.315813, -0.042823, 0.939259)
+
+[sub_resource type="Animation" id="Animation_mtlw1"]
+length = 0.001
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Osmobile")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 5.22365, -7.70271, -28.2859)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mdycb"]
+_data = {
+"RESET": SubResource("Animation_mtlw1"),
+"entry": SubResource("Animation_ogal5")
+}
+
+[sub_resource type="TextMesh" id="TextMesh_7ghbc"]
+text = "COSMIC OSMO"
+font_size = 64
+pixel_size = 0.3
+
+[sub_resource type="TextMesh" id="TextMesh_iwdbx"]
+text = "When Nostalgia Hits the Fan"
+font_size = 33
+pixel_size = 0.3
+
+[sub_resource type="TextMesh" id="TextMesh_j4320"]
+text = "This product contains trademarks and/or copyrighted
+works of Cyan. All rights reserved by Cyan.
+This product is not official and is not endorsed by Cyan."
+pixel_size = 0.3
+
+[node name="Title" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_m6ua4")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_mdycb")
+}
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 35, -100)
+material_override = ExtResource("1_61u7j")
+mesh = SubResource("TextMesh_7ghbc")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, -100)
+material_override = ExtResource("1_61u7j")
+mesh = SubResource("TextMesh_iwdbx")
+
+[node name="Copyright" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -50, -100)
+layers = 16385
+material_override = ExtResource("1_61u7j")
+mesh = SubResource("TextMesh_j4320")
+
+[node name="Osmobile" parent="." instance=ExtResource("2_lbp8d")]
+transform = Transform3D(0.796857, -8.9407e-08, -0.604168, -0.160888, 0.963891, -0.2122, 0.582352, 0.266296, 0.768083, 5.22365, -7.70271, -28.2859)
+portal_id = "osmobile_title"
+world_index = 7
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
