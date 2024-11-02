@@ -31,7 +31,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/so_fluffy/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_midi/plugin.cfg", "res://addons/so_fluffy/plugin.cfg")
 
 [input]
 
