@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://dywr7hrcsa6y6"
+path="res://.godot/imported/osmobile_door_portal.obj-e6dd2f8657f363d85a636d71ac280be8.mesh"
+
+[deps]
+
+files=["res://.godot/imported/osmobile_door_portal.obj-e6dd2f8657f363d85a636d71ac280be8.mesh"]
+
+source_file="res://models/osmobile/osmobile_door_portal.obj"
+dest_files=["res://.godot/imported/osmobile_door_portal.obj-e6dd2f8657f363d85a636d71ac280be8.mesh", "res://.godot/imported/osmobile_door_portal.obj-e6dd2f8657f363d85a636d71ac280be8.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

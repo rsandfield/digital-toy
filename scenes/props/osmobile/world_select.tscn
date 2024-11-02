@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://b1h6fk06c5cmn"]
 
-[ext_resource type="PackedScene" uid="uid://cgupf627iblaa" path="res://models/osmobile/doinker_panel.blend" id="1_deanf"]
+[ext_resource type="PackedScene" uid="uid://cgupf627iblaa" path="res://models/osmobile/interior/doinker_panel.blend" id="1_deanf"]
 [ext_resource type="Script" path="res://scripts/vehicle/osmobile/world_select_panel.gd" id="1_lgo54"]
 [ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="1_oycoy"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="2_mem6e"]

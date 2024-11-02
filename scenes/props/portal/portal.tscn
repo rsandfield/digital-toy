@@ -16,13 +16,13 @@ flip_faces = true
 size = Vector3(1, 2, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jqtyy"]
-size = Vector3(2.2, 3.2, 2)
+size = Vector3(1.2, 2.2, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oytq2"]
-size = Vector3(2.2, 3.2, 2)
+size = Vector3(1.2, 2.2, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_iibw6"]
-size = Vector3(0.2, 3.2, 0.2)
+size = Vector3(0.2, 2.2, 0.2)
 
 [node name="Portal" type="Area3D"]
 collision_mask = 3

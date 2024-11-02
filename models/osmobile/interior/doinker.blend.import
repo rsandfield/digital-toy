@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://beq8m67qxova5"
-path="res://.godot/imported/osmobile_exterior.blend-33428f1ce7aeac3f1bdeed51658cc11a.scn"
+uid="uid://dts2duc03lj6g"
+path="res://.godot/imported/doinker.blend-28ede7f77ebff7616e33e0fdd5956683.scn"
 
 [deps]
 
-source_file="res://models/osmobile/osmobile_exterior.blend"
-dest_files=["res://.godot/imported/osmobile_exterior.blend-33428f1ce7aeac3f1bdeed51658cc11a.scn"]
+source_file="res://models/osmobile/interior/doinker.blend"
+dest_files=["res://.godot/imported/doinker.blend-28ede7f77ebff7616e33e0fdd5956683.scn"]
 
 [params]
 

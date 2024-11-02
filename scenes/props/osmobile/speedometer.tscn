@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://n1prsjq1us1w"]
 
-[ext_resource type="PackedScene" uid="uid://q0gyfa6cph0a" path="res://models/osmobile/speedometer.blend" id="1_o2801"]
+[ext_resource type="PackedScene" uid="uid://q0gyfa6cph0a" path="res://models/osmobile/interior/speedometer.blend" id="1_o2801"]
 [ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="2_bogva"]
 [ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="3_acdim"]
 [ext_resource type="Material" uid="uid://td7ic7gdoxlm" path="res://materials/translucent/glass/glass.tres" id="4_b7ecp"]

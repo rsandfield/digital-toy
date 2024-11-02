@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b74p81ipnxvie"
-path="res://.godot/imported/cd_case.blend-8db634328791e7c79635c29664dcf074.scn"
+uid="uid://cgupf627iblaa"
+path="res://.godot/imported/doinker_panel.blend-0250ca80b5165f8b27462e14f9bdc785.scn"
 
 [deps]
 
-source_file="res://models/osmobile/cd_case.blend"
-dest_files=["res://.godot/imported/cd_case.blend-8db634328791e7c79635c29664dcf074.scn"]
+source_file="res://models/osmobile/interior/doinker_panel.blend"
+dest_files=["res://.godot/imported/doinker_panel.blend-0250ca80b5165f8b27462e14f9bdc785.scn"]
 
 [params]
 

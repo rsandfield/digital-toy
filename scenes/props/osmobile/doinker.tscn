@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/vehicle/osmobile/doinker.gd" id="1_bp0ue"]
 [ext_resource type="AudioStream" uid="uid://btodcclpsn2nn" path="res://audio/effects/bell/bell-98033.mp3" id="2_1bs6l"]
 [ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="2_imout"]
-[ext_resource type="PackedScene" uid="uid://dts2duc03lj6g" path="res://models/osmobile/doinker.blend" id="3_cergr"]
+[ext_resource type="PackedScene" uid="uid://dts2duc03lj6g" path="res://models/osmobile/interior/doinker.blend" id="3_cergr"]
 [ext_resource type="Material" uid="uid://td7ic7gdoxlm" path="res://materials/translucent/glass/glass.tres" id="4_gad3d"]
 [ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="5_d4vya"]
 

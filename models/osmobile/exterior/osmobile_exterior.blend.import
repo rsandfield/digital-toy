@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://8jokor8obdio"
-path="res://.godot/imported/blooper.blend-7e3e9fa6c43574f5c157cfc20b313b50.scn"
+uid="uid://beq8m67qxova5"
+path="res://.godot/imported/osmobile_exterior.blend-612c2adcc553f5a5e7a338772d8c7d96.scn"
 
 [deps]
 
-source_file="res://models/osmobile/blooper.blend"
-dest_files=["res://.godot/imported/blooper.blend-7e3e9fa6c43574f5c157cfc20b313b50.scn"]
+source_file="res://models/osmobile/exterior/osmobile_exterior.blend"
+dest_files=["res://.godot/imported/osmobile_exterior.blend-612c2adcc553f5a5e7a338772d8c7d96.scn"]
 
 [params]
 

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://chgxrfh0mkfkm"
-path="res://.godot/imported/woosher.blend-09cf86c52af109a5098b9e2c6a93789c.scn"
+uid="uid://cetv12i7n1kod"
+path="res://.godot/imported/osmobile_door.blend-407e1979c43962e623695eedd464a11b.scn"
 
 [deps]
 
-source_file="res://models/osmobile/woosher.blend"
-dest_files=["res://.godot/imported/woosher.blend-09cf86c52af109a5098b9e2c6a93789c.scn"]
+source_file="res://models/osmobile/exterior/osmobile_door.blend"
+dest_files=["res://.godot/imported/osmobile_door.blend-407e1979c43962e623695eedd464a11b.scn"]
 
 [params]
 

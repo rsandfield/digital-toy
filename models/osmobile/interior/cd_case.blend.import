@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://q0gyfa6cph0a"
-path="res://.godot/imported/speedometer.blend-15be832b2c86a2d293f32d5c0ca60b4c.scn"
+uid="uid://b74p81ipnxvie"
+path="res://.godot/imported/cd_case.blend-6bdab9f4835cffee728c7ddafd403629.scn"
 
 [deps]
 
-source_file="res://models/osmobile/speedometer.blend"
-dest_files=["res://.godot/imported/speedometer.blend-15be832b2c86a2d293f32d5c0ca60b4c.scn"]
+source_file="res://models/osmobile/interior/cd_case.blend"
+dest_files=["res://.godot/imported/cd_case.blend-6bdab9f4835cffee728c7ddafd403629.scn"]
 
 [params]
 

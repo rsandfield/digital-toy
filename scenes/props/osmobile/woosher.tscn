@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://clunfv0ob3x4"]
 
-[ext_resource type="PackedScene" uid="uid://chgxrfh0mkfkm" path="res://models/osmobile/woosher.blend" id="1_k41qg"]
+[ext_resource type="PackedScene" uid="uid://chgxrfh0mkfkm" path="res://models/osmobile/interior/woosher.blend" id="1_k41qg"]
 [ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="2_8syox"]
 [ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="2_omsal"]
 [ext_resource type="Material" uid="uid://td7ic7gdoxlm" path="res://materials/translucent/glass/glass.tres" id="4_7fh8k"]

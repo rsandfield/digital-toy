@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://ciq1yu866omel"]
+
+[ext_resource type="Texture2D" uid="uid://c32rlnpkvukff" path="res://textures/caution.png" id="1_blx2x"]
+[ext_resource type="Material" uid="uid://15b2wm5b53vq" path="res://materials/toon/outline.tres" id="2_rvl1b"]
+
+[resource]
+next_pass = ExtResource("2_rvl1b")
+diffuse_mode = 3
+albedo_texture = ExtResource("1_blx2x")
+uv1_triplanar = true

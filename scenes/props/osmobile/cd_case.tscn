@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://dv6dmnkft2rpb"]
 
-[ext_resource type="PackedScene" uid="uid://b74p81ipnxvie" path="res://models/osmobile/cd_case.blend" id="1_m2rsa"]
+[ext_resource type="PackedScene" uid="uid://b74p81ipnxvie" path="res://models/osmobile/interior/cd_case.blend" id="1_m2rsa"]
 [ext_resource type="Script" path="res://scripts/io/interactable/grabbable.gd" id="1_uwdkp"]
 [ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="2_cnugj"]
 [ext_resource type="Material" uid="uid://ytxy85mjblgl" path="res://materials/toon/flat/gray/black.tres" id="2_mufw5"]
 [ext_resource type="Material" uid="uid://td7ic7gdoxlm" path="res://materials/translucent/glass/glass.tres" id="3_fd1bm"]
-[ext_resource type="PackedScene" uid="uid://shlp32e6dnwm" path="res://models/osmobile/cd.blend" id="4_tmnae"]
+[ext_resource type="PackedScene" uid="uid://shlp32e6dnwm" path="res://models/osmobile/interior/cd.blend" id="4_tmnae"]
 [ext_resource type="Material" uid="uid://bm0kuvlv2mh7c" path="res://materials/toon/flat/metal/silver.tres" id="5_syc7v"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rpukp"]

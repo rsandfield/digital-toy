@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dtn68q6glxfk6"
-path="res://.godot/imported/osmobile_door.glb-1383a08c4b44794ecab6fb04d8545de5.scn"
+path="res://.godot/imported/osmobile_door.glb-f930b7de1c71b5a52147e54083c4c5f9.scn"
 
 [deps]
 
-source_file="res://models/osmobile/osmobile_door.glb"
-dest_files=["res://.godot/imported/osmobile_door.glb-1383a08c4b44794ecab6fb04d8545de5.scn"]
+source_file="res://models/osmobile/exterior/osmobile_door.glb"
+dest_files=["res://.godot/imported/osmobile_door.glb-f930b7de1c71b5a52147e54083c4c5f9.scn"]
 
 [params]
 

@@ -1,11 +1,12 @@
-[gd_scene load_steps=15 format=4 uid="uid://do5puu7uhxox0"]
+[gd_scene load_steps=13 format=3 uid="uid://do5puu7uhxox0"]
 
 [ext_resource type="Script" path="res://scripts/transit/elevator/elevator_door.gd" id="1_mod3d"]
 [ext_resource type="AudioStream" uid="uid://dnpxubv722k1l" path="res://audio/effects/door/spaceship-door-opening-43604.mp3" id="2_pkmnf"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="3_dhfy0"]
-[ext_resource type="PackedScene" uid="uid://dtn68q6glxfk6" path="res://models/osmobile/osmobile_door.glb" id="4_nqdu3"]
-[ext_resource type="Material" uid="uid://78euwjng43dr" path="res://materials/toon/flat/red/wine.tres" id="4_qqlxk"]
-[ext_resource type="Material" uid="uid://bfa52kdmhpfml" path="res://materials/toon/flat/metal/steel.tres" id="6_v04tb"]
+[ext_resource type="Script" path="res://scripts/io/interactable/button3d.gd" id="3_i2wuy"]
+[ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="4_ija7n"]
+[ext_resource type="PackedScene" uid="uid://cetv12i7n1kod" path="res://models/osmobile/exterior/osmobile_door.blend" id="5_vscur"]
+[ext_resource type="ArrayMesh" uid="uid://dywr7hrcsa6y6" path="res://models/osmobile/osmobile_door_portal.obj" id="6_xponc"]
 
 [sub_resource type="Animation" id="Animation_u8lfj"]
 length = 0.001
@@ -15,27 +16,64 @@ tracks/0/enabled = true
 tracks/0/path = NodePath("osmobile_door/Door")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 1.993, -2, 2)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("osmobile_door/StairRails")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, -4.75, -2.5, 2.1)
 
 [sub_resource type="Animation" id="Animation_ycq4l"]
 resource_name = "close"
+length = 2.0
 tracks/0/type = "position_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("osmobile_door/Door")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 1.993, -2, 3.5, 0.6, 1, 2.2, -2, 2, 0.8, 1, 2.2, -2, 2, 1, 1, 1.993, -2, 2)
+tracks/0/keys = PackedFloat32Array(1.2, 1, 0, 0, 1.5, 1.8, 1, 0.2, 0, 0, 1.9, 1, 0.2, 0, 0, 2, 1, 0, 0, 0)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("osmobile_door/StairRails")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 1.57, -2.35, 2.1, 0.566667, 1, 1.57, -2.35, 2.1, 1.2, 1, -4.75, -2.35, 2.1)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("osmobile_door/StairRails")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0, 0, -0.289867, 0.957067, 0.5, 1, 0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_qc7nx"]
 resource_name = "open"
+length = 2.0
 tracks/0/type = "position_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("osmobile_door/Door")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 1.993, -2, 2, 0.2, 1, 2.2, -2, 2, 1, 1, 2.2, -2, 3.5)
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.1, 1, 0.2, 0, 1.86265e-08, 0.2, 1, 0.2, 0, 0, 0.8, 1, -0.25, 0, 1.5)
+tracks/1/type = "position_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("osmobile_door/StairRails")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0.8, 1, -4.75, -2.35, 2.1, 1.46667, 1, 1.57, -2.35, 2.1, 2, 1, 1.57, -2.35, 2.1)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("osmobile_door/StairRails")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(1.53333, 1, 0, 0, 0, 1, 2, 1, 0, 0, -0.289867, 0.957067)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_oabdh"]
 _data = {
@@ -44,40 +82,8 @@ _data = {
 "open": SubResource("Animation_qc7nx")
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_awia4"]
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_at1sf"]
-_surfaces = [{
-"aabb": AABB(-0.15, -0.05, -0.5, 0.3, 0.1, 1),
-"format": 34896613377,
-"index_count": 36,
-"index_data": PackedByteArray("AAADAAEAAAACAAMAAgAHAAMAAgAGAAcABgAFAAcABgAEAAUABAABAAUABAAAAAEAAgAEAAYAAgAAAAQABwABAAMABwAFAAEA"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 8,
-"vertex_data": PackedByteArray("AAAAAP//AAAAAP////8AAAAAAAAAAAAAAAD//wAAAAD//wAA//8AAP///////wAA//8AAAAAAAD/////AAAAAA==")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_2hjq1"]
-resource_name = "osmobile_interior_Cube_006"
-_surfaces = [{
-"aabb": AABB(-0.15, -0.05, -0.5, 0.3, 0.1, 1),
-"attribute_data": PackedByteArray("/1////8f/z//XwAA/5////+fAAD/3/8//1//v/8f/3//X/+//5//v/+f/7//3/9//1//P/9f/z//X/8//5//P/+f/z//n/8//1//f/9f/3//X/9//5//f/+f/3//n/9/"),
-"format": 34896613399,
-"index_count": 36,
-"index_data": PackedByteArray("AAAJAAMAAAAGAAkACAAVAAoACAATABUAFAARABcAFAAOABEADQAEAA8ADQACAAQABwAMABIABwABAAwAFgAFAAsAFgAQAAUA"),
-"material": SubResource("StandardMaterial3D_awia4"),
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 24,
-"vertex_data": PackedByteArray("AAAAAP//VNUAAAAA////vwAAAAD///+/AAD/////VNUAAP//////vwAA////////AAAAAAAAVNUAAAAAAAD/vwAAAAAAAP//AAD//wAAVNUAAP//AAD//wAA//8AAP////8AAP///7///wAA////v///AAD//1TV/////////7///////////////////1TV//8AAAAA/7///wAAAAD/////AAAAAFTV/////wAA////////AAD///////8AAFTVVNVU1QAA/3//////VNVU1f//////f/+/VNVU1QAA/3//v/+/VNVU1f+//7//f/+/AAD/f/////+qKqoq//////9//7+qKqoqAAD/f/+//7+qKqoq/7//v/9//7+qKqoq")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_at1sf")
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_eapej"]
-data = PackedVector3Array(-0.15, -0.05, 0.5, -0.15, 0.05, -0.5, -0.15, 0.05, 0.5, -0.15, -0.05, 0.5, -0.15, -0.05, -0.5, -0.15, 0.05, -0.5, -0.15, -0.05, -0.5, 0.15, 0.05, -0.5, -0.15, 0.05, -0.5, -0.15, -0.05, -0.5, 0.15, -0.05, -0.5, 0.15, 0.05, -0.5, 0.15, -0.05, -0.5, 0.15, 0.05, 0.5, 0.15, 0.05, -0.5, 0.15, -0.05, -0.5, 0.15, -0.05, 0.5, 0.15, 0.05, 0.5, 0.15, -0.05, 0.5, -0.15, 0.05, 0.5, 0.15, 0.05, 0.5, 0.15, -0.05, 0.5, -0.15, -0.05, 0.5, -0.15, 0.05, 0.5, -0.15, -0.05, -0.5, 0.15, -0.05, 0.5, 0.15, -0.05, -0.5, -0.15, -0.05, -0.5, -0.15, -0.05, 0.5, 0.15, -0.05, 0.5, 0.15, 0.05, -0.5, -0.15, 0.05, 0.5, -0.15, 0.05, -0.5, 0.15, 0.05, -0.5, 0.15, 0.05, 0.5, -0.15, 0.05, 0.5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_m601c"]
+size = Vector3(1, 2.5, 2)
 
 [node name="ElevatorDoor" type="Node3D"]
 script = ExtResource("1_mod3d")
@@ -92,203 +98,28 @@ libraries = {
 stream = ExtResource("2_pkmnf")
 
 [node name="Portal" parent="." instance=ExtResource("3_dhfy0")]
-transform = Transform3D(-4.37114e-08, 0.258819, 0.965926, 0, 0.965926, -0.258819, -1, -1.13133e-08, -4.2222e-08, 1.9, -2.1, 2)
-size = Vector2(1.5, 2.2)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2, -2.4, 2.125)
 
-[node name="Stairs" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.75, -2.1, 2.072)
+[node name="PortalVisual" parent="Portal" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
+mesh = ExtResource("6_xponc")
 
-[node name="Tread_000" type="MeshInstance3D" parent="Stairs"]
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
+[node name="Button3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, -1.2, 2.125)
+script = ExtResource("3_i2wuy")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_000"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Button3D"]
+transform = Transform3D(0.970296, 0.241922, 0, -0.241922, 0.970296, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_m601c")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_000/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
+[node name="InteractableComponent" type="Node" parent="Button3D"]
+script = ExtResource("4_ija7n")
+interactable_distance = 20.0
 
-[node name="Tread_001" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, -0.2, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
+[node name="osmobile_door" parent="." instance=ExtResource("5_vscur")]
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_001"]
+[node name="Door" parent="osmobile_door" index="3"]
+visible = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_001/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_002" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, -0.4, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_002"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_002/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_003" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, -0.6, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_003"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_003/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_004" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, -0.8, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_004"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_004/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_005" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -1, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_005"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_005/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_006" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8, -1.2, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_006"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_006/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_007" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, -1.4, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_007"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_007/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_008" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.4, -1.6, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_008"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_008/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_009" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.7, -1.8, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_009"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_009/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_010" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, -2, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_010"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_010/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_011" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3, -2.2, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_011"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_011/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_012" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, -2.4, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_012"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_012/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_013" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9, -2.6, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_013"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_013/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_014" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2, -2.8, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_014"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_014/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_015" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -3, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_015"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_015/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="Tread_016" type="MeshInstance3D" parent="Stairs"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, -3.2, 0)
-material_override = ExtResource("4_qqlxk")
-mesh = SubResource("ArrayMesh_2hjq1")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="Stairs/Tread_016"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Stairs/Tread_016/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_eapej")
-
-[node name="osmobile_door" parent="." instance=ExtResource("4_nqdu3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 0, 0)
-
-[node name="Door" parent="osmobile_door" index="0"]
-transform = Transform3D(0.9, 0, 0, 0, 1, 0, 0, 0, 1, 1.993, -2, 2)
-material_override = ExtResource("6_v04tb")
-
+[editable path="Portal"]
 [editable path="osmobile_door"]

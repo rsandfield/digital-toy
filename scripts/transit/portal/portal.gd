@@ -119,22 +119,26 @@ func _set_portal_camera_environment_to_world3d_environment_no_tonemap():
     viewport_camera.environment.tonemap_mode = Environment.TONE_MAPPER_LINEAR
 
 func _update_portal_area_size():
-    if (portal_visual.mesh.size.x == self.size.x and
-        portal_visual.mesh.size.y == self.size.y):
-        return
-    portal_visual.mesh.size.x = self.size.x
-    portal_visual.mesh.size.y = self.size.y
-    var portalSize = Vector3(
+    if portal_visual.mesh is BoxMesh:
+        if (portal_visual.mesh.size.x == self.size.x and
+            portal_visual.mesh.size.y == self.size.y):
+            return
+        portal_visual.mesh.size.x = self.size.x
+        portal_visual.mesh.size.y = self.size.y
+    var portal_size = Vector3(
         self.size.x + self.portal_area_x_margin * 2,
         self.size.y + self.portal_area_y_margin * 2,
         self.portal_area_z_margin * 2)
-    var portalPos = Vector3(0, self.size.y  * 0.5, 0)
-    $CollisionShape3D.shape.size = portalSize
-    $ShapeCast3D.shape.size = portalSize
-    $CollisionShape3D.position = portalPos
-    $ShapeCast3D.position = portalPos
-    portal_visual.position = portalPos
-    var barrierSize = Vector3(
+    var portal_pos = Vector3(0, self.size.y  * 0.5, 0)
+    $CollisionShape3D.shape.size = portal_size
+    $ShapeCast3D.shape.size = portal_size
+    $CollisionShape3D.position = portal_pos
+    $ShapeCast3D.position = portal_pos
+
+    if portal_visual.mesh is BoxMesh:
+        portal_visual.position = portal_pos
+    
+    var barrier_size = Vector3(
         0.2,
         self.size.y + self.portal_area_y_margin * 2,
         0.2)
@@ -142,12 +146,12 @@ func _update_portal_area_size():
         -self.size.x * 0.5 - self.portal_area_x_margin,
         self.size.y  * 0.5,
         0.1)
-    $RightBarrier/CollisionShape3D.shape.size = barrierSize
+    $RightBarrier/CollisionShape3D.shape.size = barrier_size
     $LeftBarrier.position = Vector3(
         self.size.x * 0.5 + self.portal_area_x_margin,
         self.size.y  * 0.5,
         0.1)
-    $LeftBarrier/CollisionShape3D.shape.size = barrierSize
+    $LeftBarrier/CollisionShape3D.shape.size = barrier_size
 
 # Copied from https://github.com/V-Sekai/avatar_vr_demo/blob/master/addons/V-Sekai.xr-mirror/mirror.gd
 func set_projection_oblique_near_plane(matrix: Projection, clip_plane: Plane):
@@ -213,13 +217,13 @@ func _update_camera_to_other_portal():
     var cur_camera_transform_rel_to_this_portal = self.global_transform.affine_inverse() * cur_camera.global_transform
     var moved_to_other_portal = other_portal.global_transform * cur_camera_transform_rel_to_this_portal
     # then, set the portal camera's transform to that relative position/rotation, but relative to other_portal
-    
+
     viewport_camera.global_transform = moved_to_other_portal
     viewport_camera.fov = cur_camera.fov
-    
+
     viewport_camera.cull_mask = cur_camera.cull_mask
     viewport_camera.set_cull_mask_value(other_portal.cull_layer, false)
-    
+
     camera_viewport.size = get_viewport().get_visible_rect().size
     camera_viewport.msaa_3d = get_viewport().msaa_3d
     camera_viewport.screen_space_aa = get_viewport().screen_space_aa
@@ -227,15 +231,14 @@ func _update_camera_to_other_portal():
     camera_viewport.use_debanding = get_viewport().use_debanding
     camera_viewport.use_occlusion_culling = get_viewport().use_occlusion_culling
     camera_viewport.mesh_lod_threshold = get_viewport().mesh_lod_threshold
-        
+
     _update_portal_camera_near_clip_plane(viewport_camera)
-    
+
 func _thicken_portal_if_necessary_to_prevent_camera_near_cull():
     var cur_camera = get_viewport().get_camera_3d()
-    if not cur_camera:
+    if !cur_camera || !(portal_visual.mesh is BoxMesh):
         return
-    
-    # is this correct for case when portal is rotated? i think so but not sure since we use self.global_position
+
     var forward : Vector3 = self.global_transform.basis.z
     var right : Vector3 = self.global_transform.basis.x
     var up : Vector3 = self.global_transform.basis.y
@@ -244,7 +247,7 @@ func _thicken_portal_if_necessary_to_prevent_camera_near_cull():
     var dist_from_portal_plane_to_right = camera_offset_from_portal.dot(right)
     var dist_from_portal_plane_up = camera_offset_from_portal.dot(up)
     var portal_side = _nonzero_sign(dist_from_portal_plane_forward)
-    
+
     var half_portal_width = portal_visual.mesh.size.x / 2.0
     var half_portal_height = portal_visual.mesh.size.y / 2.0
     # Only thicken portal if we are very close to it
@@ -254,13 +257,13 @@ func _thicken_portal_if_necessary_to_prevent_camera_near_cull():
         portal_visual.mesh.size.z = 0.0
         portal_visual.position.z = 0.0
         return
-        
+
     # Maybe could calculate the necessary thickness based on camera near cull plane
     # 0.3 isn't always enough had to up it to 0.5 to prevent occasional glitching
     var thickness = 0.05
-    
+
     portal_visual.mesh.size.z = thickness
-    
+
     # Check if the camera is facing the portal and is within a certain distance
     if portal_side == 1:
         portal_visual.position.z = -thickness/2.0
