@@ -21,7 +21,6 @@ func on_drop():
     GameManager.deactivate_snappable_lock_indicators(snap_group)
 
 
-
 func on_snap(lock: SnappableLock):
     snapped_to.emit(lock)
 

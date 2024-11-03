@@ -1,0 +1,14 @@
+[remap]
+
+importer="com.nlaha.godotmidi"
+type="MidiResource"
+uid="uid://crem0wgmmwpw5"
+path="res://.godot/imported/mary_had_a_little_lamb.mid-fe413f99b4c833c071d46e9b48fb30c1.res"
+
+[deps]
+
+source_file="res://audio/music/mary_had_a_little_lamb.mid"
+dest_files=["res://.godot/imported/mary_had_a_little_lamb.mid-fe413f99b4c833c071d46e9b48fb30c1.res"]
+
+[params]
+

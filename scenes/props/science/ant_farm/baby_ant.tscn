@@ -1,13 +1,15 @@
-[gd_scene load_steps=18 format=3 uid="uid://ba6t5e8qgtyya"]
+[gd_scene load_steps=22 format=3 uid="uid://ba6t5e8qgtyya"]
 
 [ext_resource type="Material" uid="uid://x0dqtue5rrjk" path="res://materials/toon/flat/brown/chocolate.tres" id="1_35oxa"]
+[ext_resource type="Script" path="res://scripts/io/music/baby_ant/baby_ant.gd" id="1_hwp2i"]
 [ext_resource type="Material" uid="uid://sfa7k1pdqamp" path="res://materials/toon/flat/brown/dark_brown.tres" id="1_i4d3m"]
-[ext_resource type="Script" path="res://scripts/character/baby_ant.gd" id="1_kma2s"]
-[ext_resource type="AudioStream" uid="uid://b4w3vwnev1u8w" path="res://audio/effects/baby-cry-short-37093.mp3" id="2_bm8o4"]
+[ext_resource type="AudioStream" uid="uid://b1uf80hu7v0aa" path="res://audio/original_assets/AntBaby.wav" id="2_jchqb"]
 [ext_resource type="Script" path="res://scripts/io/interactable/button3d.gd" id="4_hmmcj"]
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="6_2a0mu"]
 [ext_resource type="Script" path="res://scripts/io/interactable/snappable_lock.gd" id="7_v1vgc"]
 [ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="7_w4nyx"]
+[ext_resource type="Material" uid="uid://ytxy85mjblgl" path="res://materials/toon/flat/gray/black.tres" id="8_6q4jg"]
+[ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="9_klmlm"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_nk2x7"]
 size = Vector3(0.5, 0.5, 0.75)
@@ -30,6 +32,15 @@ height = 0.1
 [sub_resource type="BoxShape3D" id="BoxShape3D_i4cyb"]
 size = Vector3(0.4, 0.3, 0.7)
 
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_frs6n"]
+radius = 0.02
+height = 0.08
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_frfcn"]
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.02
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_tg4o7"]
 size = Vector3(0.4, 0.4, 0.4)
 
@@ -41,10 +52,11 @@ height = 0.35
 size = Vector3(0.5, 0.7, 0.75)
 
 [node name="BabyAnt" type="Node3D"]
-script = ExtResource("1_kma2s")
+script = ExtResource("1_hwp2i")
+input_pitch = 300.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("2_bm8o4")
+stream = ExtResource("2_jchqb")
 
 [node name="Bed" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
@@ -106,6 +118,25 @@ mesh = SubResource("CylinderMesh_kj0ld")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Baby/Head"]
 shape = SubResource("BoxShape3D_i4cyb")
 
+[node name="ToggleGroup" type="Node3D" parent="Baby/Head"]
+visible = false
+
+[node name="Mouth" type="MeshInstance3D" parent="Baby/Head/ToggleGroup"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0.105, 0.09)
+material_override = ExtResource("8_6q4jg")
+mesh = SubResource("CapsuleMesh_frs6n")
+skeleton = NodePath("../..")
+
+[node name="EyeR" type="MeshInstance3D" parent="Baby/Head/ToggleGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.03, 0.116, 0.14)
+material_override = ExtResource("9_klmlm")
+mesh = SubResource("CylinderMesh_frfcn")
+
+[node name="EyeL" type="MeshInstance3D" parent="Baby/Head/ToggleGroup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03, 0.116, 0.14)
+material_override = ExtResource("9_klmlm")
+mesh = SubResource("CylinderMesh_frfcn")
+
 [node name="SnappableLock" type="Area3D" parent="Baby"]
 transform = Transform3D(-1, 8.74228e-08, 3.82137e-15, 0, -4.37114e-08, 1, 8.74228e-08, 1, 4.37114e-08, 0, 0.629, 0.125)
 script = ExtResource("7_v1vgc")
@@ -129,3 +160,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 shape = SubResource("BoxShape3D_8fh1q")
 
 [connection signal="pressed" from="Baby/Head" to="." method="play"]
+[connection signal="snapped" from="Baby/SnappableLock" to="." method="accessorize"]
+[connection signal="unsnapped" from="Baby/SnappableLock" to="." method="accessorize" binds= [null]]

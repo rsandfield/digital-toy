@@ -6,7 +6,7 @@ enum Note {
 }
 
 enum Shift {
-    Natural, Flat, Sharp, DoubleFlat, DoubleSharp
+    NATURAL, FLAT, SHARP, DOUBLE_FLAT, DOUBLE_SHARP
 }
 
 @export var note: Note
@@ -14,7 +14,7 @@ enum Shift {
 @export var octave: int
 
 
-func _init(n: Note = Note.C, s: Shift = Shift.Natural, o: int = 4):
+func _init(n: Note = Note.C, s: Shift = Shift.NATURAL, o: int = 4):
     note = n
     shift = s
     octave = o
@@ -25,6 +25,24 @@ static func from_string(value: String) -> Tone:
         Note.get(parts[1]),
         Shift.get(parts[2]),
         int(parts[0])
+    )
+
+static func from_midi_index(value: int, octave_shift: int = -1) -> Tone:
+    var index = (value % 12)
+    var note_index = 0
+    var shift_index = 0
+    if index < 5:
+        note_index = ((index / 2) + 2) % 7
+        if index % 2 == 1:
+            shift_index = 2
+    else:
+        note_index = ((index - 5) / 2) + 3
+        if index % 2 == 0:
+            shift_index = 2
+    return Tone.new(
+        note_index,
+        shift_index,
+        (value / 12) + octave_shift,
     )
 
 func pitch() -> float:

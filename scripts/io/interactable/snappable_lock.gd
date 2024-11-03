@@ -32,6 +32,9 @@ func _exit_tree():
 func _ready():
     _indicator = get_node_or_null("Indicator")
     deactivate_indicator()
+    var maybe = NodeHelper.find_duck_child(self, "get_snap_group")
+    if maybe && maybe.get_snap_group() == snap_group:
+        force_assign(maybe)
 
 
 func reticle_shape_on_hover() -> HUD.ReticleState:
@@ -124,3 +127,13 @@ func _on_character_dropped_held_object(_character: PlayerController):
     _snap_held_object()
     snapped.emit(_held_object)
     _held_object.on_snap(self)
+
+
+func force_assign(object: Snappable):
+    if _held_object || !object || object.get_snap_group() != snap_group:
+        return
+    _held_object = object
+    _snap_held_object()
+    snapped.emit(_held_object)
+    _held_object.on_snap(self)
+

@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://mbd8ppo5byro"]
+[gd_scene load_steps=9 format=3 uid="uid://mbd8ppo5byro"]
 
-[ext_resource type="Script" path="res://scripts/io/interactable/snappable.gd" id="1_h78ah"]
+[ext_resource type="Script" path="res://scripts/io/music/baby_ant/baby_ant_prop.gd" id="1_n3y4h"]
 [ext_resource type="Script" path="res://scripts/io/interactable/grabbable.gd" id="2_j7313"]
+[ext_resource type="AudioStream" uid="uid://ifxhl1f4w1ex" path="res://audio/original_assets/AntOhYeah.wav" id="2_v2l2u"]
 [ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="3_318ys"]
 [ext_resource type="Material" uid="uid://ytxy85mjblgl" path="res://materials/toon/flat/gray/black.tres" id="4_fkrpd"]
 
@@ -20,7 +21,9 @@ bottom_radius = 0.002
 height = 0.2
 
 [node name="Sunglasses" type="RigidBody3D"]
-script = ExtResource("1_h78ah")
+script = ExtResource("1_n3y4h")
+stream = ExtResource("2_v2l2u")
+input_pitch = 1108.0
 snap_group = "baby_ant_face"
 
 [node name="Grabbable" type="CollisionShape3D" parent="."]

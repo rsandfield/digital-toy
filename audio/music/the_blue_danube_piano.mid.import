@@ -1,0 +1,14 @@
+[remap]
+
+importer="com.nlaha.godotmidi"
+type="MidiResource"
+uid="uid://be5htuhp4185t"
+path="res://.godot/imported/the_blue_danube_piano.mid-d9af9c2e4550f4aec0ba6e9054053d90.res"
+
+[deps]
+
+source_file="res://audio/music/the_blue_danube_piano.mid"
+dest_files=["res://.godot/imported/the_blue_danube_piano.mid-d9af9c2e4550f4aec0ba6e9054053d90.res"]
+
+[params]
+

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://i3olwijans8q"]
+[gd_scene load_steps=26 format=3 uid="uid://i3olwijans8q"]
 
 [ext_resource type="Material" uid="uid://3wbwuiny2vxc" path="res://materials/toon/flat/brown/light_brown.tres" id="1_8r4t7"]
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_20ns8"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://scripts/io/music/music_box.gd" id="5_hxy15"]
 [ext_resource type="Script" path="res://scripts/io/music/tone.gd" id="6_gx87j"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="7_a12ie"]
+[ext_resource type="MidiResource" uid="uid://crem0wgmmwpw5" path="res://audio/music/mary_had_a_little_lamb.mid" id="8_2bn4x"]
 [ext_resource type="PackedScene" uid="uid://mbd8ppo5byro" path="res://scenes/props/science/ant_farm/baby_ant/sunglasses.tscn" id="11_uj23d"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_c5thh"]
@@ -23,63 +24,63 @@ size = Vector3(10, 0.5, 10)
 
 [sub_resource type="Resource" id="Resource_okiey"]
 script = ExtResource("6_gx87j")
-note = 4
-shift = 0
-octave = 3
-
-[sub_resource type="Resource" id="Resource_dwlmr"]
-script = ExtResource("6_gx87j")
-note = 5
-shift = 0
-octave = 3
-
-[sub_resource type="Resource" id="Resource_1bexy"]
-script = ExtResource("6_gx87j")
-note = 6
-shift = 0
-octave = 3
-
-[sub_resource type="Resource" id="Resource_o8nl5"]
-script = ExtResource("6_gx87j")
 note = 0
 shift = 0
 octave = 4
 
-[sub_resource type="Resource" id="Resource_7uj0o"]
+[sub_resource type="Resource" id="Resource_dwlmr"]
 script = ExtResource("6_gx87j")
 note = 1
 shift = 0
 octave = 4
 
-[sub_resource type="Resource" id="Resource_5q47o"]
+[sub_resource type="Resource" id="Resource_1bexy"]
 script = ExtResource("6_gx87j")
 note = 2
 shift = 0
 octave = 4
 
-[sub_resource type="Resource" id="Resource_ff5dh"]
+[sub_resource type="Resource" id="Resource_o8nl5"]
 script = ExtResource("6_gx87j")
 note = 3
 shift = 0
 octave = 4
 
-[sub_resource type="Resource" id="Resource_eckld"]
+[sub_resource type="Resource" id="Resource_7uj0o"]
 script = ExtResource("6_gx87j")
 note = 4
 shift = 0
 octave = 4
 
-[sub_resource type="Resource" id="Resource_uf02e"]
+[sub_resource type="Resource" id="Resource_5q47o"]
 script = ExtResource("6_gx87j")
 note = 5
 shift = 0
 octave = 4
 
-[sub_resource type="Resource" id="Resource_k8vac"]
+[sub_resource type="Resource" id="Resource_ff5dh"]
 script = ExtResource("6_gx87j")
 note = 6
 shift = 0
 octave = 4
+
+[sub_resource type="Resource" id="Resource_eckld"]
+script = ExtResource("6_gx87j")
+note = 0
+shift = 0
+octave = 5
+
+[sub_resource type="Resource" id="Resource_uf02e"]
+script = ExtResource("6_gx87j")
+note = 1
+shift = 0
+octave = 5
+
+[sub_resource type="Resource" id="Resource_k8vac"]
+script = ExtResource("6_gx87j")
+note = 2
+shift = 0
+octave = 5
 
 [node name="ScienceAntFarmNursery" type="Node3D"]
 script = ExtResource("1_20ns8")
@@ -129,8 +130,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 
 [node name="MusicBox" type="Node" parent="Cribs"]
 script = ExtResource("5_hxy15")
-delay = 1.0
-score_filepath = "res://scores/mary_had_a_little_lamb.txt"
+midi = ExtResource("8_2bn4x")
 
 [node name="BabyAnt" parent="Cribs" instance=ExtResource("2_tu7lk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2, 0, 0.4)
@@ -172,14 +172,14 @@ tone = SubResource("Resource_uf02e")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0, -0.4)
 tone = SubResource("Resource_k8vac")
 
+[node name="Sunglasses" parent="Cribs/BabyAnt10" instance=ExtResource("11_uj23d")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.2, 0.1, -0.6)
+
 [node name="Portal" parent="." instance=ExtResource("7_a12ie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 portal_id = "ant_nursery_portal"
 other_portal_id = "ant_tunnel_nursery_portal"
 size = Vector2(2.5, 3)
-
-[node name="Sunglasses" parent="." instance=ExtResource("11_uj23d")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.1, 1)
 
 [connection signal="pressed" from="Bell" to="Cribs/MusicBox" method="play"]
 
