@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://clc1eog2g3t5s"
-path="res://.godot/imported/elab_door_run.blend-406e244c0f6839a7753a3ec358953606.scn"
+uid="uid://d4e7cueith5pv"
+path="res://.godot/imported/chalkboard.blend-e72e6081ea747764d24631f7b52e7c82.scn"
 
 [deps]
 
-source_file="res://models/elab_door_run.blend"
-dest_files=["res://.godot/imported/elab_door_run.blend-406e244c0f6839a7753a3ec358953606.scn"]
+source_file="res://models/science/chalkboard.blend"
+dest_files=["res://.godot/imported/chalkboard.blend-e72e6081ea747764d24631f7b52e7c82.scn"]
 
 [params]
 

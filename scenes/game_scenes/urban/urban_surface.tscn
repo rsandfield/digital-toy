@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://dndw8x50n2u2y"]
+[gd_scene load_steps=16 format=3 uid="uid://dndw8x50n2u2y"]
 
-[ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://space_environment.tres" id="1_bcuee"]
+[ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://environments/space_environment.tres" id="1_bcuee"]
 [ext_resource type="Material" uid="uid://bghs0f41tgdv2" path="res://materials/toon/flat/red/red_lit.tres" id="2_xdnca"]
 [ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="3_kr5nx"]
 [ext_resource type="PackedScene" uid="uid://cok6vn54n2iso" path="res://scenes/props/urban/buildings/studio.tscn" id="4_a1qf5"]
@@ -21,6 +21,45 @@ height = 1000.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fhdet"]
 radius = 500.0
+
+[sub_resource type="Animation" id="Animation_b4wcs"]
+resource_name = "open"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("studio_door")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1, 0.5, 1, 0, 0.819, 0, 0.574)
+
+[sub_resource type="Animation" id="Animation_ce437"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("studio_door")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_3mo0r"]
+resource_name = "close"
+length = 0.5
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("studio_door")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0.819, 0, 0.574, 0.5, 1, 0, 0, 0, 1)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_n0mkq"]
+_data = {
+"RESET": SubResource("Animation_ce437"),
+"close": SubResource("Animation_3mo0r"),
+"open": SubResource("Animation_b4wcs")
+}
 
 [node name="UrbanSurface" type="Node3D"]
 
@@ -67,6 +106,12 @@ script = ExtResource("5_njsyr")
 portal_id = "urban_studio_entry"
 other_portal_id = "urban_studio_hall_entry"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Studio/Door"]
+libraries = {
+"": SubResource("AnimationLibrary_n0mkq")
+}
+
 [node name="studio_door" parent="Studio/Door" instance=ExtResource("6_rqsfo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 
 [node name="Portal" parent="Studio/Door" instance=ExtResource("7_bh2ro")]

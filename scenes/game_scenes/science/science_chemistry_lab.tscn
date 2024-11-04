@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dw1gq6s8dx8u3"]
+[gd_scene load_steps=15 format=3 uid="uid://dw1gq6s8dx8u3"]
 
 [ext_resource type="Script" path="res://scripts/game_scene.gd" id="1_j8hce"]
 [ext_resource type="Material" uid="uid://ckdbsrg5ytg86" path="res://materials/toon/flat/gray/white.tres" id="1_lavwm"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://pwn6uehsrwta" path="res://scenes/props/elevator_door.tscn" id="2_l2nfu"]
 [ext_resource type="PackedScene" uid="uid://bqtifryslt765" path="res://scenes/props/io/button/elevator_call_button.tscn" id="4_4fvvl"]
 [ext_resource type="PackedScene" uid="uid://cv3pdjltjenxt" path="res://scenes/props/science/chemistry_lab/lab_bench.tscn" id="4_aoxnq"]
+[ext_resource type="PackedScene" uid="uid://dcj6idclcxc7e" path="res://models/science/lab_stand.blend" id="6_d6elf"]
 [ext_resource type="PackedScene" uid="uid://x4cpkdjdg013" path="res://models/rooms/science/lab.blend" id="6_ri7nf"]
 [ext_resource type="Material" uid="uid://dk0kkauetiv64" path="res://materials/toon/flat/gray/slate.tres" id="7_bkbvn"]
+[ext_resource type="PackedScene" uid="uid://c6uoyd751ucka" path="res://models/science/bunsen_burner.blend" id="9_bk5qx"]
 
 [sub_resource type="Environment" id="Environment_buxm4"]
 
@@ -61,17 +63,32 @@ mesh = SubResource("PlaneMesh_y8qoc")
 [node name="Walls" parent="Lab" index="0"]
 material_override = ExtResource("7_bkbvn")
 
+[node name="lab_stand" parent="Lab" instance=ExtResource("6_d6elf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 1, -1.25)
+
+[node name="lab_stand2" parent="Lab" instance=ExtResource("6_d6elf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 1, -1.25)
+
+[node name="lab_stand3" parent="Lab" instance=ExtResource("6_d6elf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 1, -1.25)
+
 [node name="ElevatorDoor" parent="." instance=ExtResource("2_l2nfu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.2)
-portal_id = "science_chemistry_elevator_door"
 elevator = "science_elevator"
 floor_index = 5
+portal_id = "science_chemistry_elevator_door"
 
 [node name="LabBench" parent="." instance=ExtResource("4_aoxnq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 
 [node name="ElevatorCallButton" parent="." instance=ExtResource("4_4fvvl")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 2)
+
+[node name="bunsen_burner" parent="." instance=ExtResource("9_bk5qx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -1.25)
+
+[node name="bunsen_burner2" parent="." instance=ExtResource("9_bk5qx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05, 1, -1.25)
 
 [connection signal="pressed" from="ElevatorCallButton" to="ElevatorDoor" method="call_elevator"]
 

@@ -16,9 +16,9 @@
 [ext_resource type="Material" uid="uid://pc0ggcqkp56m" path="res://materials/toon/flat/blue/cornflower.tres" id="14_pqnrl"]
 [ext_resource type="PackedScene" uid="uid://dxv841elmc0h" path="res://scenes/props/science/electronics_lab/clock/clock.tscn" id="15_57e8f"]
 [ext_resource type="PackedScene" uid="uid://cbqouvxyg355x" path="res://scenes/props/science/electronics_lab/enode.tscn" id="15_jlpwi"]
-[ext_resource type="PackedScene" uid="uid://ewbnte4ap62t" path="res://models/aquarium_face.blend" id="16_vlbqw"]
+[ext_resource type="PackedScene" uid="uid://ewbnte4ap62t" path="res://models/science/aquarium_face.blend" id="16_vlbqw"]
 [ext_resource type="Material" uid="uid://t85cgc1iu6x8" path="res://materials/toon/flat/metal/gold.tres" id="17_ow2ot"]
-[ext_resource type="PackedScene" uid="uid://clc1eog2g3t5s" path="res://models/elab_door_run.blend" id="18_genue"]
+[ext_resource type="PackedScene" uid="uid://clc1eog2g3t5s" path="res://models/science/elab_door_run.blend" id="18_genue"]
 [ext_resource type="PackedScene" uid="uid://bdiim43et1tln" path="res://scenes/props/science/electronics_lab/component/speaker/speaker.tscn" id="19_a8gs0"]
 [ext_resource type="PackedScene" uid="uid://c51g5pwiyurqe" path="res://scenes/props/science/electronics_lab/component/frequency_generator/frequency_generator.tscn" id="20_5usj1"]
 

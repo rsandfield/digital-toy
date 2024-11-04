@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c58siakmyl4i7"]
 
 [ext_resource type="PackedScene" uid="uid://buk1qwrg5jtcm" path="res://models/rooms/eh_whatevah/eh_whatevah_stairs.blend" id="1_c1dhm"]
-[ext_resource type="PackedScene" uid="uid://djd2wf6guxoui" path="res://models/brass_bollard.blend" id="2_a7vad"]
+[ext_resource type="PackedScene" uid="uid://djd2wf6guxoui" path="res://models/eh_whatevah/brass_bollard.blend" id="2_a7vad"]
 [ext_resource type="PackedScene" uid="uid://c34kyqdwj6d40" path="res://scenes/props/eh_whatevah/door.tscn" id="2_ex4mc"]
 
 [node name="EhWhatevahStairs" type="Node3D"]

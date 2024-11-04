@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://djd2wf6guxoui"
-path="res://.godot/imported/brass_bollard.blend-d11de12c8af85e838257bd847f56d01a.scn"
+uid="uid://ewbnte4ap62t"
+path="res://.godot/imported/aquarium_face.blend-cae43abb388cb0ba617ff5a903482e62.scn"
 
 [deps]
 
-source_file="res://models/brass_bollard.blend"
-dest_files=["res://.godot/imported/brass_bollard.blend-d11de12c8af85e838257bd847f56d01a.scn"]
+source_file="res://models/science/aquarium_face.blend"
+dest_files=["res://.godot/imported/aquarium_face.blend-cae43abb388cb0ba617ff5a903482e62.scn"]
 
 [params]
 

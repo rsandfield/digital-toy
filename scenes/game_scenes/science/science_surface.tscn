@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="4_7qv81"]
 [ext_resource type="Material" uid="uid://x41alvgivxly" path="res://materials/toon/flat/yellow/flax.tres" id="4_ay4gf"]
 [ext_resource type="PackedScene" uid="uid://bp4gfvu45cim1" path="res://scenes/props/portal/portal.tscn" id="5_lfptb"]
-[ext_resource type="PackedScene" uid="uid://c4orvxiy3qkg5" path="res://models/science_world.blend" id="8_0afmf"]
+[ext_resource type="PackedScene" uid="uid://c4orvxiy3qkg5" path="res://models/science/science_world.blend" id="8_0afmf"]
 
 [sub_resource type="Environment" id="Environment_grv2v"]
 background_mode = 1

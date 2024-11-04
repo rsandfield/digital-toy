@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ewbnte4ap62t"
-path="res://.godot/imported/aquarium_face.blend-ef1750e6532623134580bec6bb70e692.scn"
+uid="uid://b07diup4kf4b1"
+path="res://.godot/imported/door_trim.blend-ae8b716c1cabf2bcf1cea512236a6302.scn"
 
 [deps]
 
-source_file="res://models/aquarium_face.blend"
-dest_files=["res://.godot/imported/aquarium_face.blend-ef1750e6532623134580bec6bb70e692.scn"]
+source_file="res://models/eh_whatevah/door_trim.blend"
+dest_files=["res://.godot/imported/door_trim.blend-ae8b716c1cabf2bcf1cea512236a6302.scn"]
 
 [params]
 

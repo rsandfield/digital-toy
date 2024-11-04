@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c4orvxiy3qkg5"
-path="res://.godot/imported/science_world.blend-03ec322c4ae113fae59ab5e79de25413.scn"
+uid="uid://d52fjuke3lf1"
+path="res://.godot/imported/maintenance.blend-b8f57401fce7f9f08596f6e77320e38f.scn"
 
 [deps]
 
-source_file="res://models/science_world.blend"
-dest_files=["res://.godot/imported/science_world.blend-03ec322c4ae113fae59ab5e79de25413.scn"]
+source_file="res://models/rooms/science/maintenance.blend"
+dest_files=["res://.godot/imported/maintenance.blend-b8f57401fce7f9f08596f6e77320e38f.scn"]
 
 [params]
 

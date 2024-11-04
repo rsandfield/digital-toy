@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b07diup4kf4b1"
-path="res://.godot/imported/door_trim.blend-2318e525c186533b2a614d0ddaff5f61.scn"
+uid="uid://clc1eog2g3t5s"
+path="res://.godot/imported/elab_door_run.blend-e97c9c46a79b4c2d8c565847939db8f0.scn"
 
 [deps]
 
-source_file="res://models/door_trim.blend"
-dest_files=["res://.godot/imported/door_trim.blend-2318e525c186533b2a614d0ddaff5f61.scn"]
+source_file="res://models/science/elab_door_run.blend"
+dest_files=["res://.godot/imported/elab_door_run.blend-e97c9c46a79b4c2d8c565847939db8f0.scn"]
 
 [params]
 

@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d4e7cueith5pv"
-path="res://.godot/imported/chalkboard.blend-9765ef1329443dbc5a9b274626dd9d72.scn"
+uid="uid://c6uoyd751ucka"
+path="res://.godot/imported/bunsen_burner.blend-0fe905d4f15de110f72465b8cd6e00d9.scn"
 
 [deps]
 
-source_file="res://models/chalkboard.blend"
-dest_files=["res://.godot/imported/chalkboard.blend-9765ef1329443dbc5a9b274626dd9d72.scn"]
+source_file="res://models/science/bunsen_burner.blend"
+dest_files=["res://.godot/imported/bunsen_burner.blend-0fe905d4f15de110f72465b8cd6e00d9.scn"]
 
 [params]
 

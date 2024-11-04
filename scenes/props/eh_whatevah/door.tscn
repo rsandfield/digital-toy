@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://c34kyqdwj6d40"]
 
 [ext_resource type="Script" path="res://scripts/io/paired_door.gd" id="1_sm6pk"]
-[ext_resource type="PackedScene" uid="uid://b07diup4kf4b1" path="res://models/door_trim.blend" id="1_vgqiv"]
+[ext_resource type="PackedScene" uid="uid://b07diup4kf4b1" path="res://models/eh_whatevah/door_trim.blend" id="1_vgqiv"]
 [ext_resource type="Script" path="res://scripts/io/interactable/button3d.gd" id="2_ls8k0"]
 [ext_resource type="Script" path="res://scripts/io/interactable/interactable.gd" id="3_53k38"]
 [ext_resource type="Material" uid="uid://pg5a3ul3uo3f" path="res://materials/toon/flat/brown/brown.tres" id="3_274ub"]

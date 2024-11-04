@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://beooo53dms266"]
 
-[ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://space_environment.tres" id="1_lylbc"]
+[ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://environments/space_environment.tres" id="1_lylbc"]
 [ext_resource type="PackedScene" uid="uid://bwe15kxlqj7bv" path="res://scenes/props/osmobile/osmobile.tscn" id="2_2dmxv"]
 
 [node name="MallDock" type="Node3D"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dcrqiyoa3t83d"]
 
 [ext_resource type="Script" path="res://scripts/io/drawing_surface/drawing_surface.gd" id="1_60wnr"]
-[ext_resource type="PackedScene" uid="uid://d4e7cueith5pv" path="res://models/chalkboard.blend" id="2_j6mtg"]
+[ext_resource type="PackedScene" uid="uid://d4e7cueith5pv" path="res://models/science/chalkboard.blend" id="2_j6mtg"]
 [ext_resource type="Material" uid="uid://c6e7pege12uqm" path="res://materials/toon/flat/brown/russet.tres" id="3_ecvol"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_co1rb"]
