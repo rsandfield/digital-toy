@@ -11,6 +11,8 @@ enum DoorState {
     CLOSING,
 }
 
+var _l := Logger.new("green")
+
 var _door_state: DoorState = DoorState.CLOSED
 @onready var _animation: AnimationPlayer = $AnimationPlayer
 @onready var _audio: AudioStreamPlayer3D = $AudioStreamPlayer3D
@@ -53,7 +55,7 @@ func open():
         DoorState.OPEN:
             opened.emit()
         _:
-            print('%s given unknown state: %s' % [name, _door_state])
+            _l.print('%s given unknown state: %s' % [name, _door_state])
 
 
 func close():
@@ -78,4 +80,4 @@ func close():
         DoorState.CLOSED:
             closed.emit()
         _:
-            print('%s given unknown state: %s' % [name, _door_state])
+            _l.print('%s given unknown state: %s' % [name, _door_state])

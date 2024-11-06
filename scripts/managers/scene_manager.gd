@@ -6,6 +6,7 @@ var _container: SubViewportContainer
 var _game_scenes: Dictionary = {}
 var _portals: Dictionary = {}
 var _current_scene: String
+var _l := Logger.new("cyan")
 
 func file_path_to_name(filepath: String) -> String:
     return filepath.split("/")[-1].split(".")[0]
@@ -54,7 +55,7 @@ func set_active_scene(scene_name: String, player: Player):
     helper.populate(scene_name, 2)
     helper.engage(_container)
     get_scene_data(scene_name).set_active(_container, player)
-    print("Active scene is now %s" % [scene_name])
+    _l.print("Active scene is now %s" % [scene_name])
     _current_scene = scene_name
 
 

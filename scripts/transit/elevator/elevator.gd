@@ -9,6 +9,8 @@ var current_floor: int = 0
 var close_timer: float = 0
 var opened: bool = false
 
+var _l := Logger.new("lime")
+
 @onready var _door: ElevatorDoor = $ElevatorDoor
 @onready var _anim: AnimationPlayer = $AnimationPlayer
 
@@ -25,7 +27,7 @@ func _process(delta):
     if opened:
         close_timer += delta
         if close_timer >= door_close_delay:
-            print("Closing")
+            _l.print("Closing %s" % id)
             _close_doors()
 
 
@@ -35,18 +37,18 @@ func reset_elevator():
 
 func call_to_floor(value: int):
     if !_door.is_closed():
-        print("Waiting for doors to close")
+        _l.print("%s Waiting for doors to close" % id)
         _close_doors()
         await _door.closed
 
     if current_floor != value:
-        print("Elevator %s currently on %d, moving to %d" % [id, current_floor, value])
+        _l.print("Elevator %s currently on %d, moving to %d" % [id, current_floor, value])
         await animate_move(current_floor, value)
     else:
-        print("%s already on %d" % [name, value])
+        _l.print("%s already on %d" % [name, value])
 
     select_floor(value)
-    print("%s opening doors" % id)
+    _l.print("%s opening doors" % id)
     _open_doors()
 
 

@@ -18,7 +18,6 @@ static func disconnect_signal(sig: Signal, node: Node, method_name: String):
 
 
 static func find_duck_child(node: Node, method_name: String, recursive: bool = true):
-    print(node)
     for child in node.get_children():
         if child.has_method(method_name):
             return child

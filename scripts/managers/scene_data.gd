@@ -8,6 +8,7 @@ var portal_ids: PackedStringArray
 var viewport_node: SubViewport
 var name: String
 var mutex: Mutex = Mutex.new()
+var _l := Logger.new("cyan")
 
 func _init(fp: String, n: Array[Dictionary]):
     filepath = fp
@@ -19,7 +20,7 @@ func load(container: SubViewportContainer):
     if is_loaded():
         return
     mutex.lock()
-    print("Loading %s" % name)
+    _l.print("Loading %s" % name)
     viewport_node = SubViewport.new()
     viewport_node.name = name
     viewport_node.own_world_3d = true
@@ -43,7 +44,7 @@ func load(container: SubViewportContainer):
 func unload():
     if !is_loaded():
         return
-    print("Unloading %s" % self)
+    _l.print("Unloading %s" % self)
     mutex.lock()
     # Return portal assets to owners before freeing nodes
     for portal_id in portal_ids:

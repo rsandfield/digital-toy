@@ -20,6 +20,8 @@ var _held_collision_layer: int
 var _held_collision_mask: int
 var _indicator: Node3D
 
+var _l := Logger.new("maroon")
+
 
 func _enter_tree():
     GameManager.register_snappable_lock(self)
@@ -44,7 +46,7 @@ func reticle_shape_on_hover() -> HUD.ReticleState:
 
 
 func _snap_held_object():
-    print("Snapping %s" % _held_object)
+    _l.print("Snapping %s" % _held_object)
     _snap_state = SnapState.SNAPPED
     _held_object.reparent(self)
     _held_object.freeze = true
@@ -57,7 +59,7 @@ func _snap_held_object():
 
 
 func _release_held_object():
-    print("Releaseing %s" % _held_object)
+    _l.print("Releaseing %s" % _held_object)
     _snap_state = SnapState.EMPTY
     _held_object.reparent(get_viewport())
     _held_object.freeze = false
