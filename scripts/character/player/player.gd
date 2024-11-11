@@ -261,14 +261,16 @@ func _physics_process(delta):
         # if !_snap_up_stairs_check(delta):
         _push_away_rigid_bodies()
         move_and_slide()
+        # if get_slide_collision_count() > 0:
+            # print(get_slide_collision(0).get_collider())
             # _snap_down_to_staris_check()
 
 
-func _on_portal_tracking_enter(portal: Portal) -> void:
+func on_portal_tracking_enter(portal: Portal) -> void:
     # collision_layer = 2
     # collision_mask = 2
-    SceneManager.set_active_scene(portal.get_viewport().name, self)
+    SceneManager.set_active_scene(portal.get_viewport().name)
 
-# func _on_portal_tracking_leave(_portal: Portal) -> void:
+# func on_portal_tracking_leave(_portal: Portal) -> void:
     # collision_layer = 1
     # collision_mask = 1

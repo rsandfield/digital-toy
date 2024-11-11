@@ -21,6 +21,10 @@ func register_player(player: Player):
     _player = player
 
 
+func get_player_camera() -> Camera3D:
+    return _player.find_child("Camera3D")
+
+
 func register_portal(portal: Portal):
     if Engine.is_editor_hint():
         return
@@ -43,7 +47,7 @@ func deregister_portal_id(portal_id: String):
     if Engine.is_editor_hint():
         return
     _l.print("Deregistering %s" % portal_id)
-    var portal = _portals[portal_id]
+    var portal = _portals.get(portal_id)
     assert(portal, "%s already deregistered" % [portal_id])
     var other = portal.other_portal
     if is_instance_valid(other):

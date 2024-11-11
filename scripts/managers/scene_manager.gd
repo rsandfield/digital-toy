@@ -6,7 +6,15 @@ var _container: SubViewportContainer
 var _game_scenes: Dictionary = {}
 var _portals: Dictionary = {}
 var _current_scene: String
+
+var _semaphore := Semaphore.new()
+var _mutex := Mutex.new()
+var _thread: Thread
+var _exit_thread := false
+var _load_scene_name: String
+
 var _l := Logger.new("cyan")
+
 
 func file_path_to_name(filepath: String) -> String:
     return filepath.split("/")[-1].split(".")[0]
@@ -34,7 +42,11 @@ class SceneLoadingHelper:
         for scene in to_unload:
             scene.unload()
         for scene in to_load:
-            scene.load(container)
+            if !scene.is_loaded():
+                print("Loading %s" % scene)
+                scene.load(container)
+                await scene.loaded
+                print("Loaded %s" % scene)
 
 
 func _ready():
@@ -45,16 +57,50 @@ func _ready():
     _find_portals(_game_scenes)
     for scene in _game_scenes.keys():
         _game_scenes[scene].nodes.clear()
-    set_active_scene(game_root.starting_scene, GameManager._player)
+
+    _thread = Thread.new()
+    _thread.start(_loading_thread)
+
+    set_active_scene(game_root.starting_scene)
 
 
-func set_active_scene(scene_name: String, player: Player):
+func _exit_tree():
+    _mutex.lock()
+    _exit_thread = true
+    _mutex.unlock()
+    _semaphore.post()
+    _thread.wait_to_finish()
+
+
+func _loading_thread():
+    while true:
+        _semaphore.wait()
+
+        _mutex.lock()
+        if _exit_thread:
+            _mutex.unlock()
+            break
+        _set_active_scene(_load_scene_name)
+        _mutex.unlock()
+
+
+
+func set_active_scene(scene_name: String):
     if scene_name == _current_scene:
         return
+    _mutex.lock()
+    _load_scene_name = scene_name
+    _mutex.unlock()
+    _semaphore.post()
+
+func _set_active_scene(scene_name: String):
+    print("Setting %s active" % scene_name)
     var helper = SceneLoadingHelper.new()
     helper.populate(scene_name, 2)
-    helper.engage(_container)
-    get_scene_data(scene_name).set_active(_container, player)
+    await helper.engage(_container)
+    print(_container.get_children())
+    var scene = get_scene_data(scene_name)
+    scene.set_active(_container, GameManager._player)
     _l.print("Active scene is now %s" % [scene_name])
     _current_scene = scene_name
 
