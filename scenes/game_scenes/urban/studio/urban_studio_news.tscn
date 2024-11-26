@@ -7,4 +7,4 @@
 [node name="Portal2" parent="." instance=ExtResource("1_b5s6i")]
 transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 1, 0, -1)
 portal_id = "urban_studio_news_hall"
-other_portal_id = "urban_studio_hall_news"
+exit_portal_id = "urban_studio_hall_news"

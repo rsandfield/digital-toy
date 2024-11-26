@@ -46,15 +46,15 @@ func load(container: SubViewportContainer):
 
     await viewport_node.ready
 
+    _state = State.LOADED
     for portal_id in portal_ids:
         var portal = GameManager.get_portal(portal_id)
-        var other_portal_id = portal.other_portal_id
-        if other_portal_id == null || len(other_portal_id) < 1:
+        var exit_portal_id = portal.exit_portal_id
+        if exit_portal_id == null || len(exit_portal_id) < 1:
             continue
-        if SceneManager.is_portal_loaded(other_portal_id):
-            GameManager.link_portals(portal, other_portal_id)
+        if SceneManager.is_portal_loaded(exit_portal_id):
+            GameManager.link_portals(portal, exit_portal_id)
 
-    _state = State.LOADED
     loaded.emit()
     _mutex.unlock()
 
@@ -80,8 +80,7 @@ func set_active(container: SubViewportContainer, player: Player):
     if is_loaded():
         if player.get_viewport() != viewport_node:
             player.reparent.call_deferred(viewport_node)
-            await player.tree_entered
-            print("Player moved")
+            _l.print("Player moved to %s" % viewport_node.name)
         container.move_child.call_deferred(viewport_node, -1)
         await container.child_order_changed
         var scene = viewport_node.get_child(0) as GameScene

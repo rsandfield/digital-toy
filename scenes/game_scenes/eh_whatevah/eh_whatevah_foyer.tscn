@@ -19,12 +19,12 @@ gravity_direction = Vector3(8.74228e-08, 1, 0)
 [node name="FrontDoor" parent="." instance=ExtResource("3_avbak")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4, -4, 0)
 portal_id = "eh_whatevah_foyer_door"
-other_portal_id = "eh_whatevah_front_door"
+exit_portal_id = "eh_whatevah_front_door"
 
 [node name="StairsDoor" parent="." instance=ExtResource("3_avbak")]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 1.5, 4, -4)
 portal_id = "eh_whatevah_stairs_foyer"
-other_portal_id = "eh_whatevah_stairs_bottom"
+exit_portal_id = "eh_whatevah_stairs_bottom"
 
 [node name="FloorLamp" parent="." instance=ExtResource("4_vpdy8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3383, -4, -1.53508)

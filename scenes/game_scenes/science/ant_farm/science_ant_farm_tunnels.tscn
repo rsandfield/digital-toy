@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dbduttcphpu0m"]
+[gd_scene load_steps=7 format=3 uid="uid://dbduttcphpu0m"]
 
 [ext_resource type="PackedScene" uid="uid://dn0e1vqovwnff" path="res://models/rooms/science/ant_tunnels.blend" id="1_umjn2"]
 [ext_resource type="Material" uid="uid://ckanln7h5hc43" path="res://materials/toon/textured/soil.tres" id="2_vd3s2"]
@@ -7,6 +7,8 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nyxad"]
 size = Vector3(20, 5, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kp3lf"]
 
 [node name="Tunnels" type="Node3D"]
 
@@ -22,9 +24,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
 
 [node name="Walls" parent="tunnels" index="0"]
 material_override = ExtResource("2_vd3s2")
-
-[node name="StaticBody3D" parent="tunnels/Walls" index="0"]
-collision_layer = 3
 
 [node name="LightBulb" parent="." instance=ExtResource("3_ejic1")]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.33387, -6.9458)
@@ -44,19 +43,24 @@ transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 2.4
 [node name="Portal" parent="." instance=ExtResource("4_hkm22")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.5)
 portal_id = "ant_tunnel_farm_portal"
-other_portal_id = "ant_farm_portal"
+exit_portal_id = "ant_farm_portal"
 size = Vector2(2.5, 3)
 
 [node name="Portal2" parent="." instance=ExtResource("4_hkm22")]
 transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -5.48132, 0, 0.35567)
 portal_id = "ant_tunnel_nursery_portal"
-other_portal_id = "ant_nursery_portal"
+exit_portal_id = "ant_nursery_portal"
 size = Vector2(2.5, 3)
 
-[node name="Portal3" parent="." instance=ExtResource("4_hkm22")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, -5.5)
+[node name="PortalMinecart" parent="." instance=ExtResource("4_hkm22")]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, -5.5)
 portal_id = "ant_tunnel_minecart_portal"
-other_portal_id = "ant_minecart_portal"
+exit_portal_id = "ant_minecart_portal"
 size = Vector2(2.5, 3)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.53388, 1.1114, 0)
+layers = 112
+mesh = SubResource("BoxMesh_kp3lf")
 
 [editable path="tunnels"]

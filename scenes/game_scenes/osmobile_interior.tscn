@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://byc4yvagb6m8b"]
+[gd_scene load_steps=28 format=3 uid="uid://byc4yvagb6m8b"]
 
 [ext_resource type="Script" path="res://scripts/transit/elevator/elevator.gd" id="1_hneul"]
 [ext_resource type="Environment" uid="uid://ckconpdw3atlf" path="res://environments/space_environment.tres" id="2_g12sf"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dsdr5swy788a6" path="res://scenes/props/osmobile/floor_lamp.tscn" id="5_ig8ep"]
 [ext_resource type="PackedScene" uid="uid://dbu0xvmrc2jqu" path="res://scenes/props/io/wall_switch.tscn" id="5_jdli4"]
 [ext_resource type="PackedScene" uid="uid://bpjyfcwj2hhpv" path="res://scenes/props/io/button/button_round.tscn" id="5_uswy5"]
-[ext_resource type="Shader" path="res://addons/so_fluffy/so_fluffy.gdshader" id="6_4gkls"]
 [ext_resource type="Script" path="res://addons/so_fluffy/so_fluffy.gd" id="7_rt31v"]
 [ext_resource type="Material" uid="uid://dwab7bi8lskmn" path="res://materials/toon/flat/metal/brass.tres" id="8_vmi0a"]
 [ext_resource type="Material" uid="uid://c6e7pege12uqm" path="res://materials/toon/flat/brown/russet.tres" id="9_003ip"]
@@ -30,49 +29,15 @@ size = Vector3(2, 2.5, 2.2)
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_30hqb"]
 frequency = 0.072
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sh3yx"]
-as_normal_map = true
-noise = SubResource("FastNoiseLite_30hqb")
-
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1dvi2"]
 width = 1024
 height = 1024
 as_normal_map = true
 noise = SubResource("FastNoiseLite_30hqb")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6vysh"]
-render_priority = 0
-shader = ExtResource("6_4gkls")
-shader_parameter/height = 0.05
-shader_parameter/normal_strength = 1.0
-shader_parameter/static_direction_local = Vector3(0, 0, 0)
-shader_parameter/static_direction_world = Vector3(0, 0, 0)
-shader_parameter/h = 0.0
-shader_parameter/density = 5.0
-shader_parameter/render_skin = false
-shader_parameter/seed = 41285
-shader_parameter/scruffiness = 0.0
-shader_parameter/use_heightmap_texture = false
-shader_parameter/turbulence_strength = 0.3
-shader_parameter/jitter_strength = 0.0
-shader_parameter/curls_enabled = false
-shader_parameter/curls_twist = 48.0
-shader_parameter/curls_fill = 0.785398
-shader_parameter/color = Color(0.447059, 0.0980392, 0.172549, 1)
-shader_parameter/use_height_gradient = false
-shader_parameter/scale_height_gradient = false
-shader_parameter/use_albedo_texture = false
-shader_parameter/use_emission = false
-shader_parameter/emission_color = Color(0, 0, 0, 1)
-shader_parameter/emission_energy_multiplier = 1.0
-shader_parameter/use_emission_texture = false
-shader_parameter/use_thickness_curve = false
-shader_parameter/thickness_scale = 0.5
-shader_parameter/physics_pos_offset = Vector3(0, 0, 0)
-shader_parameter/physics_rot_offset = Basis(1, 0, 0, 0, 1, 0, 0, 0, 1)
-shader_parameter/turbulence_texture = SubResource("NoiseTexture2D_1dvi2")
-shader_parameter/jitter_texture = SubResource("NoiseTexture2D_sh3yx")
-metadata/is_fur = true
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sh3yx"]
+as_normal_map = true
+noise = SubResource("FastNoiseLite_30hqb")
 
 [sub_resource type="BoxMesh" id="BoxMesh_k7ky7"]
 size = Vector3(0.49, 0.12, 0.05)
@@ -109,7 +74,6 @@ interactable_distance = 3.0
 
 [node name="Floor" parent="osmobile_interior" index="0"]
 material_override = ExtResource("4_hpr6x")
-material_overlay = SubResource("ShaderMaterial_6vysh")
 
 [node name="Fur" type="Node" parent="osmobile_interior/Floor" index="1"]
 script = ExtResource("7_rt31v")

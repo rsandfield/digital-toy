@@ -16,4 +16,4 @@ portal_id = "studio_elevator_door"
 [node name="Portal" parent="." instance=ExtResource("3_jst4v")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.5, 0, -0.5)
 portal_id = "urban_studio_lobby_hall"
-other_portal_id = "urban_studio_hall_lobby"
+exit_portal_id = "urban_studio_hall_lobby"

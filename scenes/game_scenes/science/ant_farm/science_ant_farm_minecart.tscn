@@ -58,7 +58,7 @@ material_override = ExtResource("5_7gp4s")
 [node name="Portal" parent="." instance=ExtResource("10_cgrhn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 portal_id = "ant_minecart_portal"
-other_portal_id = "ant_tunnel_minecart_portal"
+exit_portal_id = "ant_tunnel_minecart_portal"
 size = Vector2(2.5, 3)
 
 [editable path="ant_nursery"]

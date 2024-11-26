@@ -42,7 +42,7 @@ world_index = 4
 [node name="Portal" parent="Planet" instance=ExtResource("5_lfptb")]
 transform = Transform3D(-0.229919, 0.197332, -0.952994, -0.124268, 0.965259, 0.229852, 0.965244, 0.171274, -0.197409, 33.2943, 59.1224, -3.25721)
 portal_id = "science_surface_portal"
-other_portal_id = "science_foyer_portal"
+exit_portal_id = "science_foyer_portal"
 cull_layer = 2
 size = Vector2(1.5, 2)
 

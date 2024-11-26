@@ -43,10 +43,8 @@ class SceneLoadingHelper:
             scene.unload()
         for scene in to_load:
             if !scene.is_loaded():
-                print("Loading %s" % scene)
                 scene.load(container)
                 await scene.loaded
-                print("Loaded %s" % scene)
 
 
 func _ready():
@@ -93,15 +91,13 @@ func set_active_scene(scene_name: String):
     _mutex.unlock()
     _semaphore.post()
 
+
 func _set_active_scene(scene_name: String):
-    print("Setting %s active" % scene_name)
     var helper = SceneLoadingHelper.new()
     helper.populate(scene_name, 2)
     await helper.engage(_container)
-    print(_container.get_children())
     var scene = get_scene_data(scene_name)
     scene.set_active(_container, GameManager._player)
-    _l.print("Active scene is now %s" % [scene_name])
     _current_scene = scene_name
 
 
@@ -169,9 +165,9 @@ func _find_portals(scenes: Dictionary):
             )
             _portals[portal_id] = scene_name
             _game_scenes.get(scene_name).portal_ids.append(portal_id)
-            var other_portal_id = node.get("other_portal_id")
-            if other_portal_id:
-                portal_connections[other_portal_id] = portal_id
+            var exit_portal_id = node.get("exit_portal_id")
+            if exit_portal_id:
+                portal_connections[exit_portal_id] = portal_id
     for connection in portal_connections:
         var portal_id = portal_connections.get(connection)
         var scene_name = _portals.get(portal_id, "scene")

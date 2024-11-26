@@ -11,12 +11,12 @@
 [node name="DoorLeader" parent="." instance=ExtResource("2_txn83")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0, 3)
 portal_id = "eh_whatevah_office_leader"
-other_portal_id = "eh_whatevah_leader"
+exit_portal_id = "eh_whatevah_leader"
 
 [node name="DoorStairs" parent="." instance=ExtResource("2_txn83")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.5, 0, -3)
 portal_id = "eh_whatevah_office_stairs"
-other_portal_id = "eh_whatevah_stairs_leader"
+exit_portal_id = "eh_whatevah_stairs_leader"
 
 [node name="FloorLamp" parent="." instance=ExtResource("3_4psql")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 2)

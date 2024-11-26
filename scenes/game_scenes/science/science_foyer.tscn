@@ -78,8 +78,8 @@ material_override = ExtResource("4_7unax")
 
 [node name="ElevatorDoor" parent="." instance=ExtResource("2_7jnv3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.95)
-portal_id = "science_foyer_elevator_door"
 elevator = "science_elevator"
+portal_id = "science_foyer_elevator_door"
 
 [node name="ElevatorCallButton" parent="." instance=ExtResource("5_yvv7h")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.2, 2)
@@ -87,8 +87,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1.
 [node name="Portal" parent="." instance=ExtResource("4_rkr0p")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1)
 portal_id = "science_foyer_portal"
-other_portal_id = "science_surface_portal"
-cull_layer = 2
+exit_portal_id = "science_surface_portal"
 size = Vector2(1.5, 2)
 
 [node name="Directory" type="MeshInstance3D" parent="."]

@@ -3,7 +3,7 @@ extends Door3D
 
 
 @export var portal_id : String
-@export var other_portal_id : String
+@export var exit_portal_id : String
 var _other_door: PairedDoor
 @onready var _portal: Portal = $Portal
 
@@ -11,7 +11,7 @@ var _other_door: PairedDoor
 func _enter_tree():
     _portal = $Portal
     _portal.portal_id = portal_id
-    _portal.other_portal_id = other_portal_id
+    _portal.exit_portal_id = exit_portal_id
 
 
 func has_other_door() -> bool:
@@ -20,7 +20,7 @@ func has_other_door() -> bool:
 
 func clear_other_door():
     _other_door = null
-    _portal.set_other_portal(null)
+    _portal.set_exit_portal(null)
 
 
 func set_other_door(other: PairedDoor):
@@ -29,10 +29,10 @@ func set_other_door(other: PairedDoor):
     if has_other_door():
         _other_door.clear_other_door()
     _other_door = other
-    var other_portal = null
+    var exit_portal = null
     if has_other_door():
-        other_portal = _other_door._portal
-    _portal.set_other_portal(other_portal)
+        exit_portal = _other_door._portal
+    _portal.set_exit_portal(exit_portal)
 
 
 func toggle_both_sides():

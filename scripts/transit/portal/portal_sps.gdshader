@@ -9,8 +9,8 @@
 shader_type spatial;
 render_mode unshaded;
 
-uniform float fade_out_distance_max = 10.0;
-uniform float fade_out_distance_min = 8.0;
+uniform float fade_out_distance_max = 100.0;
+uniform float fade_out_distance_min = 80.0;
 uniform vec4 fade_out_color = vec4(0.0);
 
 uniform sampler2D albedo:hint_default_black, source_color;

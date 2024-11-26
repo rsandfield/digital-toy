@@ -30,11 +30,11 @@ portal_id = "eh_whatevah_stairs_kitchen"
 [node name="DearLeader" parent="." instance=ExtResource("2_ex4mc")]
 transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 2.17729, 4, -7.24847)
 portal_id = "eh_whatevah_stairs_leader"
-other_portal_id = "eh_whatevah_office_stairs"
+exit_portal_id = "eh_whatevah_office_stairs"
 
 [node name="Door" parent="." instance=ExtResource("2_ex4mc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
 portal_id = "eh_whatevah_stairs_bottom"
-other_portal_id = "eh_whatevah_stairs_foyer"
+exit_portal_id = "eh_whatevah_stairs_foyer"
 
 [editable path="eh_whatevah_stairs"]

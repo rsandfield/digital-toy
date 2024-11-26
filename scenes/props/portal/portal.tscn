@@ -1,14 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://bp4gfvu45cim1"]
+[gd_scene load_steps=12 format=3 uid="uid://bp4gfvu45cim1"]
 
 [ext_resource type="Script" path="res://scripts/transit/portal/portal.gd" id="1_1fyry"]
 [ext_resource type="Shader" path="res://scripts/transit/portal/portal_sps.gdshader" id="2_vwqcg"]
+[ext_resource type="Script" path="res://scripts/transit/portal/portal_mesh.gd" id="3_lp0yv"]
+[ext_resource type="Script" path="res://scripts/transit/portal/portal_viewport.gd" id="4_5fo6k"]
+[ext_resource type="Script" path="res://scripts/transit/portal/portal_camera.gd" id="4_f4jhn"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mk3a3"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_0p2nm"]
+viewport_path = NodePath("PortalViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_72l83"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_vwqcg")
 shader_parameter/fade_out_distance_max = 100.0
-shader_parameter/fade_out_distance_min = 8.0
+shader_parameter/fade_out_distance_min = 80.0
 shader_parameter/fade_out_color = Vector4(0, 0, 0, 0)
+shader_parameter/albedo = SubResource("ViewportTexture_0p2nm")
 
 [sub_resource type="BoxMesh" id="BoxMesh_lnbcu"]
 resource_local_to_scene = true
@@ -16,23 +24,25 @@ flip_faces = true
 size = Vector3(1, 2, 0)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_jqtyy"]
-size = Vector3(1.2, 2.2, 0.5)
+size = Vector3(2.7, 3.2, 0.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oytq2"]
-size = Vector3(1.2, 2.2, 0.5)
+size = Vector3(2.7, 3.2, 0.5)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_iibw6"]
-size = Vector3(0.2, 2.2, 0.2)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_hkpd8"]
 
 [node name="Portal" type="Area3D"]
 collision_mask = 3
 script = ExtResource("1_1fyry")
 portal_area_z_margin = 0.25
+size = Vector2(1, 2)
 
 [node name="PortalVisual" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-material_override = SubResource("ShaderMaterial_mk3a3")
+layers = 8
+material_override = SubResource("ShaderMaterial_72l83")
 mesh = SubResource("BoxMesh_lnbcu")
+script = ExtResource("3_lp0yv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -44,26 +54,16 @@ shape = SubResource("BoxShape3D_oytq2")
 target_position = Vector3(0, 1, 0)
 collision_mask = 3
 
-[node name="RightBarrier" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1, 0.1)
-collision_layer = 2
+[node name="PortalViewport" type="SubViewport" parent="."]
+script = ExtResource("4_5fo6k")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RightBarrier"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0, 0)
-shape = SubResource("BoxShape3D_iibw6")
+[node name="Camera3D" type="Camera3D" parent="PortalViewport"]
+script = ExtResource("4_f4jhn")
 
-[node name="LeftBarrier" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 1, 0.1)
-collision_layer = 2
+[node name="Area3D" type="Area3D" parent="PortalViewport/Camera3D"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftBarrier"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1, 0, 0)
-shape = SubResource("BoxShape3D_iibw6")
-
-[node name="CameraViewport" type="SubViewport" parent="."]
-render_target_update_mode = 4
-
-[node name="Camera3D" type="Camera3D" parent="CameraViewport"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PortalViewport/Camera3D/Area3D"]
+shape = SubResource("ConvexPolygonShape3D_hkpd8")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -11,14 +11,14 @@
 [node name="Portal" parent="." instance=ExtResource("2_a72o7")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -1, 0, -1)
 portal_id = "urban_studio_hall_lobby"
-other_portal_id = "urban_studio_lobby_hall"
+exit_portal_id = "urban_studio_lobby_hall"
 
 [node name="Portal2" parent="." instance=ExtResource("2_a72o7")]
 transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 1, 0, -1)
 portal_id = "urban_studio_hall_news"
-other_portal_id = "urban_studio_news_hall"
+exit_portal_id = "urban_studio_news_hall"
 
 [node name="Door3D" parent="." instance=ExtResource("3_jl320")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
 portal_id = "urban_studio_hall_entry"
-other_portal_id = "urban_studio_entry"
+exit_portal_id = "urban_studio_entry"

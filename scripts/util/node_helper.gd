@@ -1,7 +1,7 @@
 class_name NodeHelper
 
 
-static func connect_signal(sig: Signal, node: Node, method_name: String, bind = null):
+static func connect_signal(sig: Signal, node: Object, method_name: String, bind = null):
     if !node.has_method(method_name):
         return
     var method = Callable(node, method_name)
@@ -11,7 +11,7 @@ static func connect_signal(sig: Signal, node: Node, method_name: String, bind = 
         sig.connect(method)
 
 
-static func disconnect_signal(sig: Signal, node: Node, method_name: String):
+static func disconnect_signal(sig: Signal, node: Object, method_name: String):
     var method = Callable(node, method_name)
     if sig.is_connected(method):
         sig.disconnect(method)

@@ -178,7 +178,7 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.2, 0
 [node name="Portal" parent="." instance=ExtResource("7_a12ie")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 portal_id = "ant_nursery_portal"
-other_portal_id = "ant_tunnel_nursery_portal"
+exit_portal_id = "ant_tunnel_nursery_portal"
 size = Vector2(2.5, 3)
 
 [connection signal="pressed" from="Bell" to="Cribs/MusicBox" method="play"]

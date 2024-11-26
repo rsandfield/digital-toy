@@ -10,4 +10,4 @@
 [node name="Door3D" parent="." instance=ExtResource("2_njk75")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 2)
 portal_id = "eh_whatevah_leader"
-other_portal_id = "eh_whatevah_office_leader"
+exit_portal_id = "eh_whatevah_office_leader"

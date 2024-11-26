@@ -37,6 +37,7 @@ func register_portal(portal: Portal):
     var controller = _player.get_child(1) as PlayerController
     if controller:
         controller.get_child(0).add_exception(portal)
+        controller.get_child(0).add_exception(portal.get_node("PortalViewport/Camera3D/Area3D"))
 
 
 func deregister_portal(portal: Portal):
@@ -49,38 +50,39 @@ func deregister_portal_id(portal_id: String):
     _l.print("Deregistering %s" % portal_id)
     var portal = _portals.get(portal_id)
     assert(portal, "%s already deregistered" % [portal_id])
-    var other = portal.other_portal
+    var other = portal.exit_portal
     if is_instance_valid(other):
-        other.set_other_portal(null)
+        other.set_exit_portal(null)
     (_player._head as PlayerController)._raycast.remove_exception(portal)
     _portals.erase(portal_id)
 
+
 func get_portal(id: String) -> Portal:
     assert(id != "", "Portal ID cannot be empty")
-    var other_portal = _portals.get(id)
-    assert(other_portal, "Portal [%s] not registered" % [id])
-    return other_portal
+    var exit_portal = _portals.get(id)
+    assert(exit_portal, "Portal [%s] not registered" % [id])
+    return exit_portal
 
 
 func link_portals(portal: Portal, link_id: String):
     assert(portal, "Cannot link portals, first portal is undefined")
-    var other_portal = _portals.get(link_id)
+    var exit_portal = _portals.get(link_id)
     assert(
-        other_portal,
+        exit_portal,
         "Cannot link portals %s and %s, [%s] not registered" %
         [portal.portal_id,  link_id,  link_id]
     )
     var portal_parent = portal.get_parent() as PairedDoor
-    var other_parent = other_portal.get_parent() as PairedDoor
+    var other_parent = exit_portal.get_parent() as PairedDoor
     if portal_parent && other_parent:
         # Setting other door also links portals
         _l.print("Connecting paired doors %s and %s" % [portal_parent, other_parent])
         portal_parent.set_other_door(other_parent)
         other_parent.set_other_door(portal_parent)
     else:
-        portal.set_other_portal(other_portal)
-        other_portal.set_other_portal(portal)
-    _l.print("Linked %s to %s" % [portal.portal_id, portal.other_portal_id])
+        portal.set_exit_portal(exit_portal)
+        exit_portal.set_exit_portal(portal)
+    _l.print("Linked %s to %s" % [portal.portal_id, portal.exit_portal_id])
 
 
 func register_signal_listener(node: Node, signal_bus: String):
