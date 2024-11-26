@@ -53,7 +53,7 @@ func reassign_camera_portal(portal: Portal):
     if portal == null:
         portal = _portal
 
-    if get_parent() == portal:
+    if _viewport.get_parent() == portal:
         return
 
     _viewport.reparent(portal)

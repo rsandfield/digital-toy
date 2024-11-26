@@ -200,9 +200,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 [node name="Walls" parent="elevator" index="0"]
 material_override = ExtResource("5_7tpy2")
 
-[node name="StaticBody3D" parent="elevator/Walls" index="0"]
-collision_layer = 3
-
 [node name="ElevatorDoor" parent="." instance=ExtResource("5_2iq45")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 1.1)
 portal_id = "science_elevator_door"

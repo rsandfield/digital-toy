@@ -132,8 +132,5 @@ interactable_distance = 20.0
 
 [node name="osmobile_door" parent="." instance=ExtResource("5_vscur")]
 
-[node name="Door" parent="osmobile_door" index="3"]
-visible = false
-
 [editable path="Portal"]
 [editable path="osmobile_door"]

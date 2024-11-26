@@ -130,6 +130,8 @@ func do_updates():
 
     # Note: placing these after above so portal thickening/camera update happen same frame as move
     _clear_mesh_duplicate_cache()
+    if !mesh._viewport:
+        mesh.assign_viewport(PortalViewport.new())
     mesh._viewport.update_camera(GameManager.get_player_camera())
     mesh.thicken_if_necessary(basis, GameManager.get_player_camera())
     _remove_hanging_body_check()

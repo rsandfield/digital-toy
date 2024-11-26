@@ -73,7 +73,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 1, -1.25)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.35, 1, -1.25)
 
 [node name="ElevatorDoor" parent="." instance=ExtResource("2_l2nfu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.15)
 elevator = "science_elevator"
 floor_index = 5
 portal_id = "science_chemistry_elevator_door"

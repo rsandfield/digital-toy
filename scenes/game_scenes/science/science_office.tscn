@@ -75,10 +75,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 4)
 
 [node name="ElevatorDoor" parent="." instance=ExtResource("2_7ao0t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.2)
-portal_id = "science_office_elevator_door"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.15)
 elevator = "science_elevator"
 floor_index = 1
+portal_id = "science_office_elevator_door"
 
 [node name="ElevatorCallButton" parent="." instance=ExtResource("3_iywhs")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1, 1, 2)

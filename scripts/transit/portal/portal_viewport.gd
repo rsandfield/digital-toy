@@ -34,7 +34,7 @@ func _exit_tree():
 
 
 func update_camera(ref_camera: Camera3D):
-    if !ref_camera:
+    if !ref_camera || !_portal:
         return
 
     if _portal.exit_portal:
